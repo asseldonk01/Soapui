@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Groovy datasource - string of values" searchProperties="true" id="302312e7-9049-41d8-a602-7a4c445a21af" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="302312e7-9049-41d8-a602-7a4c445a21affileName">Groovy-datasource---string-of-values</con:setting></con:settings>
+      <con:testStep type="datasource" name="DataSource" id="1f5e623e-df56-49e9-a135-becf56d7cf11"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Groovy"><con:configuration><script>def row = testRunner.testCase.testSteps["DataSource"].currentRow
+
+def doclist = context.expand( '${#TestCase#_docNumbers}' )
+def docnrs = doclist.split()
+def count = docnrs.size()
+
+//log.info count
+if (row &lt; count) {
+	docnr = docnrs[row]
+	//log.info row
+     result['Docnr']=docnr
+}
+</script></con:configuration></con:dataSource><con:property>Docnr</con:property><con:startRow/><con:endRow/><con:completeLastOperation>true</con:completeLastOperation><con:gotoLoopOnEmpty>false</con:gotoLoopOnEmpty><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" id="ac761d00-3050-414b-a8b6-84e97103bd3b">
+        <con:settings/>
+        <con:config><script> log.info context.expand( '${DataSource#Docnr}' )
+ </script></con:config>
+      </con:testStep>
+      
+      
+      
+      <con:testStep type="datasourceloop" name="DataSource Loop" id="6c14e730-d2d4-4962-a065-a11e3bdbf29a"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Groovy Script</targetStep></con:config></con:testStep><con:properties><con:property><con:name>_docNumbers</con:name><con:value>123 456 789 101</con:value></con:property></con:properties>
+      <con:reportParameters/>
+    <con:breakPoints><con:testStepId>c3354be2-430f-47a7-a980-e652a5bbe487</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>

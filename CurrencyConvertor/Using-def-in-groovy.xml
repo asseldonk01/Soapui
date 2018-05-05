@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="8e566967-787c-4538-8f86-ce0b5d9bbe43" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Using def in groovy" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="8e566967-787c-4538-8f86-ce0b5d9bbe43fileName">Using-def-in-groovy</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="2d4b6abd-0917-43c5-967e-dd051cdc1bcb"><con:settings/><con:config><script>def iterator = 0
+
+for (i=0; i&lt;10; i++) {
+	iterator = iterator + 1
+}
+
+testRunner.testCase.setPropertyValue( 'ITERATOR' , iterator.toString() )</script></con:config></con:testStep><con:properties><con:property><con:name>ITERATOR</con:name><con:value>10</con:value></con:property></con:properties><con:reportParameters/></con:testCase>

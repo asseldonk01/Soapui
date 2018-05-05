@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DataSinkUsage - Property - 3" searchProperties="true" id="6adb1d61-3c7a-4a2b-91c3-475294d476d6" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="6adb1d61-3c7a-4a2b-91c3-475294d476d6fileName">DataSinkUsage---Property---3</con:setting></con:settings>
+      <con:testStep type="datasource" name="DataSource" id="d3eab7a9-a952-434d-89b1-f838ef3e7983">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSource type="Excel">
+            <con:configuration><file>C:/Testen/Testtools/soapui/MockDataset - kopie.xls</file><worksheet>Blad1</worksheet><cell>A2</cell><ignoreEmpty>false</ignoreEmpty><evaluateFormulas>false</evaluateFormulas></con:configuration>
+          </con:dataSource>
+          <con:property>MockTest</con:property>
+          <con:property>MockActie</con:property>
+          <con:property>MockEndpoint</con:property>
+          <con:property>MockOperatie</con:property>
+          <con:property>MockMatch</con:property>
+          <con:property>MockResponse</con:property>
+          <con:property>MockResponseAantal</con:property>
+          <con:property>MockResponseHttpCode</con:property>
+          <con:property>MockValidatie</con:property>
+          <con:startRow/>
+          <con:endRow/>
+          <con:trimValues>false</con:trimValues>
+          <con:entitizeValues>false</con:entitizeValues>
+          <con:restartOnRun>true</con:restartOnRun>
+          <con:expandProperties>true</con:expandProperties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasink" name="DataSinkXml" id="4af0ad54-febf-439b-96e6-2444b971e3f8">
+        <con:settings/>
+        <con:config xsi:type="con:DataSinkStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSink type="Property">
+            <con:configuration><prefix>&lt;Testen></prefix><content><![CDATA[<TestRegel>
+<MockTest>${DataSource#MockTest}</MockTest>
+<MockActie>${DataSource#MockActie}</MockActie>
+<MockEndpoint>${DataSource#MockEndpoint}</MockEndpoint>
+<MockMatch>${DataSource#MockMatch}</MockMatch>
+<MockResponse>${DataSource#MockResponse}</MockResponse>
+<MockResponseHttpCode>${DataSource#MockResponseHttpCode}</MockResponseHttpCode>
+<MockValidatie>${DataSource#MockValidatie}</MockValidatie>
+</TestRegel>]]></content><suffix>&lt;/Testen></suffix><property>result</property></con:configuration>
+          </con:dataSink>
+          <con:properties>
+            <con:property>
+              <con:name>result</con:name>
+              <con:value/>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasourceloop" name="DataSource Loop" id="f8410496-138f-436e-b2bf-cd102962938e">
+        <con:settings/>
+        <con:config>
+          <dataSourceStep>DataSource</dataSourceStep>
+          <targetStep>DataSinkXml</targetStep>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="transfer" name="Property Transfer" id="01f41a57-b1ef-485a-9f5c-98362221c87d">
+        <con:settings/>
+        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+            <con:name>Combinatie</con:name>
+            <con:sourceType>result</con:sourceType>
+            <con:sourceStep>DataSinkXml</con:sourceStep>
+            <con:targetType>TestRegels</con:targetType>
+            <con:targetStep>#TestCase#</con:targetStep>
+            <con:upgraded>true</con:upgraded>
+          </con:transfers>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>TestRegels</con:name>
+          <con:value><![CDATA[<Testen><TestRegel> <MockTest>T01</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T01</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakService/2.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T01</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T01</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakService/2.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T02</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T02</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T03</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T03</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenisSoapFault.xml</MockResponse> <MockResponseHttpCode>500</MockResponseHttpCode> <MockValidatie>Nee</MockValidatie> </TestRegel><TestRegel> <MockTest>T04</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T04</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakService/2.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T04</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T04</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakService/2.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T05</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T05</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T06</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T06</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenisSoapFault.xml</MockResponse> <MockResponseHttpCode>500</MockResponseHttpCode> <MockValidatie>Nee</MockValidatie> </TestRegel><TestRegel> <MockTest>T07</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T07</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakService/2.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T07</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T07</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakService/2.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T08</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T08</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T09</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T09</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenisSoapFault.xml</MockResponse> <MockResponseHttpCode>500</MockResponseHttpCode> <MockValidatie>Nee</MockValidatie> </TestRegel><TestRegel> <MockTest>T10</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T10</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakService/2.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T10</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T10</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakService/2.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T11</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T11</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenis1.xml</MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie>Ja</MockValidatie> </TestRegel><TestRegel> <MockTest>T12</MockTest> <MockActie>WSDL</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch></MockMatch> <MockResponse></MockResponse> <MockResponseHttpCode></MockResponseHttpCode> <MockValidatie></MockValidatie> </TestRegel><TestRegel> <MockTest>T12</MockTest> <MockActie>EXP</MockActie> <MockEndpoint>/elementair/ZaakGebeurtenisService/1.0</MockEndpoint> <MockMatch>//BedrijfsGebeurtenis/RechtspraakZaakreferentie/JaarAanleg = '14' and //SoortBedrijfsgebeurtenis  = '08'</MockMatch> <MockResponse>MockResponseZaakGebeurtenisSoapFault.xml</MockResponse> <MockResponseHttpCode>500</MockResponseHttpCode> <MockValidatie>Nee</MockValidatie> </TestRegel></Testen>]]></con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>71d61604-840f-414b-9014-f41d649536b7</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>209b3cd8-b17d-49fb-ae9c-f29f9380d00c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>a3c5c7a7-4d02-4762-a654-f520cab0701e</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>156f3cab-b9bf-4292-97e7-706348050d23</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>1b181dd6-b951-4258-b229-f8b9aadb1b40</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>01f41a57-b1ef-485a-9f5c-98362221c87d</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

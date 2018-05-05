@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="e22755c3-bdbe-4327-8dcb-170edfe81c51" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="useOfTimeDuration" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="e22755c3-bdbe-4327-8dcb-170edfe81c51fileName">useOfTimeDuration</con:setting></con:settings><con:savedRecentRuns>1</con:savedRecentRuns><con:testStep type="groovy" name="Groovy Script" id="7c816c93-5969-40ed-b5da-a5644cb84145"><con:settings/><con:config><script>import groovy.time.*
+
+def timeStart = new Date()
+sleep(2000)
+// Some code you want to time
+def timeStop = new Date()
+TimeDuration duration = TimeCategory.minus(timeStop, timeStart)
+
+log.info 'Secondes:'+duration.getSeconds()
+log.info 'Minutes:'	+duration.getMinutes()
+log.info 'Hours:'	+duration.getHours()
+</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>

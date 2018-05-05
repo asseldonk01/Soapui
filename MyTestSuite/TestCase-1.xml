@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 1" searchProperties="true" id="4c23cdb3-8607-4302-8040-c04831a1b82c" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="4c23cdb3-8607-4302-8040-c04831a1b82cfileName">TestCase-1</con:setting></con:settings>
+      <con:testStep type="groovy" name="ZettenTijd" id="dc720245-6c3c-452a-b6d0-f577f7f13caa">
+        <con:settings/>
+        <con:config>
+          <script>def MyTijdStip = testRunner.testCase.testSuite.project.getPropertyValue( "TijdStip" )
+def MyString = testRunner.testCase.testSuite.project.getPropertyValue( "Var-1" )
+def UurTijd = testRunner.testCase.testSuite.project.getPropertyValue("Uur")
+def MinuutTijd = testRunner.testCase.testSuite.project.getPropertyValue("Minuut")
+def DagTijd = testRunner.testCase.testSuite.project.getPropertyValue("Dag")
+def UurI = UurTijd as Integer
+def MinuutI = MinuutTijd as Integer
+
+
+Date date = Date.parse("yyyyMMdd",DagTijd)
+//MyTijdStip = String.format("%02d",UurTijd)
+
+//MyTijdStip = UurTijd.toString().Padleft(2,'0')
+//log UurTijd
+//UurTijd.Padleft(2,"0")
+
+//def num = 123
+//def numPadded = format("%02d", num)
+
+//def num = 1
+//def numPadded = String.format("%02d", num)
+
+MinuutI = MinuutI + 1
+if (MinuutI > 59)
+{
+    UurI = UurI + 1
+    if (UurI > 24) {
+        UurI = 0
+        String NewDate = date.next().format("yyyyMMdd")
+        testRunner.testCase.testSuite.project.setPropertyValue( "Dag", NewDate ) 
+        log.info NewDate       
+    }
+    MinuutI = 1
+}
+
+def TijdStip = String.format("%02d",UurI)+":"+String.format("%02d",MinuutI)
+testRunner.testCase.testSuite.project.setPropertyValue( "Uur", UurI as String )
+testRunner.testCase.testSuite.project.setPropertyValue( "Minuut", MinuutI as String )
+testRunner.testCase.testSuite.project.setPropertyValue( "TijdStip", TijdStip )
+
+
+//log.info date
+//String out = date.next().format("yyyyMMdd")
+//log.info out
+ 
+//i = (int) MyString
+//MyString
+
+def number = MyString as BigInteger
+number = number + 1
+
+testRunner.testCase.testSuite.project.setPropertyValue( "Var-1", number as String )</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" id="e6192e80-2115-46a9-bf85-69012748df00">
+        <con:settings/>
+        <con:config><script>import groovy.time.TimeCategory
+
+def lastDate = Date.fromString("2007-01-26T00:00:00")
+
+use (TimeCategory) {
+    100.times {
+        runTest(lastDate)
+        lastDate = lastDate + 1.second
+    }
+}
+
+</script></con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Datumtijd ophogen met &lt;aantal> uren" id="39647837-3384-41db-8a5f-cad9b49f2709">
+        <con:settings/>
+        <con:config>
+          <script>def DatumTijd = testRunner.testCase.testSuite.project.getPropertyValue("Dag")
+def OphogenUren = testRunner.testCase.testSuite.project.getPropertyValue("OphogenUren") as Integer
+def Hour = DatumTijd.substring(11,13)
+def leftPart = DatumTijd.substring(0,10)
+def rightPart = DatumTijd.substring(13,19)
+def UurI = Hour as Integer
+UurI = UurI+OphogenUren
+Hour = UurI.toString().padLeft(2, '0')
+DatumTijd = leftPart + 'T' + Hour + rightPart
+testRunner.testCase.testSuite.project.setPropertyValue("Dag",DatumTijd)</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Datumtijd reset" id="e541e6c2-bd53-4322-8f41-34ff0de3ee44">
+        <con:settings/>
+        <con:config>
+          <script>def DatumTijd = testRunner.testCase.testSuite.project.getPropertyValue("Dag")
+def ResetUren = testRunner.testCase.testSuite.project.getPropertyValue("ResetUren") as Integer
+def Hour = DatumTijd.substring(11,13)
+def leftPart = DatumTijd.substring(0,10)
+def rightPart = DatumTijd.substring(13,19)
+def UurI = Hour as Integer
+UurI = UurI-ResetUren
+Hour = UurI.toString().padLeft(2, '0')
+DatumTijd = leftPart + 'T' + Hour + rightPart
+testRunner.testCase.testSuite.project.setPropertyValue("Dag",DatumTijd)</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Datumtijd ophogen met &lt;aantal> uren - versie 2" id="a638bff9-49ef-47f7-82b9-e8b6fdf964a1">
+        <con:settings/>
+        <con:config>
+          <script>def DatumTijd = testRunner.testCase.testSuite.project.getPropertyValue("Dag")
+def OphogenUren = testRunner.testCase.testSuite.project.getPropertyValue("OphogenUren") as Integer
+def Hour = DatumTijd.substring(11,13)
+def leftPart = DatumTijd.substring(0,10)
+def rightPart = DatumTijd.substring(13,19).trim()
+def UurI = Hour as Integer
+UurI = UurI+OphogenUren
+Hour = UurI.toString().padLeft(2, '0')
+DatumTijd = leftPart + 'T' + Hour + rightPart + 'Z'
+testRunner.testCase.testSuite.project.setPropertyValue("Dag",DatumTijd)</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="jdbc" name="Query - hotel_reservation_db" id="c95b3e62-a33b-4a97-b6db-7cbdea392a5f">
+        <con:settings><con:setting id="prettyPrintResponse">true</con:setting></con:settings>
+        <con:config xsi:type="con:JdbcRequestTestStep" convertColumnNamesToUpperCase="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dbConnectionName xsi:nil="true"/>
+          <con:driver>com.mysql.jdbc.Driver</con:driver>
+          <con:connectionString>jdbc:mysql://127.0.0.1:3306/testlink?user=root</con:connectionString>
+          <con:connectionProperties/><con:query>select * from users</con:query>
+          <con:properties/>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="manualTestStep" name="Leesmij" id="3669cc8c-d3d4-4a88-890c-e3c7aedf9e55">
+        <con:description>Toelichting op deze testsuite of toelichting op het project</con:description>
+        <con:settings/>
+        <con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+      </con:testStep>
+      <con:testStep type="datagen" name="DataGen" id="bb9b61d3-9156-467f-a329-d0a73dbd9141"><con:settings/><con:config xsi:type="con:DataGeneratorStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:testStep><con:testStep type="datasource" name="DataSource" id="136c91df-00a3-4171-bd43-236e41a4a0ae"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Data Generator"><con:configuration><generatedDataCount>10</generatedDataCount><generatorsTotalNumber>2</generatorsTotalNumber><lastSelectedProperty>1</lastSelectedProperty><GeneratorType0>SET</GeneratorType0><PropertyName0>A</PropertyName0><repetitionCountA>0</repetitionCountA><repeatValuesA>false</repeatValuesA><ValueFromSetIsSequenceValueA>false</ValueFromSetIsSequenceValueA><ValueFromSetStringsA>Sample 1</ValueFromSetStringsA><ValueFromSetStringsA>Sample 2</ValueFromSetStringsA><ValueFromSetStringsA>Sample 3</ValueFromSetStringsA><GeneratorType1>EMAIL</GeneratorType1><PropertyName1>B</PropertyName1><repetitionCountB>0</repetitionCountB><repeatValuesB>false</repeatValuesB><escapeSpaceSequence/></con:configuration></con:dataSource><con:property>A</con:property><con:property>B</con:property><con:restartOnRun>true</con:restartOnRun></con:config></con:testStep><con:properties/>
+      <con:reportParameters/>
+    </con:testCase>

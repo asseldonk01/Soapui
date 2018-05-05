@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="ce9c158b-6ab8-418c-9b44-ecd22911f57b" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AssertionTesting" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="ce9c158b-6ab8-418c-9b44-ecd22911f57bfileName">AssertionTesting</con:setting></con:settings><con:testStep type="request" name="ConversionRate" id="0c1d918a-b360-4e9b-bc87-e0c157f529a5">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap12</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>EUR</web:FromCurrency>
+         <web:ToCurrency>USD</web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            
+            <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
+              <con:configuration/>
+            </con:assertion>
+            
+            
+            
+            
+            <con:assertion type="Simple Contains" id="7a7fd574-8db1-4980-8f9a-0c6d94aa7672" name="ContainsR1"><con:configuration><token>ConversionRateresult</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple NotContains" id="287085cd-1ed0-4f3f-904d-14f78f59f9f9" name="NotContainsR1"><con:configuration><token>ABC</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="XPath Match" id="7b07960c-f248-4b84-a638-b43cc22af2d0" name="XpathR1"><con:configuration><path>declare namespace ns1='http://www.webserviceX.NET/';
+//ns1:ConversionRateResponse[1]</path><content>&lt;ConversionRateResponse xmlns="http://www.webserviceX.NET/" xmlns:soap="http://www.w3.org/2003/05/soap-envelope"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">&lt;ConversionRateResult>*&lt;/ConversionRateResult>&lt;/ConversionRateResponse></content><allowWildcards>true</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="SOAP Response" id="6d5c90ba-7514-45b3-b924-f7310ad03def" name="SOAPResponseR1"/><con:assertion type="SOAP Fault Assertion" id="cee39748-324b-43e3-ad73-e281f1c76a0d" name="NotSoapFaultR1"/><con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep><con:testStep type="datasource" name="DataSource" id="a37073f3-f207-4c8e-970f-df88c903f4f6"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>Datasource_assertions.xls</file><worksheet>Test1</worksheet><cell>A2</cell><ignoreEmpty>false</ignoreEmpty><evaluateFormulas>false</evaluateFormulas></con:configuration></con:dataSource><con:property>Soort</con:property><con:property>Param1</con:property><con:property>Param2</con:property><con:property>Param3</con:property><con:property>Param4</con:property><con:property>Param5</con:property><con:property>Param6</con:property><con:startRow/><con:endRow/><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="a4fd7174-e039-49fd-a52f-2c9dfd47cc3f"><con:settings/><con:config><script>def soort = context.expand( '${DataSource#Soort}' )
+def param1 = context.expand( '${DataSource#Param1}' )
+def param2 = context.expand( '${DataSource#Param2}' )
+def param3 = context.expand( '${DataSource#Param3}' )
+def param4 = context.expand( '${DataSource#Param4}' )
+def param5 = context.expand( '${DataSource#Param5}' )
+def param6 = context.expand( '${DataSource#Param6}' )
+
+def project = testRunner.testCase.testSuite.project
+def testst = project.getTestSuiteAt(1).getTestCaseByName("AssertionTesting-assertion-teststep").getTestStepByName("ConversionRate")
+
+//def testst = project.getTestSuiteAt(0).getTestCaseAt(0).getTestStepAt(0)
+
+switch (soort) {
+    case 'Contains':
+		VerwerkContainsAssertion(testst, param1, param2, param3, param4)
+        break   
+    case 'Not Contains': 
+    		VerwerkNotContainsAssertion(testst, param1, param2, param3)
+        break
+    case 'Xpath': 
+       	VerwerkXpathAssertion(testst, param1, param2, param3, param4, param5, param6)
+        break
+     case 'SOAP Response': 
+       	VerwerkSoapResponseAssertion(testst, param1)
+        break
+     case 'Not SOAP Fault': 
+       	VerwerkNotSoapFaultAssertion(testst, param1)
+        break
+    default:
+        log.info 'Not supported '+soort
+}
+
+def VerwerkNotSoapFaultAssertion(def testst, String name) {
+	try {
+    		testst.removeAssertion(testst.getAssertionByName(name))   
+	} catch (NullPointerException e) {    		
+    		assert e in NullPointerException
+	}
+	
+	def assertionnsf = testst.addAssertion("Not SOAP Fault")
+	assertionnsf.name = name	
+}
+def VerwerkSoapResponseAssertion(def testst, String name) {
+	try {
+    		testst.removeAssertion(testst.getAssertionByName(name))   
+	} catch (NullPointerException e) {    		
+    		assert e in NullPointerException
+	}
+	
+	def assertionsr = testst.addAssertion("SOAP Response")
+	assertionsr.name = name	
+}
+
+def VerwerkContainsAssertion(def testst, String name, String containString, String ignoreCase, String useRegEx) {
+	try {
+    		testst.removeAssertion(testst.getAssertionByName(name))   
+	} catch (NullPointerException e) {    		
+    		assert e in NullPointerException
+	}
+	
+	def assertioncontains = testst.addAssertion("Contains")
+	assertioncontains.name = name
+	assertioncontains.setToken(containString)
+	assertioncontains.setIgnoreCase(Boolean.valueOf(ignoreCase))
+	assertioncontains.setUseRegEx(Boolean.valueOf(useRegEx))	
+}
+
+def VerwerkNotContainsAssertion(def testst, String name, String containString, String ignoreCase) {
+	try {
+    		testst.removeAssertion(testst.getAssertionByName(name))   
+	} catch (NullPointerException e) {    		
+    		assert e in NullPointerException
+	}
+	
+	def assertioncontains = testst.addAssertion("Not Contains")
+	assertioncontains.name = name
+	assertioncontains.setToken(containString)
+	assertioncontains.setIgnoreCase(Boolean.valueOf(ignoreCase))	
+}
+
+def VerwerkXpathAssertion(def testst, String name, String xpathString, String expectedXpathContent, String xpathAllowWildcards,  String xpathIgnoreNamespacePrefixes, String xpathIgnoreComments) {
+	try {
+    		testst.removeAssertion(testst.getAssertionByName(name))   
+	} catch (NullPointerException e) {    		
+    		assert e in NullPointerException
+	}
+
+	log.info xpathIgnoreComments
+	
+	def assertionxpath = testst.addAssertion("XPath Match")
+	assertionxpath.name = name
+	assertionxpath.setPath(xpathString)
+	assertionxpath.setExpectedContent(expectedXpathContent)
+	//assertionxpath.setAllowWildcards(xpathAllowWildcards)
+	assertionxpath.setAllowWildcards(Boolean.valueOf(xpathAllowWildcards))	
+	assertionxpath.setIgnoreNamespaceDifferences(Boolean.valueOf(xpathIgnoreNamespacePrefixes))
+	assertionxpath.setIgnoreComments(Boolean.valueOf(xpathIgnoreComments))	
+}
+
+</script></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop" id="830ade29-7e23-436c-b1b6-3577a9a5a41b"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Groovy Script</targetStep></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>

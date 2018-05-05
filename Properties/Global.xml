@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Global" searchProperties="true" id="c66c3248-e2b0-4628-8796-c6f32c3d5f75" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="c66c3248-e2b0-4628-8796-c6f32c3d5f75fileName">Global</con:setting></con:settings>
+      <con:testStep type="groovy" name="SetGlobalProperty" id="6f236d07-d05b-499f-a6ac-fa9ab69465df">
+        <con:settings/>
+        <con:config>
+          <script>// Manier 1 om een global property te zetten
+def someValue = "MyValue"
+com.eviware.soapui.SoapUI.globalProperties.setPropertyValue( "MyProp", someValue )
+
+//import com.eviware.soapui.settings.SSLSettings
+//import com.eviware.soapui.SoapUI 
+
+// set
+//SoapUI.settings.setString( "MyProp", someValue )
+
+// get
+//log.info SoapUI.settings.getString( "MyProp" )</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="LogGlobalProperty" id="22a6705c-8edc-4465-b43e-91a4c1d4e188">
+        <con:settings/>
+        <con:config>
+          <script>// Manier 1 om een global property te zetten
+// def someValue = "MyValue"
+// com.eviware.soapui.SoapUI.globalProperties.setPropertyValue( "MyProp", someValue )
+
+//import com.eviware.soapui.settings.SSLSettings
+// Manier 1
+// import com.eviware.soapui.SoapUI 
+// log.info SoapUI.settings.getString( "MyProp" )
+
+// Manier 2
+log.info com.eviware.soapui.SoapUI.globalProperties.getPropertyValue( "MyProp" )</script>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>

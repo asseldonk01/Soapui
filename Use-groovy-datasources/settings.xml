@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite name="Use groovy datasources" id="983b6928-cd3d-4df4-bae8-7d7a4be4ee1e" xmlns:con="http://eviware.com/soapui/config">
+    <con:settings><con:setting id="983b6928-cd3d-4df4-bae8-7d7a4be4ee1efileName">Use-groovy-datasources</con:setting></con:settings>
+    <con:runType>SEQUENTIAL</con:runType>
+    
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>

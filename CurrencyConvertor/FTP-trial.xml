@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="FTP trial" searchProperties="true" id="6d98cb7b-c4d3-46e1-af58-f36174b55d4c" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="6d98cb7b-c4d3-46e1-af58-f36174b55d4cfileName">FTP-trial</con:setting></con:settings>
+      <con:testStep type="groovy" name="FTP_old" id="d9559fbc-d1a2-4ba1-9210-6be9676f09b3">
+        <con:settings/>
+        <con:config>
+          <script>@Grab(group='commons-net', module='commons-net', version='3.3')
+import org.apache.commons.net.ftp.FTPClient
+
+new FTPClient().with {
+ 
+def media_ID = context.expand( '${DataSource_Delivery_ID#Media_ID}' )
+ 
+connect host
+ 
+log.info replyString
+ 
+login user, password
+ 
+log.info replyString
+ 
+changeWorkingDirectory(remote_path);
+ 
+files = listFiles(remote_path)
+ 
+for (myfiles in files) { 
+if(myfiles.getName() =~ /Sky*/) { 
+log.info "Renaming : " + myfiles.getName();
+ 
+rename(myfiles.getName(),media_ID);
+ 
+log.info "Newfilename:" + media_ID; 
+}
+ 
+}
+ 
+disconnect();
+ 
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="FTP" id="d8dcf1f7-a7eb-4cd1-99b8-4dd7254866e9">
+        <con:settings/>
+        <con:config>
+          <script>import org.apache.commons.net.ftp.FTPClient
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+def localfile = "test1.txt"
+def infile= new FileInputStream(projectPath+'/'+localfile)
+
+new FTPClient().with {
+    connect "zwemmenbijdevrijeslag.nl"
+    log.info 'CONNECT: '+replyString
+    enterLocalPassiveMode()
+    login "zwemmenbijdevrijeslag.nl", "dvsdvs"
+    log.info 'LOGIN: '+replyString
+    remote_path = "/docs/"
+    changeWorkingDirectory(remote_path)
+    log.info 'CHANGE DIR: '+replyString
+    setFileTransferMode(BINARY_FILE_TYPE)
+    storeFile(remote_path+localfile, infile)
+    log.info 'STOREFILE: '+replyString
+    disconnect()
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Check file" id="b4ef7d47-b92e-4ce9-8651-0c0e1675ee5c">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+def charsetName = System.getProperty("file.encoding")
+def localfile = "test1.txt"
+
+// The whole text can be read with a single method call
+def text = new FileInputStream(projectPath+'/'+localfile).getText(charsetName)
+log.info text.toLowerCase()</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="SFTP" id="6b53c888-51e3-438b-bbc1-cb118fefda58">
+        <con:settings/>
+        <con:config>
+          <script>import org.apache.commons.net.ftp.FTPClient
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+def localfile = "test1.txt"
+def infile= new FileInputStream(projectPath+'/'+localfile)
+
+new FTPClient().with {
+    connect "zwemmenbijdevrijeslag.nl"
+    log.info 'CONNECT: '+replyString
+    enterLocalPassiveMode()
+    login "zwemmenbijdevrijeslag.nl", "dvsdvs"
+    log.info 'LOGIN: '+replyString
+    remote_path = "/docs/"
+    changeWorkingDirectory(remote_path)
+    log.info 'CHANGE DIR: '+replyString
+    setFileTransferMode(BINARY_FILE_TYPE)
+    storeFile(remote_path+localfile, infile)
+    log.info 'STOREFILE: '+replyString
+    disconnect()
+}
+
+import java.io.File;
+
+import org.apache.commons.vfs2.FileObject;
+import org.apache.commons.vfs2.FileSystemException;
+import org.apache.commons.vfs2.FileSystemOptions;
+import org.apache.commons.vfs2.Selectors;
+import org.apache.commons.vfs2.impl.StandardFileSystemManager;
+import org.apache.commons.vfs2.provider.sftp.SftpFileSystemConfigBuilder;
+
+/**
+ * The class SFTPUtil containing uploading, downloading, checking if file exists
+ * and deleting functionality using Apache Commons VFS (Virtual File System)
+ * Library
+ * 
+ * @author Ashok
+ * 
+ */
+public class SFTPUtility {
+
+    public static void main(String[] args) {
+        String hostName = "zwemmenbijdevrijeslag.nl";
+        String username = "zwemmenbijdevrijeslag.nl";
+        String password = "dvsdvs";
+
+        String localFilePath = "C:\\FakePath\\FakeFile.txt";
+        String remoteFilePath = "/FakeRemotePath/FakeRemoteFile.txt";       
+        String remoteTempFilePath = "/FakeRemoteTempPath/FakeRemoteTempFile.txt";
+
+        upload(hostName, username, password, localFilePath, remoteFilePath);
+        exist(hostName, username, password, remoteFilePath);
+        download(hostName, username, password, localFilePath,remoteFilePath);
+        move(hostName, username, password, remoteFilePath, remoteTempFilePath);
+        delete(hostName, username, password, remoteFilePath);
+    }
+
+    /**
+     * Method to upload a file in Remote server
+     * 
+     * @param hostName
+     *            HostName of the server
+     * @param username
+     *            UserName to login
+     * @param password
+     *            Password to login
+     * @param localFilePath
+     *            LocalFilePath. Should contain the entire local file path -
+     *            Directory and Filename with \\ as separator
+     * @param remoteFilePath
+     *            remoteFilePath. Should contain the entire remote file path -
+     *            Directory and Filename with / as separator
+     */
+    public static void upload(String hostName, String username, String password, String localFilePath, String remoteFilePath) {
+
+        File file = new File(localFilePath);
+        if (!file.exists())
+            throw new RuntimeException("Error. Local file not found");
+
+        StandardFileSystemManager manager = new StandardFileSystemManager();
+
+        try {
+            manager.init();
+
+            // Create local file object
+            FileObject localFile = manager.resolveFile(file.getAbsolutePath());
+
+            // Create remote file object
+            FileObject remoteFile = manager.resolveFile(createConnectionString(hostName, username, password, remoteFilePath), createDefaultOptions());
+            /*
+             * use createDefaultOptions() in place of fsOptions for all default
+             * options - Ashok.
+             */
+
+            // Copy local file to sftp server
+            remoteFile.copyFrom(localFile, Selectors.SELECT_SELF);
+
+            System.out.println("File upload success");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            manager.close();
+        }
+    }
+
+    public static boolean move(String hostName, String username, String password, String remoteSrcFilePath, String remoteDestFilePath){
+        StandardFileSystemManager manager = new StandardFileSystemManager();
+
+        try {
+            manager.init();
+
+            // Create remote object
+            FileObject remoteFile = manager.resolveFile(createConnectionString(hostName, username, password, remoteSrcFilePath), createDefaultOptions());
+            FileObject remoteDestFile = manager.resolveFile(createConnectionString(hostName, username, password, remoteDestFilePath), createDefaultOptions());
+
+            if (remoteFile.exists()) {
+                remoteFile.moveTo(remoteDestFile);;
+                System.out.println("Move remote file success");
+                return true;
+            }
+            else{
+                System.out.println("Source file doesn't exist");
+                return false;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            manager.close();
+        }
+    }
+
+    /**
+     * Method to download the file from remote server location
+     * 
+     * @param hostName
+     *            HostName of the server
+     * @param username
+     *            UserName to login
+     * @param password
+     *            Password to login
+     * @param localFilePath
+     *            LocalFilePath. Should contain the entire local file path -
+     *            Directory and Filename with \\ as separator
+     * @param remoteFilePath
+     *            remoteFilePath. Should contain the entire remote file path -
+     *            Directory and Filename with / as separator
+     */
+    public static void download(String hostName, String username, String password, String localFilePath, String remoteFilePath) {
+
+        StandardFileSystemManager manager = new StandardFileSystemManager();
+
+        try {
+            manager.init();
+
+            // Append _downlaod_from_sftp to the given file name.
+            //String downloadFilePath = localFilePath.substring(0, localFilePath.lastIndexOf(".")) + "_downlaod_from_sftp" + localFilePath.substring(localFilePath.lastIndexOf("."), localFilePath.length());
+
+            // Create local file object. Change location if necessary for new downloadFilePath
+            FileObject localFile = manager.resolveFile(localFilePath);
+
+            // Create remote file object
+            FileObject remoteFile = manager.resolveFile(createConnectionString(hostName, username, password, remoteFilePath), createDefaultOptions());
+
+            // Copy local file to sftp server
+            localFile.copyFrom(remoteFile, Selectors.SELECT_SELF);
+
+            System.out.println("File download success");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            manager.close();
+        }
+    }
+
+    /**
+     * Method to delete the specified file from the remote system
+     * 
+     * @param hostName
+     *            HostName of the server
+     * @param username
+     *            UserName to login
+     * @param password
+     *            Password to login
+     * @param localFilePath
+     *            LocalFilePath. Should contain the entire local file path -
+     *            Directory and Filename with \\ as separator
+     * @param remoteFilePath
+     *            remoteFilePath. Should contain the entire remote file path -
+     *            Directory and Filename with / as separator
+     */
+    public static void delete(String hostName, String username, String password, String remoteFilePath) {
+        StandardFileSystemManager manager = new StandardFileSystemManager();
+
+        try {
+            manager.init();
+
+            // Create remote object
+            FileObject remoteFile = manager.resolveFile(createConnectionString(hostName, username, password, remoteFilePath), createDefaultOptions());
+
+            if (remoteFile.exists()) {
+                remoteFile.delete();
+                System.out.println("Delete remote file success");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            manager.close();
+        }
+    }
+
+    // Check remote file is exist function:
+    /**
+     * Method to check if the remote file exists in the specified remote
+     * location
+     * 
+     * @param hostName
+     *            HostName of the server
+     * @param username
+     *            UserName to login
+     * @param password
+     *            Password to login
+     * @param remoteFilePath
+     *            remoteFilePath. Should contain the entire remote file path -
+     *            Directory and Filename with / as separator
+     * @return Returns if the file exists in the specified remote location
+     */
+    public static boolean exist(String hostName, String username, String password, String remoteFilePath) {
+        StandardFileSystemManager manager = new StandardFileSystemManager();
+
+        try {
+            manager.init();
+
+            // Create remote object
+            FileObject remoteFile = manager.resolveFile(createConnectionString(hostName, username, password, remoteFilePath), createDefaultOptions());
+
+            System.out.println("File exist: " + remoteFile.exists());
+
+            return remoteFile.exists();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            manager.close();
+        }
+    }
+
+    /**
+     * Generates SFTP URL connection String
+     * 
+     * @param hostName
+     *            HostName of the server
+     * @param username
+     *            UserName to login
+     * @param password
+     *            Password to login
+     * @param remoteFilePath
+     *            remoteFilePath. Should contain the entire remote file path -
+     *            Directory and Filename with / as separator
+     * @return concatenated SFTP URL string
+     */
+    public static String createConnectionString(String hostName, String username, String password, String remoteFilePath) {
+        return "sftp://" + username + ":" + password + "@" + hostName + "/" + remoteFilePath;
+    }
+
+    /**
+     * Method to setup default SFTP config
+     * 
+     * @return the FileSystemOptions object containing the specified
+     *         configuration options
+     * @throws FileSystemException
+     */
+    public static FileSystemOptions createDefaultOptions() throws FileSystemException {
+        // Create SFTP options
+        FileSystemOptions opts = new FileSystemOptions();
+
+        // SSH Key checking
+        SftpFileSystemConfigBuilder.getInstance().setStrictHostKeyChecking(opts, "no");
+
+        /*
+         * Using the following line will cause VFS to choose File System's Root
+         * as VFS's root. If I wanted to use User's home as VFS's root then set
+         * 2nd method parameter to "true"
+         */
+        // Root directory set to user home
+        SftpFileSystemConfigBuilder.getInstance().setUserDirIsRoot(opts, false);
+
+        // Timeout is count by Milliseconds
+        SftpFileSystemConfigBuilder.getInstance().setTimeout(opts, 10000);
+
+        return opts;
+    }
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="SFTP[2]" id="b9baa6b8-1c3a-4bef-97f3-6001c52de6d4">
+        <con:settings/>
+        <con:config>
+          <script>//import groovy.grape.Grape
+
+//Grape.grab([group:'org.apache.ivy', module:'ivy', version:'2.3.0', conf:['default', 'optional'],classLoader:this.class.classLoader.rootLoader])
+//Grape.grab([group:'org.apache.ant', module:'ant', version:'1.7.0',classLoader:this.class.classLoader.rootLoader])
+//Grape.grab([group='org.apache.ant', module='ant-jsch', version='1.9.3',classLoader:this.class.classLoader.rootLoader])
+
+@GrabConfig(systemClassLoader=true)
+import groovy.grape.Grape;
+
+@Grapes([
+    @Grab(group='org.apache.ant', module='ant-jsch', version='1.9.3'),
+      @Grab(group='org.apache.ant', module='ant', version='1.9.3'),
+      @Grab(group='org.apache.ivy', module='ivy', version='2.3.0'),
+   @GrabConfig(systemClassLoader=true)
+])
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+
+def ant = new AntBuilder()    
+ant.scp(file:"text1.txt", todir:"zwemmenbijdevrijeslag.nl@zwemmenbijdevrijeslag.nl:/docs", password:"dvsdvs")</script>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>

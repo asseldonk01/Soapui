@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="fe0e3b36-309f-4476-8dd4-a0035481c4cf" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Adding Node to XML" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="fe0e3b36-309f-4476-8dd4-a0035481c4cffileName">Adding-Node-to-XML</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script - xmlslurper" id="6de22398-8a82-46b9-a798-9720c0c49ac1" disabled="true"><con:settings/><con:config><script>import javax.xml.parsers.DocumentBuilderFactory
+import org.w3c.dom.Node
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+
+def xml=new XmlSlurper(false,false).parse(projectDir+"/DocumentNodes.xml") 
+def holderResponse = groovyUtils.getXmlHolder(xml) 
+
+//def fragment2Add = new XmlSlurper(false, false).parse(projectDir+"/DocumentAggregatieNiveau.xml") 
+
+// Krijg de basis node, te weten Document
+//log.info xml.name()
+
+// Krijg de basis cnodes onder Document, te weten instanties, datum, tijdstip, .. alle DocumentAggregatieniveaus
+//xml.children().each { log.info it.name() }
+//xml.children().find { it.children.name() == 'bd:DocumentAggregatieniveau' }
+//xml.children().find { if (it.name() == 'bd:DocumentAggregatieniveau') log.info it.name() }it
+
+//xml.children().findAll { it.name() == 'bd:DocumentAggregatieniveau' } each {log.info it.name() }
+//xml.children().findAll { it.name() == 'bd:DocumentAggregatieniveau' } each {entry -> log.info entry}
+
+//assert 3 == xml.children().findAll { it.name() == 'bd:DocumentAggregatieniveau' }
+
+
+def doc = groovy.xml.DOMBuilder.parse (new FileReader(projectDir+"/DocumentNodes.xml")
+
+use (groovy.xml.dom.DOMCategory) {
+	for( node in doc.getDomNodes( "//bd:DocumentAggregatieniveau" )) {
+        node.children().each { child ->
+            log.info child
+            //println child
+        }
+	}
+}
+//xml.children().findAll { it.name() == 'bd:DocumentAggregatieniveau' } each {entry -> groovy.xml.XmlUtil.serialize entry}
+
+//xml.children().findAll { it.name() == 'bd:DocumentAggregatieniveau' } each {log.info groovy.xml.XmlUtil.serialize( it )}
+
+//xml.find { it.children.name() == 'bd:DocumentAggregatieniveau' }
+
+// Krijg alles subnodes onder documentAggregatieniveau etc...
+//xml.children().children().each {log.info it.name()}
+
+//Insert this new node at position 0 in the children of the first coreEntry node
+
+//xml.children.DocumentAggregatieniveau.each { log.info it.text()}
+
+//xml.find { it.children.name() == 'bd:DocumentAggregatieniveau' }.add( 0, fragmentToAdd )
+
+//xml.find.DocumentAggregatieniveau { it..children.name() == 'bd:DocumentAggregatieniveau' }.add( 0, fragment2Add )
+
+//String outxml = groovy.xml.XmlUtil.serialize( xml )
+//log.info outxml
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="a2e0ee90-4ca0-4931-a34e-ef81db49bccc"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+def xmlInvoer = new XmlParser(false,false).parse(new File(projectDir+"/DocumentNodes.xml") )
+String xmlOut = groovy.xml.XmlUtil.serialize( xmlInvoer )
+testRunner.testCase.setPropertyValue( "Invoer", xmlOut )</script></con:config></con:testStep><con:testStep type="datasource" name="DataSource" id="707f5c73-f575-49d9-b7f1-977bfbf3dab3"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>AddingNodeToXml/DataSource.xlsx</file><worksheet>Bestanden</worksheet><cell>A2</cell><ignoreEmpty>false</ignoreEmpty><evaluateFormulas>false</evaluateFormulas></con:configuration></con:dataSource><con:property>Bestandsnaam</con:property><con:property>Code</con:property><con:property>Naam</con:property><con:property>NummerExternSysteemID</con:property><con:property>MimeContentId</con:property><con:property>MimeContentTypeCode</con:property><con:startRow/><con:endRow/><con:trimValues>true</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>true</con:expandProperties></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script - xmlparser" id="7dd02169-bc5e-4593-b513-e80bbd1c2765"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+
+def Invoer = testRunner.testCase.getPropertyValue( "Invoer" )
+def DocumentAggregatieniveau = testRunner.testCase.getPropertyValue( "DocumentAggregatieniveau" )
+
+def xmlInvoer = new XmlParser(false,false).parseText(Invoer)
+
+// Vind het aantal DocumentAggregatieniveaus
+def aantalNodes = xmlInvoer.children().findAll{it.name() == 'bd:DocumentAggregatieniveau'}.size()
+log.info 'Aantal nodes: '+aantalNodes
+
+def nodeToAdd = new XmlParser( false, false ).parseText(DocumentAggregatieniveau)
+
+// Er zijn nog geen 
+if (aantalNodes == 0) {
+	xmlInvoer.find { it.name() == 'bd:RegistratieveRelatieZaak' }.children().add(nodeToAdd )
+}
+else {
+	xmlInvoer.find { it.name() == 'bd:DocumentAggregatieniveau' }.children().add( aantalNodes, nodeToAdd )
+}
+
+def outXml = groovy.xml.XmlUtil.serialize( xmlInvoer )
+log.info outXml
+
+testRunner.testCase.setPropertyValue( "Invoer", outXml )
+
+</script></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop" id="289bed2a-effa-4dbd-a260-b0c1bd1d7514"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Groovy Script - xmlparser</targetStep></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script - xmlparser" id="c2f66993-b6af-413d-bb41-57ba5aab6ea6" disabled="true"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+
+def Invoer = testRunner.testCase.getPropertyValue( "Invoer" )
+def DocumentAggregatieniveau = testRunner.testCase.getPropertyValue( "DocumentAggregatieniveau" )
+
+def xmlInvoer = new XmlParser(false,false).parseText(Invoer)
+
+// Vind het aantal DocumentAggregatieniveaus
+def aantalNodes = xmlInvoer.children().findAll{it.name() == 'bd:DocumentAggregatieniveau'}.size()
+log.info 'Aantal nodes: '+aantalNodes
+
+def nodeToAdd = new XmlParser( false, false ).parseText(new File(projectDir+"/DocumentAggregatieNiveau.xml"))
+
+// Er zijn nog geen 
+if (aantalNodes == 0) {
+	xmlInvoer.find { it.name() == 'bd:RegistratieveRelatieZaak' }.children().add(nodeToAdd )
+}
+else {
+	xmlInvoer.find { it.name() == 'bd:DocumentAggregatieniveau' }.children().add( aantalNodes, nodeToAdd )
+}
+
+def outXml = groovy.xml.XmlUtil.serialize( xmlInvoer )
+log.info outXml
+
+testRunner.testCase.setPropertyValue( "Invoer", outXml )
+
+</script></con:config></con:testStep><con:properties><con:property><con:name>Invoer</con:name><con:value><![CDATA[<?xml version="1.0" encoding="UTF-8"?> <bd:Document xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2"              xmlns:clm63055="urn:un:unece:uncefact:codelist:standard:6:3055:D09B"              xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:11"              xmlns:s2s_rechtspraak="http://data.justid.nl/s2srechtspraak/dictionary-0"              xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:11"              xmlns:srk="http://data.justid.nl/srk/dictionary-1"              xmlns:clmEBVFoutniveausCode="http://data.justid.nl/codelist-FoutniveausCode"              xmlns:jk="http://data.justid.nl/jk/dictionary-1"              xmlns:clmEBVRechtsvormenCode="http://data.justid.nl/codelist-RechtsvormenCode"              xmlns:clmSPIR-ITTINSTANTIECode="http://data.justid.nl/codelist-TINSTANTIECode"              xmlns:clmSPIR-ITTNATCode="http://data.justid.nl/codelist-TNATCode"              xmlns:clmIANAIANAMimeMediaTypeCode="http://data.justid.nl/codelist-IANAMimeMediaTypeCode"              xmlns:clmEBVGeslachtenCode="http://data.justid.nl/codelist-GeslachtenCode"              xmlns:clmSPIR-ITTVOORVOEGCode="http://data.justid.nl/codelist-TVOORVOEGCode"              xmlns:clmEBVSoortenZaakclusterCode="http://data.justid.nl/codelist-SoortenZaakclusterCode"              xmlns:clmEBVStatussenNotificatieobjectCode="http://data.justid.nl/codelist-StatussenNotificatieobjectCode"              xmlns:clmEBVBehandeltypesCode="http://data.justid.nl/codelist-BehandeltypesCode"              xmlns:clmEBVSoortenCommunicatiemiddelCode="http://data.justid.nl/codelist-SoortenCommunicatiemiddelCode"              xmlns:clmEBVSoortenRegistratieCode="http://data.justid.nl/codelist-SoortenRegistratieCode"              xmlns:clmEBVTypenNotificatieobjectCode="http://data.justid.nl/codelist-TypenNotificatieobjectCode"              xmlns:clmEBVRollenPartijCode="http://data.justid.nl/codelist-RollenPartijCode"              xmlns:bd="http://data.justid.nl/s2srechtspraak/document/Document-1"              xmlns:arch="http://data.justid.nl/arch/dictionary-1"              xmlns:ebvh="http://data.justid.nl/common/header-2"              xmlns:ccl="http://data.justid.nl/ccl/dictionary-D11A"              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"              xsi:schemaLocation="http://data.justid.nl/s2srechtspraak/document/Document-1 D:\Projecten\Services\other\GedeeldeObjecten\apps\presentatie\AxwayS2SMockBerichtVerwerkerService\1.0\ebv\Document_BD-023005\data\standard\Document.xsd">   <ebvh:ID>0123456789</ebvh:ID>   <ebvh:VerzendendeInstantie>       <ebvh:Instantiecode>IND003</ebvh:Instantiecode>   </ebvh:VerzendendeInstantie>   <ebvh:OntvangendeInstantie>       <ebvh:Instantiecode>AR0040</ebvh:Instantiecode>   </ebvh:OntvangendeInstantie>   <ebvh:Datum>2014-12-31+02:00</ebvh:Datum>   <ebvh:Tijdstip>15:05:43.068+02:00</ebvh:Tijdstip>   <ebvh:SchemaVersieID>1.0</ebvh:SchemaVersieID>   <bd:RegistratieveRelatieZaak>       <srk:Zaakidentificatiecode>VK 14 / 10503</srk:Zaakidentificatiecode>       <bd:DocumentAggregatieniveau>          <arch:ClassificatieDocumentClassificatie>             <arch:Code>${DataSource#Code}</arch:Code>          </arch:ClassificatieDocumentClassificatie>          <arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID>          <arch:Naam>${DataSource#Naam}</arch:Naam>          <arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum>          <arch:ExterneIdentificatiekenmerken>             <arch:NummerExternSysteemID>${DataSource#ExternSysteemId}</arch:NummerExternSysteemID>          </arch:ExterneIdentificatiekenmerken>          <arch:Bijlage>             <jk:MimeContentId>${DataSource#MimeContentId}</jk:MimeContentId>             <jk:MimeContentTypeCode listAgencyID="IANA">${DataSource#MimeContentTypeCode}</jk:MimeContentTypeCode>          </arch:Bijlage>       </bd:DocumentAggregatieniveau>       <bd:DocumentAggregatieniveau>          <arch:ClassificatieDocumentClassificatie>             <arch:Code>${DataSource#Code}</arch:Code>          </arch:ClassificatieDocumentClassificatie>          <arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID>          <arch:Naam>${DataSource#Naam}</arch:Naam>          <arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum>          <arch:ExterneIdentificatiekenmerken>             <arch:NummerExternSysteemID>${DataSource#ExternSysteemId}</arch:NummerExternSysteemID>          </arch:ExterneIdentificatiekenmerken>          <arch:Bijlage>             <jk:MimeContentId>${DataSource#MimeContentId}</jk:MimeContentId>             <jk:MimeContentTypeCode listAgencyID="IANA">${DataSource#MimeContentTypeCode}</jk:MimeContentTypeCode>          </arch:Bijlage>       </bd:DocumentAggregatieniveau>       <bd:DocumentAggregatieniveau>          <arch:ClassificatieDocumentClassificatie>             <arch:Code>${DataSource#Code}</arch:Code>          </arch:ClassificatieDocumentClassificatie>          <arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID>          <arch:Naam>${DataSource#Naam}</arch:Naam>          <arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum>          <arch:ExterneIdentificatiekenmerken>             <arch:NummerExternSysteemID>${DataSource#ExternSysteemId}</arch:NummerExternSysteemID>          </arch:ExterneIdentificatiekenmerken>          <arch:Bijlage>             <jk:MimeContentId>${DataSource#MimeContentId}</jk:MimeContentId>             <jk:MimeContentTypeCode listAgencyID="IANA">${DataSource#MimeContentTypeCode}</jk:MimeContentTypeCode>          </arch:Bijlage>       </bd:DocumentAggregatieniveau>   </bd:RegistratieveRelatieZaak> </bd:Document>]]></con:value></con:property><con:property><con:name>DocumentAggregatieniveau</con:name><con:value><![CDATA[<bd:DocumentAggregatieniveau> 	<arch:ClassificatieDocumentClassificatie> 		<arch:Code>${DataSource#Code}</arch:Code> 	</arch:ClassificatieDocumentClassificatie> 	<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID> 	<arch:Naam>${DataSource#Naam}</arch:Naam> 	<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum> 	<arch:ExterneIdentificatiekenmerken> 		<arch:NummerExternSysteemID>${DataSource#ExternSysteemId}</arch:NummerExternSysteemID> 	</arch:ExterneIdentificatiekenmerken> 	<arch:Bijlage> 		<jk:MimeContentId>${DataSource#MimeContentId}</jk:MimeContentId> 		<jk:MimeContentTypeCode listAgencyID="IANA">${DataSource#MimeContentTypeCode}</jk:MimeContentTypeCode> 	</arch:Bijlage> </bd:DocumentAggregatieniveau>]]></con:value></con:property></con:properties><con:reportParameters/><con:breakPoints><con:testStepId>707f5c73-f575-49d9-b7f1-977bfbf3dab3</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>a2e0ee90-4ca0-4931-a34e-ef81db49bccc</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>

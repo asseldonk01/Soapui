@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite name="CurrencyConvertor" id="11183eb4-3484-426d-85c2-5f9e9adca50a" xmlns:con="http://eviware.com/soapui/config">
+    <con:settings><con:setting id="11183eb4-3484-426d-85c2-5f9e9adca50afileName">CurrencyConvertor</con:setting></con:settings>
+    <con:runType>SEQUENTIAL</con:runType>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>

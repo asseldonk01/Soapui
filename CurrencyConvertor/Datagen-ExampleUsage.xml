@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Datagen ExampleUsage" searchProperties="true" id="d8f4ad46-e4fe-422e-863d-6d064cb8e8f0" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="d8f4ad46-e4fe-422e-863d-6d064cb8e8f0fileName">Datagen-ExampleUsage</con:setting></con:settings>
+      <con:testStep type="datagen" name="DataGen" id="185aa2b0-88d2-49d7-9d82-567567a0de2e">
+        <con:settings/>
+        <con:config xsi:type="con:DataGeneratorStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:property type="List">
+            <con:configuration>
+              <value>Maandag</value>
+              <value>Dinsdag</value>
+              <value>Woensdag</value>
+              <value>Donderdag</value>
+              <value>Vrijdag</value>
+              <value>Zaterdag</value>
+              <value>Zondag</value>
+              <random>true</random>
+            </con:configuration>
+            <con:name>weekDag</con:name>
+            <con:mode>STEP</con:mode>
+            <con:shared>false</con:shared>
+          </con:property>
+          <con:property type="Script">
+            <con:configuration><script>return new Date().format("yyyy-MM-dd'T'HH:mm:ss SSS")</script></con:configuration>
+            <con:name>scriptDatum</con:name>
+            <con:mode>STEP</con:mode>
+            <con:shared>false</con:shared>
+          </con:property>
+          <con:property type="Number">
+            <con:configuration>
+              <start>20</start>
+              <end>20000</end>
+              <step>5</step>
+              <pattern/>
+              <random>true</random>
+              <persist>false</persist>
+            </con:configuration>
+            <con:name>getalNumber</con:name>
+            <con:mode>STEP</con:mode>
+            <con:shared>false</con:shared>
+          </con:property>
+          <con:property type="Template">
+            <con:configuration>
+              <template>&lt;week>&lt;weekdag>${DataGen#weekDag}&lt;/weekdag>&lt;/week></template>
+              <entitize>false</entitize>
+            </con:configuration>
+            <con:name>xmlContent</con:name>
+            <con:mode>STEP</con:mode>
+            <con:shared>false</con:shared>
+          </con:property>
+        <con:property type="Script"><con:configuration><script>import static java.util.UUID.randomUUID 
+ 
+return uuid = randomUUID() as String</script></con:configuration><con:name>guid</con:name><con:mode>STEP</con:mode><con:shared>false</con:shared></con:property></con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" id="f45b88c0-0249-452c-b4d2-30bcaa042696">
+        <con:settings/>
+        <con:config><script>def weekDag = context.expand( '${DataGen#weekDag}' )
+log.info weekDag
+
+def xmlContent = context.expand( '${DataGen#xmlContent}' )
+log.info xmlContent
+
+def guid = context.expand( '${DataGen#guid}' )
+log.info guid
+
+// log.info ${DataGen#weekDag}
+// log.info ${DataGen#scriptDatum}
+// log.info ${DataGen#getalNumber}</script></con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>

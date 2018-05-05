@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="748b1d66-b55e-47fd-b807-891dba2e817f" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="LIstingXmlFilesInFolder" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="748b1d66-b55e-47fd-b807-891dba2e817ffileName">LIstingXmlFilesInFolder</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="b95c8ba8-cd5d-41b3-b4e4-4201964a706a"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+
+// pass a directory or use the current directory
+//def folder = args?.size() ? args[0] : "."
+def folder = 'E:/soapui/folderWithXmlFiles'
+log.info "reading files from directory '$folder'"
+def basedir = new File(folder)
+
+// result files of the current run
+files = basedir.listFiles().grep(~/.*xml$/)
+
+List resultLines() {
+    List result = []
+    for (currentFile in files) { 
+    	   fileContent = new File("$currentFile").getText('UTF-8')
+        //log.info fileContent.toString()               
+    }
+    //return result
+}
+
+//String fileContents = new File("$currentFile").getText('UTF-8')</script></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script 2" id="c9cc3733-6b16-40de-8528-95407aa82995"><con:settings/><con:config><script>import groovy.io.FileType
+
+def folder = 'E:/soapui/folderWithXmlFiles'
+def currentDir = new File(folder)
+def found = []
+
+currentDir.eachFileMatch(FileType.ANY, ~/.*xml$/) {
+	found &lt;&lt; it.name
+	//log.info it.name
+	xmlFile = folder+'/'+it.name
+	Document = new XmlParser().parse(xmlFile)
+	assert Document instanceof groovy.util.Node
+	assert Document.RegistratieveRelatieZaak.Zaakidentificatiecode.text() == '12345'
+	//log.info Document.toString()
+	//fileContent = new File(currentDir+'/'+it.name).getText('UTF-8')
+
+	//response = new XmlSlurper().parseText(books)
+     //catcherInTheRye = response.books.Document.RegistratieveRelatieZaak'*'.find { node->
+ 		/* node.@id == 2 could be expressed as node['@id'] == 2 */
+    //		node.name() == 'Zaakidentificatiecode'
+	//}
+
+//assert catcherInTheRye.title.text() == 'Catcher in the Rye'
+}
+
+ </script></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script  - xmlslurper" id="5330fc7b-ba83-4e2b-bab3-2582c27d9cd2"><con:settings/><con:config><script>import groovy.io.FileType
+
+def folder = 'E:/soapui/folderWithXmlFiles'
+def currentDir = new File(folder)
+def found = []
+
+currentDir.eachFileMatch(FileType.ANY, ~/.*xml$/) {
+	found &lt;&lt; it.name
+	//log.info it.name
+	xmlFile = folder+'/'+it.name
+	xmlText = new XmlSlurper().parse(xmlFile)
+	log.info xmlText
+	xmlText.each{
+		log.info it
+	}
+	//log.info xmlText.toString()	
+}
+
+
+
+//assert list instanceof groovy.util.slurpersupport.GPathResult 
+//assert list.technology.name == 'Groovy'
+
+
+
+
+ </script></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script  - xmlslurper" id="0cee826b-c5fb-45b4-8461-a44f912d1d88"><con:settings/><con:config><script>import groovy.io.FileType
+
+def folder = 'E:/soapui/folderWithXmlFiles'
+def currentDir = new File(folder)
+def found = []
+
+currentDir.eachFileMatch(FileType.ANY, ~/.*xml$/) {
+	found &lt;&lt; it.name
+	//log.info it.name
+	xmlFile = folder+'/'+it.name
+	xmlText = new XmlSlurper().parse(xmlFile)
+	log.info xmlText
+	xmlText.each{
+		log.info it
+	}
+	//log.info xmlText.toString()	
+}
+
+
+
+//assert list instanceof groovy.util.slurpersupport.GPathResult 
+//assert list.technology.name == 'Groovy'
+
+def reader = groovyUtils.getXmlHolder(test1 );
+
+use (groovy.xml.dom.DOMCategory) {
+    for( node in reader.getDomNodes( "//ns1:node" )) {
+        node.children().each { child ->
+            println child
+        }
+    }
+}
+
+
+ </script></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script  - xmlslurper 2" id="a1b42cfe-fd69-4bed-bc73-4bb1f06c6884"><con:settings/><con:config><script>import groovy.io.FileType
+
+def folder = 'E:/soapui/folderWithXmlFiles'
+def currentDir = new File(folder)
+def found = []
+
+def zaaknummer = '123456'
+
+currentDir.eachFileMatch(FileType.ANY, ~/.*xml$/) {
+	found &lt;&lt; it.name
+	//log.info it.name
+	xmlFile = folder+'/'+it.name
+	fileContents = new File(xmlFile).getText('UTF-8')
+	holderXML = groovyUtils.getXmlHolder(fileContents)
+
+	holderXML["//Zaakidentificatiecode"] = zaaknummer
+	
+	xmlText = new XmlSlurper().parse(xmlFile)
+	log.info xmlText
+	xmlText.each{
+		log.info it
+	}
+	//log.info xmlText.toString()	
+}
+
+
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+
+String fileContents = new File(projectDir+'/'+'DocumentNodes.xml').getText('UTF-8')
+
+def holderXML = groovyUtils.getXmlHolder(fileContents)
+
+def zaaknummer = context.expand( '${Properties#zaaknummer}' )
+
+// change using XPath
+holderXML["//srk:Zaakidentificatiecode"] = zaaknummer
+
+holderXML.updateProperty()
+
+log.info holderXML.xml
+
+file = new File(projectDir+'/'+'DocumentNodes_new.xml')
+file.createNewFile()
+file.write(holderXML.xml)
+
+
+
+
+ </script></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script  - vinden tag in xml" id="18bc4132-f505-4c4a-9650-f47cb751fe17"><con:settings/><con:config><script>import groovy.io.FileType
+import groovy.xml.*
+
+def folder = 'E:/soapui/folderWithXmlFiles'
+def currentDir = new File(folder)
+def found = []
+
+def zaaknummer = '123456'
+
+currentDir.eachFileMatch(FileType.ANY, ~/.*xml$/) {
+	found &lt;&lt; it.name
+	//log.info it.name
+	xmlFile = folder+'/'+it.name
+	fileContents = new File(xmlFile).getText('UTF-8')
+	message = new XmlSlurper().parseText(fileContents)
+
+	message.'**'
+        .findAll { it.name() == 'RegistratieveRelatieZaak' }
+        .each {
+            log.info it.Zaakidentificatiecode.text()
+        }    
+}
+
+
+</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>

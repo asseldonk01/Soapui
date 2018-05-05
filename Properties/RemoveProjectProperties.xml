@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="fcb0f1f1-ae80-4571-b469-94814faa7359" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RemoveProjectProperties" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="fcb0f1f1-ae80-4571-b469-94814faa7359fileName">RemoveProjectProperties</con:setting></con:settings><con:testStep type="groovy" name="RemoveTestcaseProperties - with pattern" id="0403a05c-7f0c-432b-870d-1bd2515c9b77"><con:settings/><con:config><script>/* remove testcase  properties */
+def testcase = context.testCase
+def propertyNames = testcase.getPropertyNames()
+
+// Remove project properties when starting with the character _
+regExp = /^_.+/
+ 
+for( name in propertyNames ) {
+
+   testCaseProperty = testRunner.testCase.getPropertyValue(name)
+   finder = (name ==~ regExp)
+   if (finder) {
+            log.info 'Match found'                   
+            testRunner.testCase.removeProperty(name) 
+   }   
+}</script></con:config></con:testStep><con:testStep type="groovy" name="RemoveProjectProperties - with pattern" id="426da37b-0f6c-406a-b06c-1c087fdf2d6f"><con:settings/><con:config><script>/* remove testcase  properties */
+def project = context.testCase.testSuite.project
+def propertyNames = project.getPropertyNames()
+
+// Remove project properties when starting with the character _
+regExp = /^_.+/
+ 
+for( name in propertyNames ) {
+
+   testProperty = testRunner.testCase.testSuite.project.getPropertyValue(name)
+   finder = (name ==~ regExp)
+   if (finder) {
+            log.info 'Match found'                   
+            testRunner.testCase.testSuite.project.removeProperty(name) 
+   }   
+}</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>

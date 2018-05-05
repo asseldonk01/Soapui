@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XmlUnitToCompareXml" searchProperties="true" id="93bfbb51-bd33-4419-beae-87a402091ea3" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="93bfbb51-bd33-4419-beae-87a402091ea3fileName">XmlUnitToCompareXml</con:setting></con:settings>
+      <con:testStep type="request" name="ConversionRate" id="79c7f1d8-9433-42bd-af84-56573dcf36c7">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap12</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="3de21693-415f-476b-b3f9-ba7829abc3e1" defaultOutgoingWss="" defaultIncomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>EUR</web:FromCurrency>
+         <web:ToCurrency>USD</web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3"/>
+            <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882"/>
+            <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.support.XmlHolder
+
+def holder = new XmlHolder( messageExchange.responseContentAsXml )
+holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
+def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
+
+assert node != null</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" id="e1ae30a7-cd76-475f-9c76-6c2fad2759b9">
+        <con:settings/>
+        <con:config>
+          <script>import org.custommonkey.xmlunit.*
+import static org.junit.Assert.assertEquals
+ 
+XMLUnit.setIgnoreWhitespace(true)
+XMLUnit.setIgnoreComments(true)
+XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true)
+XMLUnit.setNormalizeWhitespace(true)
+ 
+def expectedXML = testRunner.testCase.getPropertyValue( "expectedContent" )
+ 
+def actualXML = testRunner.testCase.getPropertyValue( "xmlContent" )
+ 
+//XMLUnit.compareXML(expectedXml, actualXml)
+ 
+def xmlDiff = new Diff(actualXML, expectedXML)
+//assert xmlDiff.similar()
+
+// Allow only one difference
+def detailedDiff = new DetailedDiff(xmlDiff)    
+def differences = detailedDiff.getAllDifferences()
+log.info differences.size()
+assertEquals detailedDiff.toString(), 1, differences.size()
+
+// Only one difference, check that is the expected difference
+def location = differences.pop().getTestNodeDetail().getXpathLocation()
+log.info location
+// a regex may be better for this?
+// def expectedLocation = '/ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]'
+//assertEquals expectedLocation, location
+
+//  '/person[1]/employment[1]/company[1]/text()[1]'
+
+//declare namespace ns1='http://www.webserviceX.NET/';
+//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="assertionteststep" name="Assertion TestStep" id="43552160-49fc-483a-9a5c-3d4385be5fb3">
+        <con:settings/>
+        <con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:entry>
+            <con:id>5d1e1174-e978-404e-8071-38435cb0a3bc</con:id>
+            <con:isGroup>false</con:isGroup>
+            <con:sourceId>79c7f1d8-9433-42bd-af84-56573dcf36c7</con:sourceId>
+            <con:propertyName>Response</con:propertyName>
+            <con:assertion type="XPath Match" name="XPath Match" id="3ef910bb-4829-4fb1-aa9d-2a9ebb79ac2e"><con:configuration/></con:assertion>
+          </con:entry>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>fromCurrency</con:name>
+          <con:value>EUR</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expectedContent</con:name>
+          <con:value><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">    <soap:Body>       <ConversionRateResponse xmlns="http://www.webserviceX.NET/">          <ConversionRateResult>1.3748</ConversionRateResult>       </ConversionRateResponse>    </soap:Body> </soap:Envelope>]]></con:value>
+        </con:property>
+        <con:property>
+          <con:name>xmlContent</con:name>
+          <con:value><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">    <soap:Body>       <ConversionRateResponse xmlns="http://www.webserviceX.NET/">          <ConversionRateResult>1.3749</ConversionRateResult>       </ConversionRateResponse>    </soap:Body> </soap:Envelope>]]></con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>16a45bfa-ffb5-4dac-99ca-d29de768504c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

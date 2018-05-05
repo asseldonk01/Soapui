@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Looping" searchProperties="true" id="27add195-6976-4ae7-8cc2-4e3dd0204058" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="27add195-6976-4ae7-8cc2-4e3dd0204058fileName">Looping</con:setting></con:settings>
+      
+      
+      
+      
+      
+      <con:testStep type="datasource" name="DataSource" id="23dd104f-dbb6-4d4a-9856-5462232fa1fe"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Grid"><con:configuration><check><![CDATA[<xml-fragment><con:entry xmlns:con="http://eviware.com/soapui/config">true</con:entry><con:entry xmlns:con="http://eviware.com/soapui/config">true</con:entry><con:entry xmlns:con="http://eviware.com/soapui/config">true</con:entry></xml-fragment>]]></check><row><![CDATA[<xml-fragment><con:entry xmlns:con="http://eviware.com/soapui/config">USD</con:entry><con:entry xmlns:con="http://eviware.com/soapui/config">EUR</con:entry><con:entry xmlns:con="http://eviware.com/soapui/config">declare namespace ns1='http://www.webserviceX.NET/'; //ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]!=''</con:entry></xml-fragment>]]></row><row><![CDATA[<xml-fragment><con:entry xmlns:con="http://eviware.com/soapui/config">EUR</con:entry><con:entry xmlns:con="http://eviware.com/soapui/config">USD</con:entry><con:entry xmlns:con="http://eviware.com/soapui/config">declare namespace ns1='http://www.webserviceX.NET/'; //ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]!=''</con:entry></xml-fragment>]]></row><row><![CDATA[<xml-fragment><con:entry xmlns:con="http://eviware.com/soapui/config">XXX</con:entry><con:entry xmlns:con="http://eviware.com/soapui/config">USD</con:entry><con:entry xmlns:con="http://eviware.com/soapui/config">contains(//faultstring[1], 'There is an error in XML document')</con:entry></xml-fragment>]]></row><recognizeAsPlainText>true</recognizeAsPlainText></con:configuration></con:dataSource><con:property>van</con:property><con:property>naar</con:property><con:property>xpath</con:property><con:startRow/><con:endRow/><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep><con:testStep type="request" name="SOAP Request" id="5509acab-0371-4386-bd16-fa89885e1736"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CurrencyConvertorSoap</con:interface><con:operation>ConversionRate</con:operation><con:request name="SOAP Request" id="9104bfab-be1b-47ea-a082-950da30f7676" defaultOutgoingWss="" defaultIncomingWss="" outgoingWss="" incomingWss=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://www.webserviceX.NET/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <web:ConversionRate>\r
+         <web:FromCurrency>${DataSource#van}</web:FromCurrency>\r
+         <web:ToCurrency>${DataSource#naar}</web:ToCurrency>\r
+      </web:ConversionRate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="5c841e39-c90c-43cb-a888-402b5d7888bf"/><con:assertion type="Schema Compliance" id="f8cea32d-e10b-4134-abbf-4c0ab0770dd6"><con:configuration/></con:assertion><con:assertion type="GroovyScriptAssertion" id="a7c4a44a-e74f-480d-ad5d-c391f8b76cb2" name="Script Assertion"><con:configuration><scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def requsetHolder = groovyUtils.getXmlHolder( messageExchange.requestContent )
+def responseHolder = groovyUtils.getXmlHolder( messageExchange.responseContent )
+
+log.info responseHolder.prettyXml.toString()
+log.info responseHolder.xml.toString()</scriptText></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/><con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>No Authorization</con:authProfile></con:entry></con:environmentSpec></con:request></con:config></con:testStep><con:testStep type="assertionteststep" name="Assertion" id="8c0e7d75-6782-4496-83c4-eb0b37de0d93"><con:settings/><con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:entry><con:id>69221655-c207-4493-b08b-f43e84d6d4ef</con:id><con:isGroup>false</con:isGroup><con:sourceId>5509acab-0371-4386-bd16-fa89885e1736</con:sourceId><con:propertyName>Response</con:propertyName><con:assertion type="GroovyScriptAssertion" name="Script Assertion" id="c4954b4b-979c-473d-9ae5-e8e1134ed655"><con:configuration><scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def requsetHolder = groovyUtils.getXmlHolder( messageExchange.requestContent )
+def responseHolder = groovyUtils.getXmlHolder( messageExchange.responseContent )
+
+log.info responseHolder.prettyXml.toString()
+log.info responseHolder.xml.toString()</scriptText></con:configuration></con:assertion></con:entry><con:entry><con:id>0bfc47a3-5371-414d-99c2-79351cd70737</con:id><con:isGroup>false</con:isGroup><con:sourceId>5509acab-0371-4386-bd16-fa89885e1736</con:sourceId><con:propertyName>Response</con:propertyName><con:assertion type="XPath Match" name="XPath Match" id="dc8c8c61-593f-4fc3-9497-2ca5503ea036"><con:configuration><path>${DataSource#xpath}</path><content>true</content><allowWildcards>true</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:entry></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="51e74dd7-0ab3-4951-9066-d5c9865f4b33" disabled="true"><con:settings/><con:config><script>def rowCount = testRunner.testCase.getTestStepByName("DataSource").getRowCount()
+log.info 'RowCount :'+rowCount
+
+
+</script></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop" id="90a68adb-24c5-4282-aad9-7b6a6fb0fc8d"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>SOAP Request</targetStep></con:config></con:testStep><con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>f7f974bf-f661-4a9b-8d68-b572399237ad</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    <con:breakPoints><con:testStepId>5509acab-0371-4386-bd16-fa89885e1736</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>8c0e7d75-6782-4496-83c4-eb0b37de0d93</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>

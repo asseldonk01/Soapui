@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Display project properties" searchProperties="true" id="7a59c9f2-9e7a-4fcb-87cb-7fca63c5a6a5" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="7a59c9f2-9e7a-4fcb-87cb-7fca63c5a6a5fileName">Display-project-properties</con:setting></con:settings>
+      <con:testStep type="groovy" name="Display environment" id="607d0411-ae68-44a2-8d9f-25d6302ce1d3">
+        <con:settings/>
+        <con:config>
+          <script>//de omgevingcontext.expand( '${Project#endpoint}' )
+def omgeving = context.expand( '${#Project#Omgeving}' )
+def endpoint = context.expand( '${#Project#Endpoint}' )
+def connectionstring = context.expand( '${#Project#ConnectionStringZaak}' )
+
+log.info omgeving
+log.info endpoint
+log.info connectionstring
+return 0</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="assertionteststep" name="Assertion TestStep" id="0c0e57b9-4a13-4ad0-b11c-2bb5a784537e">
+        <con:settings/>
+        <con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:entry>
+            <con:id>b686e93c-9f34-4a7b-9cf4-eb167688e355</con:id>
+            <con:isGroup>false</con:isGroup>
+            <con:sourceId>607d0411-ae68-44a2-8d9f-25d6302ce1d3</con:sourceId>
+            <con:propertyName>result</con:propertyName>
+            <con:assertion type="Simple Contains" name="Contains" id="e976dae5-b372-4ed7-bb3d-9e9ae1d982f0">
+              <con:configuration>
+                <token>1</token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+          </con:entry>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>

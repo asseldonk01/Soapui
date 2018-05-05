@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="d15a3cb2-2d86-4aae-94da-83c621b61089" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="XmlSlurper - read XML from file" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="d15a3cb2-2d86-4aae-94da-83c621b61089fileName">XmlSlurper---read-XML-from-file</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="26199560-7d6e-4966-ae5e-907388586fd5" disabled="true"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+ 
+def rechtspraakIdentificatie = context.expand( '${#TestCase#Rechtspraak.Identificatie}' )
+ 
+def cpafile= context.expand( '${#TestCase#file}' )
+def cpaDir = context.expand( '${#TestCase#CPADir}' )
+ 
+def cpaPath = "${cpaDir}/${cpafile}"
+ 
+log.info "Inlezen van CPA [$cpaPath]"
+ 
+def cpaXml = new XmlSlurper()
+                        .parse(new File("$cpaPath"))
+                        .declareNamespace(tns:'http://www.oasis-open.org/committees/ebxml-cppa/schema/cpp-cpa-2_0.xsd')
+//def cpaXml = new XmlSlurper()
+//                        .parse(new File("$projectPath/$cpaPath"))
+//                        .declareNamespace(tns:'http://www.oasis-open.org/committees/ebxml-cppa/schema/cpp-cpa-2_0.xsd') 
+
+// Bij beide partijen staat dezelfde service, daarom wordt alleen van de 1-ste node de service opgehaald
+def service = cpaXml.'tns:PartyInfo'[0].'tns:CollaborationRole'.'tns:ServiceBinding'.'tns:Service'.text()
+
+
+ 
+def rechtspraakXml = cpaXml.'tns:PartyInfo'.find { node ->
+            node.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie)
+}
+def rechtspraakRoutingId = rechtspraakXml.'tns:PartyId'[0].text()
+def rechtspraakRoutingIdType = rechtspraakXml.'tns:PartyId'[0].'@tns:type'.text()
+ 
+def partnerXml = cpaXml.'tns:PartyInfo'.find { node ->
+            !(node.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie))
+}
+def partnerRoutingId = partnerXml.'tns:PartyId'.text()
+def partnerRoutingIdType = partnerXml.'tns:PartyId'.'@tns:type'.text()
+ 
+log.info "PARSE CPA OUTPUT"
+log.info "Service: "+service
+log.info "Rechtspraak.RoutingId: "+rechtspraakRoutingId
+log.info "Rechtspraak.RoutingIdType: "+rechtspraakRoutingIdType
+log.info "Partner.RoutingId: "+partnerRoutingId
+log.info "Partner.RoutingIdType: "+partnerRoutingIdType
+ 
+testRunner.testCase.setPropertyValue("Service", service)
+ 
+testRunner.testCase.setPropertyValue("Rechtspraak.RoutingId", rechtspraakRoutingId)
+testRunner.testCase.setPropertyValue("Rechtspraak.RoutingIdType", rechtspraakRoutingIdType)
+ 
+testRunner.testCase.setPropertyValue("Partner.RoutingId", partnerRoutingId)
+testRunner.testCase.setPropertyValue("Partner.RoutingIdType", partnerRoutingIdType)</script></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script" id="618a0715-5a72-4d5a-87bd-bc39eec16f26" disabled="true"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+ 
+def rechtspraakIdentificatie = context.expand( '${#TestCase#Rechtspraak.Identificatie}' )
+ 
+def cpafile= context.expand( '${#TestCase#file}' )
+def cpaDir = context.expand( '${#TestCase#CPADir}' )
+ 
+def cpaPath = "${cpaDir}/${cpafile}"
+ 
+log.info "Inlezen van CPA [$cpaPath]"
+ 
+def cpaXml = new XmlSlurper()
+                        .parse(new File("$cpaPath"))
+                        .declareNamespace(tns:'http://www.oasis-open.org/committees/ebxml-cppa/schema/cpp-cpa-2_0.xsd')
+//def cpaXml = new XmlSlurper()
+//                        .parse(new File("$projectPath/$cpaPath"))
+//                        .declareNamespace(tns:'http://www.oasis-open.org/committees/ebxml-cppa/schema/cpp-cpa-2_0.xsd')                        
+def service = cpaXml.'tns:PartyInfo'[0].'tns:CollaborationRole'.'tns:ServiceBinding'.'tns:Service'.text()
+ 
+def rechtspraakXml = cpaXml.'tns:PartyInfo'.find { node ->
+            node.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie)
+}
+def rechtspraakRoutingId = rechtspraakXml.'tns:PartyId'[0].text()
+def rechtspraakRoutingIdType = rechtspraakXml.'tns:PartyId'[0].'@tns:type'.text()
+ 
+def partnerXml = cpaXml.'tns:PartyInfo'.find { node ->
+            !(node.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie))
+}
+def partnerRoutingId = partnerXml.'tns:PartyId'.text()
+def partnerRoutingIdType = partnerXml.'tns:PartyId'.'@tns:type'.text()
+ 
+log.info "PARSE CPA OUTPUT"
+log.info "Service: "+service
+log.info "Rechtspraak.RoutingId: "+rechtspraakRoutingId
+log.info "Rechtspraak.RoutingIdType: "+rechtspraakRoutingIdType
+log.info "Partner.RoutingId: "+partnerRoutingId
+log.info "Partner.RoutingIdType: "+partnerRoutingIdType
+ 
+testRunner.testCase.setPropertyValue("Service", service)
+ 
+testRunner.testCase.setPropertyValue("Rechtspraak.RoutingId", rechtspraakRoutingId)
+testRunner.testCase.setPropertyValue("Rechtspraak.RoutingIdType", rechtspraakRoutingIdType)
+ 
+testRunner.testCase.setPropertyValue("Partner.RoutingId", partnerRoutingId)
+testRunner.testCase.setPropertyValue("Partner.RoutingIdType", partnerRoutingIdType)</script></con:config></con:testStep><con:testStep type="groovy" name="Example" id="9ba5e97f-efcc-4bc2-b9d7-1ce664f6affe"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+
+// Vrijwel altijd begint de naam van de rechtspraak met de tekst Rechtbanken
+def rechtspraakIdentificatie 	= context.expand( '${#TestCase#Rechtspraak.Identificatie}' )
+def cpa					= context.expand( '${#TestCase#cpa}' )
+def cpaDir 				= context.expand( '${#TestCase#CPADir}' )
+def cpaPath 				= "${cpaDir}/${cpa}"+'.xml'
+ 
+log.info "Inlezen van CPA [$cpaPath]"
+ 
+def cpaXml 				= new XmlSlurper()
+                        			.parse(new File("$cpaPath"))
+                        			.declareNamespace(tns:'http://www.oasis-open.org/committees/ebxml-cppa/schema/cpp-cpa-2_0.xsd')
+
+// Ophalen CPA uit het bestand
+def cpaid = cpaXml.getProperty('@tns:cpaid')
+
+// Meegegeven CPA moet gelijk zijn aan CPA in het bestand
+if (cpaid != cpa) {
+	log.info 'CPA '+cpa+' is niet opgenomen in het xml bestand'
+	testRunner.fail('stop')
+}
+
+// Ophalen Service: Bij beide partijen staat dezelfde service, daarom wordt alleen van de 1-ste node de service opgehaald
+def service = cpaXml.PartyInfo[0].CollaborationRole.ServiceBinding.Service.text()
+def serviceType = cpaXml.PartyInfo[0].CollaborationRole.ServiceBinding.Service.getProperty('@tns:type')
+
+// De rechtspraak
+def rechtspraak		= cpaXml.PartyInfo.find { partynode -> partynode.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie)}
+rechtspraakService 		= rechtspraak.CollaborationRole.ServiceBinding.Service.text()
+rechtspraakServiceType 	= rechtspraak.CollaborationRole.ServiceBinding.Service.getProperty('@tns:type')
+rechtspraakPartyName 	= rechtspraak.getProperty('@tns:partyName')
+rechtspraakRole 		= rechtspraak.CollaborationRole.Role.getProperty('@tns:name') 
+
+def partyId 			= rechtspraak.PartyId.find {node -> node.text().contains('OTA')}
+rechtspraakRoutingId 	= partyId.text()      		
+rechtspraakRoutingIdType = partyId.getProperty('@tns:type') 
+
+// De ketenpartner
+def partner 			= cpaXml.PartyInfo.find { node -> !node.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie)}
+
+partnerService 		= partner.CollaborationRole.ServiceBinding.Service.text()
+partnerServiceType		= partner.CollaborationRole.ServiceBinding.Service.getProperty('@tns:type')
+partnerPartyName 		= partner.getProperty('@tns:partyName')
+partnerRole 			= partner.CollaborationRole.Role.getProperty('@tns:name') 
+
+//def partnerpartyId 		= partner.PartyId.find {it.text().contains('OTA')}
+def partnerpartyId 		= partner.PartyId.find {node -> node.text().contains('OTA')}
+partnerRoutingId 		= partnerpartyId.text()      		
+partnerRoutingIdType 	= partnerpartyId.getProperty('@tns:type') 
+  
+log.info "PARSE CPA OUTPUT"
+log.info "Service: "+service
+log.info "Rechtspraak.RoutingId: "+rechtspraakRoutingId
+log.info "Rechtspraak.RoutingIdType: "+rechtspraakRoutingIdType
+log.info "Rechtspraak.Role: "+rechtspraakRole
+log.info "Rechtspraak.PartyName: "+rechtspraakPartyName
+log.info "Partner.RoutingId: "+partnerRoutingId
+log.info "Partner.RoutingIdType: "+partnerRoutingIdType
+log.info "Partner.Role: "+partnerRole
+log.info "Partner.PartyName: "+partnerPartyName
+
+ </script></con:config></con:testStep><con:testStep type="groovy" name="Copy of Example" id="12176f61-318b-408b-92cf-28c27bdf85d1"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+
+// Vrijwel altijd begint de naam van de rechtspraak met de tekst Rechtbanken
+def rechtspraakIdentificatie 	= context.expand( '${#TestCase#Rechtspraak.Identificatie}' )
+def cpa					= context.expand( '${#TestCase#cpa}' )
+def cpaDir 				= context.expand( '${#TestCase#CPADir}' )
+def cpaPath 				= "${cpaDir}/${cpa}"+'.xml'
+ 
+log.info "Inlezen van CPA [$cpaPath]"
+ 
+def cpaXml 				= new XmlSlurper()
+                        			.parse(new File("$cpaPath"))
+                        			.declareNamespace(tns:'http://www.oasis-open.org/committees/ebxml-cppa/schema/cpp-cpa-2_0.xsd')
+
+// Ophalen CPA uit het bestand
+//def cpaid = cpaXml.'@tns:cpaid'.text()
+def cpaid = cpaXml.getProperty('@tns:cpaid')
+
+// Meegegeven CPA moet gelijk zijn aan CPA in het bestand
+if (cpaid != cpa) {
+	log.info 'CPA '+cpa+' is niet opgenomen in het xml bestand'
+	testRunner.fail('stop')
+}
+
+// Ophalen Service: Bij beide partijen staat dezelfde service, daarom wordt alleen van de 1-ste node de service opgehaald
+// def service = cpaXml.'tns:PartyInfo'[0].'tns:CollaborationRole'.'tns:ServiceBinding'.'tns:Service'.text()
+def service = cpaXml.PartyInfo[0].CollaborationRole.ServiceBinding.Service.text()
+//log.info 'Service: '+service
+
+def serviceType = cpaXml.PartyInfo[0].CollaborationRole.ServiceBinding.Service.getProperty('@tns:type')
+//log.info 'Service type: '+serviceType
+
+
+//cpaXml.'tns:PartyInfo'.each { 
+//	log.info "PartyName: "+it.'@tns:partyName'.text()
+//     if (it.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie)) {
+//       log.info "PartyName: "+it.'@tns:partyName'.text() 
+//     }	
+//}
+
+def party = cpaXml.PartyInfo.find { it.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie)}
+log.info party.PartyId[0].text()
+rechtspraakService = party.CollaborationRole.ServiceBinding.Service.text()
+rechtspraakServiceType = party.CollaborationRole.ServiceBinding.Service.getProperty('@tns:type')
+rechtspraakPartyName = party.getProperty('@tns:partyName')
+rechtspraakRole = party.CollaborationRole.Role.getProperty('@tns:name') 
+
+def partyId = party.PartyId.find {it.text().contains('OTA')}
+rechtspraakRoutingId = partyId.text()      		
+rechtspraakRoutingIdType = partyId.getProperty('@tns:type') 
+  
+log.info "Rechtspraak.RoutingId: "+rechtspraakRoutingId
+log.info "Rechtspraak.RoutingIdType: "+rechtspraakRoutingIdType
+log.info "Rechtspraak.Role: "+rechtspraakRole
+log.info "Rechtspraak.PartyName: "+rechtspraakPartyName
+
+def partner = cpaXml.PartyInfo.find { !it.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie)}
+log.info partner.PartyId[0].text()
+partnerService = partner.CollaborationRole.ServiceBinding.Service.text()
+partnerServiceType = partner.CollaborationRole.ServiceBinding.Service.getProperty('@tns:type')
+partnerPartyName = partner.getProperty('@tns:partyName')
+partnerRole = partner.CollaborationRole.Role.getProperty('@tns:name') 
+
+def partnerpartyId = partner.PartyId.find {it.text().contains('OTA')}
+partnerRoutingId = partnerpartyId.text()      		
+partnerRoutingIdType = partnerpartyId.getProperty('@tns:type') 
+  
+log.info "Partner.RoutingId: "+partnerRoutingId
+log.info "Partner.RoutingIdType: "+partnerRoutingIdType
+log.info "Partner.Role: "+partnerRole
+log.info "Partner.PartyName: "+partnerPartyName
+
+return
+assert '00000004000000076000_OTA' == cpaXml.PartyInfo.find { it.'@partyName'.text().startsWith(rechtspraakIdentificatie)}.PartyId[0].text()
+	
+// 	log.info 'ALLEEN: '+it.partyName.text() 	
+//}
+
+
+
+// Ophalen gegevens van de rechtspraak
+cpaXml.'tns:PartyInfo'.each {      
+   if (it.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie)) {
+   	//rechtspraakService = it.'CollaborationRole'.'tns:ServiceBinding'.'tns:Service'.text()
+     //rechtspraakServiceType = it.'CollaborationRole'.'tns:ServiceBinding'.'tns:Service'.'@tns:type'.text()
+     rechtspraakService = it.CollaborationRole.ServiceBinding.Service.text()
+     rechtspraakServiceType = it.CollaborationRole.ServiceBinding.Service.getProperty('@tns:type')
+   	rechtspraakPartyName = it.'@tns:partyName'.text()
+   	rechtspraakRole = it.'tns:CollaborationRole'.'tns:Role'.'@tns:name'.text()   	
+   	it.'tns:PartyId'.each
+   	{
+      	if (it.text().contains('OTA')) {
+      		rechtspraakRoutingId = it.text()      		
+      		rechtspraakRoutingIdType = it.'@tns:type'.text()      		
+      	}
+   	}
+   }
+}   
+
+// Ophalen gegevens van de ketenpartner
+cpaXml.'tns:PartyInfo'.each {  
+   if (!it.'@tns:partyName'.text().startsWith(rechtspraakIdentificatie)) {
+   	partnerPartyName = it.'@tns:partyName'.text()   	
+   	partnerRole = it.'tns:CollaborationRole'.'tns:Role'.'@tns:name'.text()   	 	
+   	it.'tns:PartyId'.each
+   	{
+      	if (it.text().contains('OTA')) { 
+      		partnerRoutingId = it.text()     		
+      		partnerRoutingIdType = it.'@tns:type'.text()
+      		
+      	}
+   	}
+   }
+} 
+
+log.info "PARSE CPA OUTPUT"
+log.info "Service: "+service
+log.info "Rechtspraak.RoutingId: "+rechtspraakRoutingId
+log.info "Rechtspraak.RoutingIdType: "+rechtspraakRoutingIdType
+log.info "Rechtspraak.Role: "+rechtspraakRole
+log.info "Rechtspraak.PartyName: "+rechtspraakPartyName
+log.info "Partner.RoutingId: "+partnerRoutingId
+log.info "Partner.RoutingIdType: "+partnerRoutingIdType
+log.info "Partner.Role: "+partnerRole
+log.info "Partner.PartyName: "+partnerPartyName
+
+ </script></con:config></con:testStep><con:properties><con:property><con:name>file</con:name><con:value>cpa.xml</con:value></con:property><con:property><con:name>CPADir</con:name><con:value>F:\GroovyExamples</con:value></con:property><con:property><con:name>Rechtspraak.Identificatie</con:name><con:value>Rechtbanken</con:value></con:property><con:property><con:name>Service</con:name><con:value>S2S:4:0</con:value></con:property><con:property><con:name>Rechtspraak.RoutingId</con:name><con:value>00000004000000076000_OTA</con:value></con:property><con:property><con:name>Rechtspraak.RoutingIdType</con:name><con:value>urn:osb:oin</con:value></con:property><con:property><con:name>Partner.RoutingId</con:name><con:value>00000004000000012000_OTA</con:value></con:property><con:property><con:name>Partner.RoutingIdType</con:name><con:value>urn:osb:oin</con:value></con:property><con:property><con:name>cpa</con:name><con:value>S2S-4-0_00000004000000012000_OTA-00000004000000076000_OTA_0002</con:value></con:property></con:properties><con:reportParameters/></con:testCase>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="d1136e4f-7530-4415-a538-f29d5d72ed1b" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="BOM" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="d1136e4f-7530-4415-a538-f29d5d72ed1bfileName">BOM</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="3d62b739-1dbb-48a1-b13c-fa7b781fcd08" disabled="true"><con:settings/><con:config><script>import org.apache.commons.io.input.BOMInputStream
+import org.apache.commons.io.ByteOrderMark
+
+//def fileName = 'e:/testBOMUTF-16-LE.txt'
+//def fileName = 'e:/testBOMUTF-8.txt'
+def fileName = 'e:/test.txt'
+
+InputStream inputStream = new FileInputStream(fileName)
+
+//BOMInputStream bomIn = new BOMInputStream(inputStream)
+
+BOMInputStream bomIn = new BOMInputStream(inputStream, 
+   ByteOrderMark.UTF_8,
+   ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE,
+   ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE
+   )
+
+ if (bomIn.hasBOM() == false) {
+     log.info 'No BOM found'
+ } else if  (bomIn.hasBOM(ByteOrderMark.UTF_8)) {
+ 	log.info 'UTF-8 BOM found'
+ } else if (bomIn.hasBOM(ByteOrderMark.UTF_16LE)) {
+     log.info 'UTF-16 Little Endian BOM found'
+ } else if (bomIn.hasBOM(ByteOrderMark.UTF_16BE)) {
+     log.info 'UTF-16 Big Endian BOM found'
+ } else if (bomIn.hasBOM(ByteOrderMark.UTF_32LE)) {
+     log.info 'UTF-32 Little Endian BOM found'
+ } else if (bomIn.hasBOM(ByteOrderMark.UTF_32BE)) {
+     log.info 'UTF-32 Big Endian BOM found'
+ } else {
+ 	log.error 'Error: unual character found'
+ }
+ </script></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script - run" id="1616d862-a744-4407-a60a-dab28a52db3a"><con:settings/><con:config><script><![CDATA[import org.apache.commons.io.input.BOMInputStream
+import org.apache.commons.io.ByteOrderMark
+
+//def fileName = 'e:/testBOMUTF-16-LE.txt'
+//def fileName = 'e:/testBOMUTF-8.txt'
+//def fileName = 'e:/test.txt'
+
+def fileName = context.expand( '${#TestCase#file}' )
+def BOMcode = context.expand( '${#TestCase#BOMcode}' )
+
+InputStream inputStream = new FileInputStream(fileName)
+
+found = false
+
+BOMInputStream bomIn = new BOMInputStream(inputStream, 
+   ByteOrderMark.UTF_8,
+   ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE,
+   ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE
+   )
+
+ if (bomIn.hasBOM() == false) {
+     log.info 'No BOM found'
+ } else if  (BOMcode == 'UTF_8' && bomIn.hasBOM(ByteOrderMark.UTF_8)) {
+ 	log.info 'UTF-8 BOM found'
+ 	found = true
+ } else if (BOMcode == 'UTF_16LE' && bomIn.hasBOM(ByteOrderMark.UTF_16LE)) {
+     log.info 'UTF-16 Little Endian BOM found'
+     found = true
+ } else if (BOMcode == 'UTF_16BE' && bomIn.hasBOM(ByteOrderMark.UTF_16BE)) {
+     log.info 'UTF-16 Big Endian BOM found'
+     found = true
+ } else if (BOMcode == 'UTF_32LE' && bomIn.hasBOM(ByteOrderMark.UTF_32LE)) {
+     log.info 'UTF-32 Little Endian BOM found'
+     found = true
+ } else if (BOMcode == 'UTF_32BE' && bomIn.hasBOM(ByteOrderMark.UTF_32BE)) {
+     log.info 'UTF-32 Big Endian BOM found'
+     found = true
+ } else {
+ 	log.error 'Error: unual character found'
+ }
+
+ testRunner.testCase.setPropertyValue( "found", found.toString() )
+ ]]></script></con:config></con:testStep><con:properties><con:property><con:name>BOMcode</con:name><con:value>UTF_8</con:value></con:property><con:property><con:name>found</con:name><con:value>true</con:value></con:property><con:property><con:name>file</con:name><con:value>e:/testBOMUTF-8.txt</con:value></con:property></con:properties><con:reportParameters/><con:tagId>1a1d51f3-1800-4921-a33a-a492bab81538</con:tagId></con:testCase>

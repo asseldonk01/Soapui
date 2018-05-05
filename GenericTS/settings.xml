@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="5fad6403-f3d2-4569-8b48-ec7784bd060a" name="GenericTS" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="5fad6403-f3d2-4569-8b48-ec7784bd060afileName">GenericTS</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:properties/><con:reportParameters/></con:testSuite>

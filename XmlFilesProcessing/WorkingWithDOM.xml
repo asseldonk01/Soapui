@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="0e1139ca-ed32-40f5-bfcd-2af8f06bed0c" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="WorkingWithDOM" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="0e1139ca-ed32-40f5-bfcd-2af8f06bed0cfileName">WorkingWithDOM</con:setting></con:settings><con:testStep type="groovy" name="DOMbuilder - Java" id="587369ab-8638-430e-8f30-f312f348dcef"><con:settings/><con:config><script>import javax.xml.parsers.DocumentBuilderFactory
+import org.w3c.dom.Node
+
+
+/* Omslachtige manier om xml in te lezen op de java manier */
+def fac = DocumentBuilderFactory.newInstance()
+def builder = fac.newDocumentBuilder()
+def doc = builder.parse(new FileInputStream('f:/GroovyExamples/plan.xml'))
+
+/* bepalen root van het xml document */
+def plan = doc.documentElement
+
+String info(node) {
+	switch(node.nodeType) {
+		case Node.ELEMENT_NODE:
+		return 'element: '+node.nodeName
+		case Node.ATTRIBUTE_NODE:
+		return "attribute: '+ ${node.nodeName}=${node.NodeValue}"
+		case Node.TEXT_NODE:
+		return 'text: '+ node.NodeValue
+	}
+	return 'some other type: '+ node.NodeType
+}
+
+assert 'element: plan'  == info(plan)
+
+def week = plan.childNodes.find{'week' == it.nodeName}
+assert 'element: week' == info(week)
+
+def task = week.childNodes.item(1)
+assert 'element: task' == info(task)
+
+def title = task.attributes.getNamedItem('title')
+assert 'attribute: title=read XML chapter' == info(title)
+</script></con:config></con:testStep><con:testStep type="groovy" name="DOMbuilder - groovier" id="6d93f1b5-3609-4fb2-a936-e912436e0ad2"><con:settings/><con:config><script>//import javax.xml.parsers.DocumentBuilderFactory
+//import org.w3c.dom.Node
+
+
+def doc = groovy.xml.DOMBuilder.parse(new FileReader('f:/GroovyExamples/plan.xml'))
+
+/* bepalen root van het xml document */
+def plan = doc.documentElement
+
+use(groovy.xml.dom.DOMCategory) {
+	assert 'plan' == plan.nodeName
+	assert 'week' == plan[1].nodeName
+	assert 'week' == plan.week.nodeName
+	assert '8'    == plan[1].'@capacity' 
+}
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="xmlslurper" id="ec133d9c-85c7-4d7f-b81f-ffceab0dd418"><con:settings/><con:config><script>// Return a GPATHResult objects //
+def plan = new XmlSlurper().parse('f:/GroovyExamples/plan.xml')
+
+assert 'plan' == plan.name()
+//assert 'week' == plan.week[0].name()
+//assert 'task' == plan.week[0].task[0].name()
+//assert 'read XML chapter'    == plan.week[0].task[0].'@title' 
+
+assert plan.week[1].task.every{ it.'@done' == '0' }
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="xmlparser" id="1c2b8dce-7d6d-4ad2-a8d1-2c86ad400ede"><con:settings/><con:config><script>// Return a groovy.util.Node object //
+def plan = new XmlParser().parse('f:/GroovyExamples/plan.xml')
+
+assert 'plan' == plan.name()
+assert 'week' == plan.week[0].name()
+assert 'task' == plan.week[0].task[0].name()
+assert 'read XML chapter'    == plan.week[0].task[0].'@title' 
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="xmlparser-2" id="7fb357fc-ea9d-434d-b320-3f8b2ffcb524"><con:settings/><con:config><script>// Return a groovy.util.Node object //
+def bd = new groovy.xml.Namespace("http://data.justid.nl/s2srechtspraak/document/Document-1", 'ns')
+def ebvh = new groovy.xml.Namespace("http://data.justid.nl/common/header-2", 'ebvh2')
+def arch = new groovy.xml.Namespace("http://data.justid.nl/arch/dictionary-1", 'arch1')
+
+def Document = new XmlParser().parse('f:/GroovyExamples/DocumentNodes.xml')
+def newFileName = 'f:/GroovyExamples/DocumentNodesUpdated.xml'
+
+log.info Document[ebvh.OntvangendeInstantie][ebvh.Instantiecode].text()
+log.info Document[bd.DocumentAggregatieniveau][0][arch.IdentificatiekenmerkID].text()
+
+// [0] moet aan het einde
+Document[bd.DocumentAggregatieniveau][0][arch.IdentificatiekenmerkID][0].value = "12345"
+
+log.info Document[bd.DocumentAggregatieniveau][0][arch.IdentificatiekenmerkID].text()
+
+def writer = new FileWriter(newFileName)
+def printer = new XmlNodePrinter(new PrintWriter(writer))
+printer.preserveWhitespace = true
+printer.print(Document)
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="xmlparser - log name of all children nodes" id="17792543-abd1-4ba8-adbf-313e9fc9a824"><con:settings/><con:config><script>// Return a groovy.util.Node object //
+def Document = new XmlParser().parse('f:/GroovyExamples/DocumentNodes.xml')
+
+Document.children().each { log.info it.name()}
+
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="xmlparser-3" id="671a657f-85bf-4029-97e0-f75ef43e98ba"><con:settings/><con:config><script>// Return a groovy.util.Node object //
+
+import  groovy.xml.XmlUtil
+
+def bd = new groovy.xml.Namespace("http://data.justid.nl/s2srechtspraak/document/Document-1", 'ns')
+def ebvh = new groovy.xml.Namespace("http://data.justid.nl/common/header-2", 'ebvh2')
+def arch = new groovy.xml.Namespace("http://data.justid.nl/arch/dictionary-1", 'arch1')
+
+def Document = new XmlParser().parse('f:/GroovyExamples/DocumentNodes.xml')
+def newFileName = 'f:/GroovyExamples/DocumentNodesUpdated.xml'
+
+//log.info Document[ebvh.OntvangendeInstantie][ebvh.Instantiecode].text()
+//log.info Document[bd.DocumentAggregatieniveau][0][arch.IdentificatiekenmerkID].text()
+
+
+def nodeToSerialize = Document.'**'.find {it.name() == [arch.ClassificatieDocumentClassificatie]}
+def nodeAsText = XmlUtil.serialize(nodeToSerialize)</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>

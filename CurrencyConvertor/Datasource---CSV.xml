@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Datasource - CSV" searchProperties="true" id="2b9b341f-c046-45a6-ada3-40786f594445" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="2b9b341f-c046-45a6-ada3-40786f594445fileName">Datasource---CSV</con:setting></con:settings>
+      <con:testStep type="datasource" name="DataSource" id="97d5ca39-22cc-4f3a-826f-3b09048101e0">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSource type="File">
+            <con:configuration><fileName>Datasource.csv</fileName><separator>;</separator><trim>true</trim><charset>Cp1252</charset><quotedValues>false</quotedValues></con:configuration>
+          </con:dataSource>
+          
+          
+          
+          
+          
+          
+          
+          <con:property>propNaam</con:property><con:property>propWaarde</con:property><con:startRow/>
+          <con:endRow/>
+          <con:trimValues>false</con:trimValues>
+          <con:entitizeValues>false</con:entitizeValues>
+          <con:restartOnRun>true</con:restartOnRun>
+          <con:expandProperties>true</con:expandProperties>
+        </con:config>
+      </con:testStep>
+      
+      <con:testStep type="groovy" name="zetPropNaamWaarde" id="bc2af401-f52e-4ad8-a7bd-eea55bcd61f6">
+        <con:settings/>
+        <con:config><script>def propNaam = context.expand( '${DataSource#propNaam}' )
+def propWaarde = context.expand( '${DataSource#propWaarde}' )
+
+testRunner.testCase.setPropertyValue( propNaam , propWaarde )
+
+</script></con:config>
+      </con:testStep>
+      
+      
+      <con:testStep type="datasourceloop" name="DataSource Loop" id="77bf38ea-17f1-4d7e-bac6-b17a907af608"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>zetPropNaamWaarde</targetStep></con:config></con:testStep><con:properties><con:property><con:name>Combinatie</con:name><con:value>Y</con:value></con:property><con:property><con:name>Verzoeker</con:name><con:value>J. van Hemert</con:value></con:property><con:property><con:name>Verweerder</con:name><con:value>H. verweerder</con:value></con:property></con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>f7f974bf-f661-4a9b-8d68-b572399237ad</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

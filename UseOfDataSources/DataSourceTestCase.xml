@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="c5a57104-f77f-4568-92f5-2dbe13ec4af2" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="DataSourceTestCase" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="c5a57104-f77f-4568-92f5-2dbe13ec4af2fileName">DataSourceTestCase</con:setting></con:settings><con:testStep type="datasource" name="DataSource" id="8de985af-253f-45b2-bed4-d1f82ff33977"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Groovy"><con:configuration><script>def max = context.expand( '${#TestCase#max}' )
+if (testRunner.testCase.testSteps["DataSource"].currentRow &lt; max) {	
+	result["index"] = testRunner.testCase.testSteps["DataSource"].currentRow.toString()
+}
+
+
+
+</script></con:configuration></con:dataSource><con:property>index</con:property><con:completeLastOperation>true</con:completeLastOperation><con:restartOnRun>true</con:restartOnRun></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="c393c3cd-b9f4-4319-a6c4-7643517b6fe4"><con:settings/><con:config><script>log.info 'Row: '+testRunner.testCase.testSteps["DataSource"].currentRow.toString()</script></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop" id="cb197224-8820-4a17-97d2-bdaa145c57db"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Groovy Script</targetStep></con:config></con:testStep><con:properties><con:property><con:name>max</con:name><con:value>5</con:value></con:property></con:properties><con:reportParameters/></con:testCase>

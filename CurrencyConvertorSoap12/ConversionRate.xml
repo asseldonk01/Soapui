@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:operation isOneWay="false" action="http://www.webserviceX.NET/ConversionRate" name="ConversionRate" bindingOperationName="ConversionRate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="b5351edb-e578-4afc-8f54-e09bf8d59854" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="b5351edb-e578-4afc-8f54-e09bf8d59854fileName">ConversionRate</con:setting></con:settings>
+      <con:call name="Request 1" id="869e49d5-f079-416a-bd4a-03fea40b4329" defaultOutgoingWss="" defaultIncomingWss="">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://TesTea-HP:8089/mockCurrencyConvertorSoap12</con:endpoint>
+        <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>EUR</web:FromCurrency>
+         <web:ToCurrency>USD</web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+        <con:credentials>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:authType>Global HTTP Settings</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:jmsPropertyConfig/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+        <con:wsrmConfig version="1.2"/>
+      <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:call>
+      <con:call name="Request 2" id="31805b5a-5cd8-4926-9397-26d89d5503ae" defaultOutgoingWss="" defaultIncomingWss="">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://TesTea-HP:8089/mockCurrencyConvertorSoap12</con:endpoint>
+        <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>?</web:FromCurrency>
+         <web:ToCurrency>?</web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+        <con:credentials>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:authType>Global HTTP Settings</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:jmsPropertyConfig/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+        <con:wsrmConfig version="1.2"/>
+      <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:call>
+    </con:operation>

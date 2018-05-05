@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Compare XML" searchProperties="true" id="132899c2-73f8-41b8-9761-e65d7b30f69f" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="132899c2-73f8-41b8-9761-e65d7b30f69ffileName">Compare-XML</con:setting></con:settings>
+      <con:testStep type="request" name="Persoon" id="35a0f4d6-f8c2-48d1-8326-f95290a9c118">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap12</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="Persoon" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="f2b612dd-921f-437d-9aaa-ab25944b65df" defaultOutgoingWss="" defaultIncomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>EUR</web:FromCurrency>
+         <web:ToCurrency>USD</web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" name="SOAP Response" id="ac324561-f434-492b-a8d3-8912632aae1c"/>
+            <con:assertion type="Schema Compliance" name="Schema Compliance" id="64611de1-5c47-43b6-a95c-084ce20b92dd">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="6811fbd2-0dc5-44ca-b64d-cf0935e874d3"/>
+            <con:assertion type="XQuery Match" name="XQuery Match" id="9bbba94b-0e33-4706-88e2-28a895924ffd">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="00beef49-79d0-45de-9e2b-6250593488f6">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.support.XmlHolder
+
+def holder = new XmlHolder( messageExchange.responseContentAsXml )
+holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
+def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
+
+assert node != null</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" name="Zaak" id="4d3dd5fc-2dec-4a68-a5e2-27a1f7caaf7d">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap12</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="Zaak" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="03cdc02e-f2fb-4c28-bacc-bc6cf2bc850a" defaultOutgoingWss="" defaultIncomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>EUR</web:FromCurrency>
+         <web:ToCurrency>USD</web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" name="SOAP Response" id="11988924-6e24-44bb-b7d0-b6ea2cca2788"/>
+            <con:assertion type="Schema Compliance" name="Schema Compliance" id="0cfda180-848e-44e9-89b2-13df63cfbb73">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="68e02707-6b61-4db9-9a07-9950c17dd207"/>
+            <con:assertion type="XQuery Match" name="XQuery Match" id="153e749a-e2b9-455c-ac4b-7dbdac9e9d77">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="08afc011-4a10-497a-a2ef-fec7a4ba057f">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.support.XmlHolder
+
+def holder = new XmlHolder( messageExchange.responseContentAsXml )
+holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
+def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
+
+assert node != null</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" id="06040c73-478a-4a91-b59b-ea68a3a74f59">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+ 
+def PersoonHolder = groovyUtils.getXmlHolder( "Persoon#Response" )
+def PersoonZaakHolder = groovyUtils.getXmlHolder( "Zaak#Response" )
+
+//def persoonXML = groovyUtils.getXML( "Persoon#Response" )
+//log.info persoonXML
+
+def nodeCount = PersoonHolder.getDomNode("//Persoon").length
+log.info nodeCount
+
+/*
+for (def nodeIndex = 1; nodeIndex &lt;= nodeCount; nodeIndex++) {
+   def node = holder.getDomNode("//Persoon/["+nodeIndex+"]/*")
+   node.each { 
+      log.info "map node " + nodeIndex + " - " + it.QName.toString() + ":" + it.firstChild.nodeValue
+   }
+}
+**/</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Copy of Groovy Script" id="dfe4f3d5-69b6-41d5-98fc-a719c6944e64">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+ 
+def PersoonHolder = groovyUtils.getXmlHolder( "Persoon#Response" )
+def PersoonZaakHolder = groovyUtils.getXmlHolder( "Zaak#Response" )
+
+//def persoonXML = groovyUtils.getXML( "Persoon#Response" )
+//log.info persoonXML
+
+    def nodeCount = PersoonHolder.getDomNodes("//HaalOpPersoonAntwoordBericht/Persoon").length
+    log.info nodeCount
+
+for (def nodeIndex = 1; nodeIndex &lt;= nodeCount; nodeIndex++) {
+   def node = holder.getDomNodes("//HaalOpPersoonAntwoordBericht/["+nodeIndex+"]/Persoon/*")
+   node.each { 
+      log.info "map node " + nodeIndex + " - " + it.QName.toString() + ":" + it.firstChild.nodeValue
+   }
+}
+   /* 
+    //def zaakAdres = PersoonZaakHolder.getDomNode("//Persoon[RegistratieveRelaties/RegistratieveRelatie/Identificatiecode=33110754]")
+    //log.info zaakAdres
+
+    //use (groovy.xml.dom.DOMCategory) {
+   // for( node in PersoonHolder.getDomNode("//HaalOpPersoonAntwoordBericht/Persoon[RegistratieveRelaties/RegistratieveRelatie/Identificatiecode=33110754]" )) {
+    //    node.children().each { child ->
+    //        println child
+        }
+    }
+}
+    //log.info PersoonHolder.getXml()
+    //log.info ZaakHolder.getXml()
+
+    //def persoon1 = PersoonHolder.getNodeValue("//Adres")
+    //log.info persoon1
+    //def zaakAdres = ZaakHolder.getDomNodes("//Persoon[RegistratieveRelaties/RegistratieveRelatie/Identificatiecode=06023266]")
+    //log.info zaakAdres
+
+    def stringList=[]
+    def stringList2=[]
+
+for( node in PersoonHolder['//Persoon[RegistratieveRelaties/RegistratieveRelatie/Identificatiecode=33110754]'] )
+{  
+  stringList =stringList+node 
+}
+
+
+for( node2 in PersoonZaakHolder['//Persoon[RegistratieveRelaties/RegistratieveRelatie/Identificatiecode=33110754]'] )
+{ 
+  stringList2 =stringList2+node2 
+    if (node2 in stringList ) assert true
+    else assert null
+}
+
+
+log.info "Request>" + stringList
+log.info "result>"+ stringList2
+
+    //def pzaakAdres = ZaakHolder.getNodeValue("//Persoon[RegistratieveRelaties/RegistratieveRelatie/Identificatiecode=06023266]/NietNatuurlijkePersoon/Adressen/Adres")
+    //def persoon = PersoonHolder.getNodeValue("//Personen/Persoon[RegistratieveRelaties/RegistratieveRelatie/Identificatiecode=06023266] [RegistratieveRelaties/RegistratieveRelatie/SoortRegistratie=12]")
+    //log.info persoon
+ 
+    //def node1 = PersoonHolder.getDomNode( "//Persoon[//Identificatiecode=33110754]" )
+    //def node2 = ZaakHolder.getDomNode( "//Persoon[RegistratieveRelaties/RegistratieveRelatie/Identificatiecode=06023266] [RegistratieveRelaties/RegistratieveRelatie/SoortRegistratie=12]" )
+
+    //def soortAdres = node1.getNodeValue(“//SoortAdres”)
+    //log.info soortAdres
+
+    //def straat = node1.getNodeValue("//NaamOpenbareRuimte")
+    //log.info straat
+    
+            
+    //node1.each {
+    //log.info it.QName.getLocalPart()
+    //log.info it.firstChild.nodeValue
+    //}
+ 
+    //node2.each {
+    //log.info it.QName.getLocalPart()
+    //log.info it.firstChild.nodeValue
+    //}</script>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>fromCurrency</con:name>
+          <con:value>EUR</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>

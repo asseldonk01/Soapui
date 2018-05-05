@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RemoveProperties from testcase" searchProperties="true" id="a5a7f009-3e11-4c8e-a0a6-1dc739a1bfdb" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="a5a7f009-3e11-4c8e-a0a6-1dc739a1bfdbfileName">RemoveProperties-from-testcase</con:setting></con:settings>
+      
+      <con:testStep type="groovy" name="RemovePropertyStartingWith_" id="40f65a86-7ac1-469a-8248-0dd2f720e76e"><con:settings/><con:config><script>def testcase = context.testCase
+def propertyNames = testcase.getPropertyNames()
+
+// Remove project properties when starting with the character _
+regExp = /^_.+/
+ 
+for( name in propertyNames ) {
+
+   testCaseProperty = testRunner.testCase.getPropertyValue(name)
+   finder = (name ==~ regExp)
+   if (finder) {
+            log.info 'Match found'                   
+            testRunner.testCase.removeProperty(name) 
+   }   
+}</script></con:config></con:testStep><con:testStep type="groovy" name="RemoveAllProperties" id="f66b74ae-74fb-4133-bc24-513db121d03e"><con:settings/><con:config><script>def testcase = context.testCase
+def propertyNames = testcase.getPropertyNames()
+
+// Remove project properties when starting with the character _
+regExp = /^_.+/
+ 
+for( name in propertyNames ) {
+	 testRunner.testCase.removeProperty(name)     
+}</script></con:config></con:testStep><con:properties>
+        
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>f7f974bf-f661-4a9b-8d68-b572399237ad</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

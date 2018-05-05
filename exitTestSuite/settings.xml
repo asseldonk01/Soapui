@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="d0b6df19-fab1-45e9-b100-a04a68e32346" name="exitTestSuite" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="d0b6df19-fab1-45e9-b100-a04a68e32346fileName">exitTestSuite</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:properties><con:property><con:name>doorgaanTest</con:name><con:value>false</con:value></con:property></con:properties><con:reportParameters/></con:testSuite>

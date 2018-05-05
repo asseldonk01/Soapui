@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Latest Validate request" searchProperties="true" id="7cfe38da-ed20-43c5-a835-472387e5f4cb" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="7cfe38da-ed20-43c5-a835-472387e5f4cbfileName">Latest-Validate-request</con:setting></con:settings>
+      <con:testStep type="request" name="ConversionRate" id="1aa36efd-af14-4dfb-b043-05d352080936">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap12</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="88cc1e69-a623-4fba-9624-a88e4dd81ad9" defaultOutgoingWss="" defaultIncomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>EUR</web:FromCurrency>
+         <web:ToCurrency>USD</web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3" disabled="true"/>
+            <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313" disabled="true">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882" disabled="true"/>
+            <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800" disabled="true">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0" disabled="true">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.support.XmlHolder
+
+def holder = new XmlHolder( messageExchange.responseContentAsXml )
+holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
+def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
+
+assert node != null</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="18b382b5-24de-497d-9451-2889043dcd53" disabled="true">
+              <con:settings/><con:configuration>
+                <codes/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Script Assertion" disabled="true" id="94cd2947-de64-41ca-9722-c9de281f5a91">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.impl.wsdl.WsdlInterface
+
+def project = messageExchange.modelItem.testStep.testCase.testSuite.project
+
+//def testCaseProperty = messageExchange.modelItem.testStep.testCase.getPropertyValue( "xmlContent" )
+
+// def xmlContent = context.expand( '${#TestCase#xmlContent}' )
+//log.info xmlContent
+
+//profileInterface = testRunner.testCase.testSuite.project.getInterfaceByName("CurrencyConvertorSoap12");
+//myInterface = (WsdlInterface) testRunner.testCase.testSuite.project.getInterfaceByName("SampleServiceSoapBinding")
+
+def wsdlcontext = project.getInterfaceByName("CurrencyConvertorSoap12").getDefinitionContext()
+def validator = new com.eviware.soapui.impl.wsdl.support.wsdl.WsdlValidator(wsdlcontext);
+
+def errors = validator.assertRequest(messageExchange, false)
+
+log.info errors.length
+
+assert errors.length &lt; 1</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Script Assertion 2" id="d3a648ba-1477-4d29-8631-f27b797c8025">
+              <con:configuration>
+                <scriptText>def project = messageExchange.modelItem.testStep.testCase.testSuite.project;
+
+def wsdlcontext = project.getInterfaceAt(0).getDefinitionContext();
+
+def validator = new com.eviware.soapui.impl.wsdl.support.wsdl.WsdlValidator(wsdlcontext);
+
+def errors = validator.assertRequest(messageExchange, false)
+
+for( error in errors )  
+assert false</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="validateXMLbasedOnProperty" id="cac90245-58a0-4c4b-b520-e6bc3ec1309d">
+        <con:settings/>
+        <con:config>
+          <script>import javax.xml.XMLConstants
+import javax.xml.transform.stream.StreamSource
+import javax.xml.validation.*
+import groovy.xml.StreamingMarkupBuilder
+import groovy.xml.DOMBuilder
+import groovy.xml.dom.DOMCategory
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+
+// VOLGENDE REGELS KUNNEN AANGEPAST WORDEN
+//def endpoint = 'elementair/BerichtService_1.0'
+def endpoint = 'currencyconvertor.asmx'
+def varEndpoint = 'http://www.webservicex.com/'
+def varEndpointMock = 'http://www.webservicex.com/mock/'
+def requestContent = context.expand( '${#TestCase#xmlContent}' )
+
+// HET VOLGENDE MAG NIET AANGEPAST WORDEN
+
+// bepaal het pad van de WSDL
+//def words = endpoint.split('/')
+//def servicenaam = "${words.value[2]}_${words.value[3]}"
+//log.info servicenaam
+
+String serviceURL = "${varEndpoint}${endpoint}?wsdl"
+//String serviceWSDL = new URL(serviceURL).text.replaceAll('"',"'").replaceAll("(\\s)+"," ").replaceAll("> &amp;lt;",">&amp;lt;").replaceAll("location='${varEndpoint}","location='${varEndpointMock}")
+
+//log.info serviceURL
+//log.info serviceURL
+
+def root = new XmlSlurper().parseText(requestContent)
+def xmlContentUnderBody = ''
+ 
+// Bepaal het xml deel onder de Body in het Request
+
+//log.info groovy.xml.XmlUtil.serialize(root)
+//log.info root.children().size()
+//log.info root.Body.children().size()
+xmlContentUnderBody = groovy.xml.XmlUtil.serialize(root.Body.children())
+assert xmlContentUnderBody != '' : "Deel onder Body tag kan niet gevonden worden"
+//log.info xmlContentUnderBody
+
+/*
+log.info root.children.each { it ->
+  log.info groovy.xml.XmlUtil.serialize(it)
+}
+*/
+
+/*
+root.children().each { it -> 
+   if (it.name().toString().contains('Body')) {
+            if (it.children().size()==1) {
+                        it.children().each { node ->
+                                   xmlContentUnderBody = groovy.xml.XmlUtil.serialize(node)
+                                   log.info xmlContentUnderBody            
+                        }
+            }
+   }       
+ }
+ */
+
+
+
+
+// Haal het pad van de WSDL op, hiervoor geef je de naam van de interface mee
+// def wsdlLocation = context.expand( testRunner.testCase.testSuite.project.getInterfaceByName(interfaceName).getDefinition() )
+/*
+URL wsdlUrl = new URL(serviceURL);
+
+javax.xml.parsers.DocumentBuilderFactory dbf = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+javax.xml.parsers.DocumentBuilder db = dbf.newDocumentBuilder();
+org.w3c.dom.Document wsdlDoc = db.parse(wsdlUrl.openStream());
+assert wsdlDoc != null : "Kan WSDL niet parsen of WSDL kan niet gevonden worden"
+def wsdlHolder = new com.eviware.soapui.support.XmlHolder(wsdlDoc)
+ 
+wsdlHolder.declareNamespace("xsd", "http://www.w3.org/2001/XMLSchema")
+
+def countImportNodes = wsdlHolder["count(//import)"]  //Het import element kan zonder namespace gezocht worden
+ 
+assert new Integer(countImportNodes) != new Integer(0) : "Er moet minimaal 1 import schema zijn"
+def isValidatedOk = false
+ 
+Validator validator;
+ 
+for(xsdUrl in wsdlHolder.getNodeValues( "//import/@schemaLocation")) {
+  if (!isValidatedOk){
+     //log.info xsdUrl
+     URI uri = new URI(xsdUrl);
+            InputStream inp = uri.toURL().openStream();
+     try
+            {                      
+                        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                        StreamSource entitySs = new StreamSource(inp);
+                        Schema schema = factory.newSchema(entitySs);
+                        assert(schema != null);
+                        validator = schema.newValidator();       
+                        validator.validate(new StreamSource(new StringReader(xmlContentUnderBody)));         
+                        log.info "XML bericht is valid";
+                        isValidatedOk = true;
+            }
+            finally
+            {
+            inp.close();      
+            inp = null;
+            }
+  } 
+}
+*/
+//Is het bericht valide volgens 1 van de XSDs? Zo ja, groen. Zo nee, rood.
+
+//assert isValidatedOk : "XML bericht is NIET valid"</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="assertionteststep" name="Assertion TestStep" id="31896f56-b4cf-4cc2-944f-c64dece8510a">
+        <con:settings/>
+        <con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>fromCurrency</con:name>
+          <con:value>EUR</con:value>
+        </con:property>
+        <con:property>
+          <con:name>xmlContent</con:name>
+          <con:value><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">    <soap:Header/>    <soap:Body>       <web:ConversionRate>          <web:ToCurrency>USD</web:ToCurrency>       </web:ConversionRate>    </soap:Body> </soap:Envelope>]]></con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>16a45bfa-ffb5-4dac-99ca-d29de768504c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

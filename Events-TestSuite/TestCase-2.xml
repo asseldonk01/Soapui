@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 2" searchProperties="true" id="b0e2e373-34f9-477f-b2cb-829e3401a831" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings>
+        <con:setting id="IncludeOverview">true</con:setting>
+        <con:setting id="IncludeResults">true</con:setting>
+        <con:setting id="FlowLayout">false</con:setting>
+        <con:setting id="ErrorDetails">true</con:setting>
+        <con:setting id="IncludeCoverage">true</con:setting>
+      <con:setting id="b0e2e373-34f9-477f-b2cb-829e3401a831fileName">TestCase-2</con:setting></con:settings>
+      <con:testStep type="request" name="ConversionRate" id="321bac31-4533-4669-836a-af79e25879e4">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap12</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="fec08cca-9501-449f-9937-d18235c3b378" defaultOutgoingWss="" defaultIncomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>EUR</web:FromCurrency>
+         <web:ToCurrency>USD</web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" name="SOAP Response" id="7264fab9-1a0e-4226-9b87-ba768e2b5456"/>
+            <con:assertion type="Schema Compliance" name="Schema Compliance" id="ddd9de1f-7f0e-4b24-a14d-919304f86df4">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="a60122c4-3d60-40dd-b500-41533620d2d5"/>
+            <con:assertion type="XPath Match" name="XPath Match" id="a4db39ed-74f6-4d37-af57-b7f9533f7f48">
+              <con:configuration>
+                <path>declare namespace ns1='http://www.webserviceX.NET/';
+//ns1:ConversionRateResponse[1]</path>
+                <content>&lt;ConversionRateResponse xmlns="http://www.webserviceX.NET/" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  &lt;ConversionRateResult>*&lt;/ConversionRateResult>
+&lt;/ConversionRateResponse></content>
+                <allowWildcards>true</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" id="92fd56d2-016c-4a78-ab29-66127b11d5d8">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Check count of [ConversionRateResult]" id="8a1d6967-ee98-454f-9c57-862833da1c69">
+              <con:configuration>
+                <path>declare namespace ns1='http://www.webserviceX.NET/';
+count( //ns1:ConversionRateResponse/ns1:ConversionRateResult)</path>
+                <content>1</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" id="ca4db7a9-f935-4a98-878e-7beb806947b2">
+              <con:configuration/>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="assertionteststep" name="Assertion TestStep" id="db89c2cf-85b9-4001-9cb3-6748396cfc64">
+        <con:settings/>
+        <con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:entry>
+            <con:id>13941d4a-be5b-4a97-9616-c2a900605cd3</con:id>
+            <con:isGroup>false</con:isGroup>
+            <con:sourceId>321bac31-4533-4669-836a-af79e25879e4</con:sourceId>
+            <con:propertyName>Response</con:propertyName>
+            <con:assertion type="XPath Match" name="XPath Match">
+              <con:configuration>
+                <path>declare namespace ns1='http://www.webserviceX.NET/';
+//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]</path>
+                <content>1.3215</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+                <ignoreComments>false</ignoreComments>
+              </con:configuration>
+            </con:assertion>
+          </con:entry>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="properties" name="Properties" id="77ea9dde-bdf0-4acd-ad93-ba2af350a24d">
+        <con:settings/>
+        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:properties/>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>

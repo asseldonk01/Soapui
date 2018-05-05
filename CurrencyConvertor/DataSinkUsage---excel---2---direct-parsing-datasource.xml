@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DataSinkUsage - excel - 2 - direct parsing datasource" searchProperties="true" id="e9479779-f68a-4dad-b2e0-f3f84d798b8d" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="e9479779-f68a-4dad-b2e0-f3f84d798b8dfileName">DataSinkUsage---excel---2---direct-parsing-datasource</con:setting></con:settings>
+      <con:testStep type="datasource" name="DataSource" id="834014dc-d710-441e-adac-7bc426cc2879">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSource type="Excel">
+            <con:configuration><file>C:/Testen/Testtools/soapui/DataSource_voorbeeld.xls</file><worksheet/><cell>A2</cell><ignoreEmpty>false</ignoreEmpty><evaluateFormulas>false</evaluateFormulas></con:configuration>
+          </con:dataSource>
+          <con:property>Combinatie</con:property>
+          <con:property>Verzoeker</con:property>
+          <con:property>Verweerder</con:property>
+          <con:property>GerechtCode</con:property>
+          <con:property>InstantieCode</con:property>
+          <con:property>Gerecht</con:property>
+          <con:property>Instantie</con:property>
+          <con:startRow/>
+          <con:endRow/>
+          <con:trimValues>false</con:trimValues>
+          <con:entitizeValues>false</con:entitizeValues>
+          <con:restartOnRun>true</con:restartOnRun>
+          <con:expandProperties>true</con:expandProperties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="transfer" name="Property Transfer" disabled="true" id="9d38cad4-bda0-4b7a-aeca-f2396295a091">
+        <con:settings/>
+        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+            <con:name>Transfer ZaakNR naar datasink</con:name>
+            <con:sourceType>Combinatie</con:sourceType>
+            <con:sourceStep>DataSource</con:sourceStep>
+            <con:targetType>ZAAKNR</con:targetType>
+            <con:targetStep>DataSink</con:targetStep>
+            <con:upgraded>true</con:upgraded>
+          </con:transfers>
+          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+            <con:name>Transfer KvKA naar datasink</con:name>
+            <con:sourceType>Verzoeker</con:sourceType>
+            <con:sourceStep>DataSource</con:sourceStep>
+            <con:targetType>KVKA</con:targetType>
+            <con:targetStep>DataSink</con:targetStep>
+            <con:upgraded>true</con:upgraded>
+          </con:transfers>
+          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true">
+            <con:name>Transfer KvKB naar datasink</con:name>
+            <con:sourceType>Verweerder</con:sourceType>
+            <con:sourceStep>DataSource</con:sourceStep>
+            <con:targetType>KVKB</con:targetType>
+            <con:targetStep>DataSink</con:targetStep>
+            <con:upgraded>true</con:upgraded>
+          </con:transfers>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasink" name="DataSink" id="f3594355-ccda-4e59-b92b-dde7b32eb47b">
+        <con:settings/>
+        <con:config xsi:type="con:DataSinkStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSink type="Excel">
+            <con:configuration><file/><outfile>C:/Users/TesTea/Documents/MyDatasink.xls</outfile><worksheet/><cell>A1</cell><evaluateFormulas>false</evaluateFormulas></con:configuration>
+          </con:dataSink>
+          <con:properties>
+            <con:property>
+              <con:name>ZAAKNR</con:name>
+              <con:value>${Datasource#Combinatie}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>KVKA</con:name>
+              <con:value>${Datasource#Verzoeker}</con:value>
+            </con:property>
+            <con:property>
+              <con:name>KVKB</con:name>
+              <con:value>${Datasource#Verweerder}</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" disabled="true" id="c4fbd33d-ddf2-42b3-88f4-a2dda4bd641a">
+        <con:settings/>
+        <con:config>
+          <script>log.info testRunner.testCase.testSteps["DataSource"].getPropertyValue("ZAAKNR");
+log.info testRunner.testCase.testSteps["DataSink"].getPropertyValue("KVKA");
+log.info testRunner.testCase.testSteps["DataSink"].getPropertyValue("KVKB");</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasourceloop" name="DataSource Loop" id="7b88d494-41b8-4a9d-b8e6-f03b93310a29">
+        <con:settings/>
+        <con:config>
+          <dataSourceStep>DataSource</dataSourceStep>
+          <targetStep>DataSink</targetStep>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>ZAAKA</con:name>
+          <con:value>3</con:value>
+        </con:property>
+        <con:property>
+          <con:name>KVKA</con:name>
+          <con:value>456</con:value>
+        </con:property>
+        <con:property>
+          <con:name>KVKB</con:name>
+          <con:value>789</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>209b3cd8-b17d-49fb-ae9c-f29f9380d00c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>a3c5c7a7-4d02-4762-a654-f520cab0701e</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>8ff788e3-1879-430d-a003-5c9eaaadeeb9</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

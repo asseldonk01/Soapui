@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="478dec7f-5553-43c1-9ecc-4b600a886a03" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="getFileContent" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="478dec7f-5553-43c1-9ecc-4b600a886a03fileName">getFileContent</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="901c364e-eff3-4c6b-81a6-1be9851c73b6"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+def fileName = testRunner.testCase.getPropertyValue( "fileName" )
+String fileContent = context.expand( new File(projectDir+'/'+ fileName).getText('UTF-8'))
+testRunner.testCase.setPropertyValue( "fileContent", fileContent )</script></con:config></con:testStep><con:properties><con:property><con:name>fileName</con:name><con:value/></con:property><con:property><con:name>fileContent</con:name><con:value/></con:property></con:properties><con:reportParameters/></con:testCase>

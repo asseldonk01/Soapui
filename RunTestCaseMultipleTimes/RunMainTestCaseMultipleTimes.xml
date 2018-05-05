@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RunMainTestCaseMultipleTimes" searchProperties="true" id="cea9639e-685b-4456-be35-0c1e665ed105" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="cea9639e-685b-4456-be35-0c1e665ed105fileName">RunMainTestCaseMultipleTimes</con:setting></con:settings>
+      <con:testStep type="calltestcase" name="Run TestCase" id="1f9d7730-40bb-4fe2-9e57-d255c690b496">
+        <con:settings/>
+        <con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:targetTestCase>ebeff85b-9869-4a19-9460-fc1de2515d08</con:targetTestCase>
+          <con:properties>
+            <con:property>
+              <con:name>FirstName</con:name>
+              <con:value>Peter</con:value>
+            </con:property>
+            <con:property>
+              <con:name>LastName</con:name>
+              <con:value>Asseldonk</con:value>
+            </con:property>
+            <con:property>
+              <con:name>Prefix</con:name>
+              <con:value>van</con:value>
+            </con:property>
+          </con:properties>
+          <con:returnProperties/>
+          <con:runMode>PARALLELL</con:runMode>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="calltestcase" name="Run TestCase 2" id="6594dd13-5896-4118-8ba9-57a0cbfe03fe">
+        <con:settings/>
+        <con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:targetTestCase>ebeff85b-9869-4a19-9460-fc1de2515d08</con:targetTestCase>
+          <con:properties>
+            <con:property>
+              <con:name>FirstName</con:name>
+              <con:value>Jopie</con:value>
+            </con:property>
+            <con:property>
+              <con:name>LastName</con:name>
+              <con:value>Asseldonk</con:value>
+            </con:property>
+            <con:property>
+              <con:name>Prefix</con:name>
+              <con:value/>
+            </con:property>
+          </con:properties>
+          <con:returnProperties/>
+          <con:runMode>PARALLELL</con:runMode>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+    </con:testCase>

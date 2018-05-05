@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="88454fb5-811e-49cd-b854-3c98d1f307c6" name="groovyImportTestSuite" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="88454fb5-811e-49cd-b854-3c98d1f307c6fileName">groovyImportTestSuite</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:properties/><con:reportParameters/></con:testSuite>

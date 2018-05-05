@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Data generator (datasource)" searchProperties="true" id="6f071236-9acd-44e8-9063-80557c23e84f" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="6f071236-9acd-44e8-9063-80557c23e84ffileName">Data-generator-%28datasource%29</con:setting></con:settings>
+      
+      
+      
+      
+      
+      <con:testStep type="datasource" name="DataSource" id="ce5575d8-953b-4fe8-a333-2ed89bbca0d6"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Data Generator"><con:configuration><generatedDataCount>10</generatedDataCount><generatorsTotalNumber>1</generatorsTotalNumber><lastSelectedProperty>0</lastSelectedProperty><GeneratorType0>EMAIL</GeneratorType0><PropertyName0>test</PropertyName0><repetitionCounttest>0</repetitionCounttest><repeatValuestest>false</repeatValuestest><escapeSpaceSequence/></con:configuration></con:dataSource><con:property>test</con:property><con:restartOnRun>true</con:restartOnRun></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="b19a54eb-f97b-479e-90f4-ac964c7680d2"><con:settings/><con:config><script>def gegenereerdeData = context.expand( '${DataSource#test}' )
+
+log.info 'Gegenereerde data: '+gegenereerdeData
+</script></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop" id="90205656-27fd-4a00-a25b-9f24afa7c637"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Groovy Script</targetStep></con:config></con:testStep><con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>f7f974bf-f661-4a9b-8d68-b572399237ad</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

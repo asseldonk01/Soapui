@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="91f909ff-a502-407a-a6ae-22df06389eae" name="Use of environment" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="91f909ff-a502-407a-a6ae-22df06389eaefileName">Use-of-environment</con:setting></con:settings><con:savedRecentRuns>1</con:savedRecentRuns><con:runType>SEQUENTIAL</con:runType><con:properties/><con:reportParameters/></con:testSuite>

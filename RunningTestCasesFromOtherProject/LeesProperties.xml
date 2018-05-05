@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="a466cc84-5e1e-487b-b14d-f897f63e9ed5" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="LeesProperties" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="a466cc84-5e1e-487b-b14d-f897f63e9ed5fileName">LeesProperties</con:setting></con:settings><con:testStep type="groovy" name="LeesProperties" id="8a32c8f0-10a0-48db-a258-096f8b4011d9"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+
+def readPropertiesFile = context.expand( '${#TestCase#ReadPropertiesFile}' )
+
+log.info readPropertiesFile
+
+Properties properties = new Properties()
+File propertiesFile = new File(readPropertiesFile)
+propertiesFile.withInputStream {
+    properties.load(it)
+}
+
+def resultaat = 'Veld01' + '=' + properties.Veld01
+testRunner.testCase.setPropertyValue( 'Resultaat', resultaat )
+
+
+</script></con:config></con:testStep><con:properties><con:property><con:name>ReadPropertiesFile</con:name><con:value/></con:property><con:property><con:name>Resultaat</con:name><con:value/></con:property></con:properties><con:reportParameters/></con:testCase>

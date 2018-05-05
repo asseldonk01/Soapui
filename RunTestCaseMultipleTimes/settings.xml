@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite name="RunTestCaseMultipleTimes" id="bd4cc5aa-916a-4097-a2bc-4b6206006a23" xmlns:con="http://eviware.com/soapui/config">
+    <con:settings><con:setting id="bd4cc5aa-916a-4097-a2bc-4b6206006a23fileName">RunTestCaseMultipleTimes</con:setting></con:settings>
+    <con:runType>SEQUENTIAL</con:runType>
+    
+    
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>

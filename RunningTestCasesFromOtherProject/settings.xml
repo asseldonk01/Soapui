@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="af0e5f3f-6874-4904-89ea-bf6b4ac999e4" name="RunningTestCasesFromOtherProject" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="af0e5f3f-6874-4904-89ea-bf6b4ac999e4fileName">RunningTestCasesFromOtherProject</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:properties/><con:reportParameters/></con:testSuite>

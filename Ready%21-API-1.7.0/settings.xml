@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="ed1e6118-4268-43f8-94da-266e0b11216a" name="Ready! API 1.7.0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="ed1e6118-4268-43f8-94da-266e0b11216afileName">Ready%21-API-1.7.0</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:properties/><con:reportParameters/></con:testSuite>

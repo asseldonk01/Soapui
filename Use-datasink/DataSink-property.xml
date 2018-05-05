@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DataSink property" searchProperties="true" id="ebc6781a-b30d-4dde-adce-7c71cebc464c" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="ebc6781a-b30d-4dde-adce-7c71cebc464cfileName">DataSink-property</con:setting></con:settings>
+      <con:testStep type="datasource" name="DataSource" id="3b310a6d-2ee4-4ee0-a1fa-8b213eac7530" disabled="true"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Groovy"><con:configuration><script>def currentRow = testRunner.testCase.testSteps["DataSource"].currentRow + 1
+ 
+def row = context.expand( '${#TestCase#_jmsMessage.' + currentRow + '.Text}' )
+def naam = context.expand( '${#TestCase#_jmsMessage.' + currentRow + '.Name}' )
+if (row != "" ) {
+	result['i']=row
+	result['Naam']=naam
+}</script></con:configuration></con:dataSource><con:property>i</con:property><con:property>Naam</con:property><con:startRow/><con:endRow/><con:completeLastOperation>true</con:completeLastOperation><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" id="267eb0ab-b9b1-4aa4-9e50-68f748c3d9f6" disabled="true">
+        <con:settings/>
+        <con:config><script>log.info context.expand( '${DataSource#i}' )
+log.info context.expand( '${DataSource#Naam}' )</script></con:config>
+      </con:testStep>
+      
+      
+      
+      <con:testStep type="datasourceloop" name="DataSource Loop" id="61e5c51f-5e35-4bc9-a358-ea0a7d1f44eb" disabled="true"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Groovy Script</targetStep></con:config></con:testStep><con:testStep type="request" name="SOAP Request" id="9fd37ba5-cef0-4b11-bbda-8d00260d27f8"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CurrencyConvertorSoap</con:interface><con:operation>ConversionRate</con:operation><con:request name="SOAP Request" id="eff35ea9-5d60-412e-ae91-73fc29aa3883"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://www.webserviceX.NET/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <web:ConversionRate>\r
+         <web:FromCurrency>EUR</web:FromCurrency>\r
+         <web:ToCurrency>USD</web:ToCurrency>\r
+      </web:ConversionRate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f128c04c-8aca-4c11-aaf8-d8fa03825206"/><con:assertion type="Schema Compliance" id="da50ad07-c286-4a89-83ce-ad7408a29a6f"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="252735fc-c492-4265-9723-ff707cb8bee0"/><con:credentials><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/><con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>No Authorization</con:authProfile></con:entry></con:environmentSpec></con:request></con:config></con:testStep><con:testStep type="datasink" name="DataSink" id="f0c92d26-22bc-41ab-9efe-56163caa6a2f"><con:settings/><con:config xsi:type="con:DataSinkStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSink type="Property"><con:configuration><prefix>&lt;Notificaties></prefix><content>${SOAP Request#Response#declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/'; //soap:Envelope[1]}</content><suffix>&lt;/Notificaties></suffix><property>test</property></con:configuration></con:dataSink><con:properties><con:property><con:name>test</con:name><con:value/></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script 2" id="b302d272-1ba8-41ee-8c99-f093559cb546"><con:settings/><con:config><script>if( context.loopIndex == null )
+ context.loopIndex = 0
+
+if( ++context.loopIndex &lt; 2 )
+ testRunner.gotoStepByName( "SOAP Request" )</script></con:config></con:testStep><con:testStep type="assertionteststep" name="Assertion" id="aa3c8352-1fb4-4d4a-add7-8bc6e0afeb4d"><con:settings/><con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:entry><con:id>0336ea3d-b6e1-425d-a223-0608dc739559</con:id><con:isGroup>false</con:isGroup><con:sourceId>f0c92d26-22bc-41ab-9efe-56163caa6a2f</con:sourceId><con:propertyName>test</con:propertyName><con:assertion type="XPath Match" name="XPath Match" id="e0d6e607-a70a-4ec1-b1f7-500227d4dbca"><con:configuration><path>declare namespace ns1='http://www.webserviceX.NET/';
+declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+count(//Notificaties/soap:Envelope/soap:Body/ns1:ConversionRateResponse)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:entry></con:config></con:testStep><con:properties><con:property><con:name>_jmsMessage.1.Text</con:name><con:value>&lt;a>xml 1-ste tekst&lt;/a></con:value></con:property><con:property><con:name>_jmsMessage.1.Name</con:name><con:value>Name Eerste test</con:value></con:property><con:property><con:name>_jmsMessage.2.Text</con:name><con:value>&lt;b>xml 2-de tekst&lt;/b></con:value></con:property><con:property><con:name>_jmsMessage.2.Name</con:name><con:value>Name Tweede test</con:value></con:property></con:properties>
+      <con:reportParameters/>
+    <con:breakPoints><con:testStepId>c3354be2-430f-47a7-a980-e652a5bbe487</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>9fd37ba5-cef0-4b11-bbda-8d00260d27f8</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>

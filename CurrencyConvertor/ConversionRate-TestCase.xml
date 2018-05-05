@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ConversionRate TestCase" searchProperties="true" id="efd1eddb-cf5d-4eba-bb61-5f9a9182047a" disabled="true" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="efd1eddb-cf5d-4eba-bb61-5f9a9182047afileName">ConversionRate-TestCase</con:setting></con:settings>
+      <con:testStep type="groovy" name="LogFromCurrency" id="02b8e6e2-9390-4818-9b9c-dbe2d93b35c1" disabled="true">
+        <con:settings/>
+        <con:config>
+          <script>def fromCurrency = context.expand( '${#TestCase#fromCurrency}' )
+log.info "From: " + fromCurrency</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="ChangeFromCurrency" id="0de0e0fe-b71d-4a28-93fe-41b26e30ef90" disabled="true">
+        <con:settings/>
+        <con:config>
+          <script>// Display all methods of the class testRunner
+//log.info testRunner.metaClass.methods*.name
+
+// One of these methods is getTestCase
+def testCase = testRunner.getTestCase()
+testCase.setPropertyValue("fromCurrency","SEK")
+
+//Run from testCase level, than the right class is shown in script log. If not run on testCase level than MockService is displayed
+// Look for the WSDLTestCaseRunner class and find all related methods
+//log.info testRunner
+
+//log.info String.metaClass.methods*.name</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="request" name="ConversionRate" id="7d9a2753-e5ea-478c-a511-d0dc7d78eae4">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="ConversionRate" id="25bce712-d2ef-40c2-9bf4-992189897d00" defaultOutgoingWss="" defaultIncomingWss="" outgoingWss="" incomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://www.webserviceX.NET/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>SEK</web:FromCurrency>
+         <web:ToCurrency>USD</web:ToCurrency>
+      </web:ConversionRate>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>No Authorization</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="http://www.webserviceX.NET/ConversionRate" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" disabled="true" id="10717c5f-40a7-4b38-ab2d-47a95d6fafcc">
+        <con:settings/>
+        <con:config>
+          <script>log.info submit.response</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="assertionteststep" name="Assertion" id="8671d90c-875f-46d5-97e7-47c033ed1ab7"><con:settings/><con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:entry><con:id>f26b78d9-7408-470d-a50b-e082151dc14d</con:id><con:isGroup>false</con:isGroup><con:sourceId>7d9a2753-e5ea-478c-a511-d0dc7d78eae4</con:sourceId><con:propertyName>Response</con:propertyName><con:assertion type="XPath Match" name="XPath Match" id="ebb65c4c-8ba5-478c-8dde-7799e5ce5fb8"><con:configuration><path>declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+//soap:Body[1]</path><content><![CDATA[<soap:Body xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ConversionRateResponse xmlns="http://www.webserviceX.NET/">
+    <ConversionRateResult>-1</ConversionRateResult>
+  </ConversionRateResponse>
+</soap:Body>]]></content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:entry></con:config></con:testStep><con:properties>
+        <con:property>
+          <con:name>fromCurrency</con:name>
+          <con:value>SEK</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>02b8e6e2-9390-4818-9b9c-dbe2d93b35c1</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>0de0e0fe-b71d-4a28-93fe-41b26e30ef90</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

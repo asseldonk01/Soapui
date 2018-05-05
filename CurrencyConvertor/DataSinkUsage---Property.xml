@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DataSinkUsage - Property" searchProperties="true" id="d0618742-d5ae-4c86-9d7d-4c36d6439c11" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="d0618742-d5ae-4c86-9d7d-4c36d6439c11fileName">DataSinkUsage---Property</con:setting></con:settings>
+      <con:testStep type="datasource" name="DataSource" id="933d6144-e218-4512-97b4-02e7044a9b74">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSource type="Excel">
+            <con:configuration><file>C:/Testen/Testtools/soapui/DataSource_voorbeeld.xls</file><worksheet/><cell>A2</cell><ignoreEmpty>false</ignoreEmpty><evaluateFormulas>false</evaluateFormulas></con:configuration>
+          </con:dataSource>
+          <con:property>Combinatie</con:property>
+          <con:property>Verzoeker</con:property>
+          <con:property>Verweerder</con:property>
+          <con:property>GerechtCode</con:property>
+          <con:property>InstantieCode</con:property>
+          <con:property>Gerecht</con:property>
+          <con:property>Instantie</con:property>
+          <con:startRow/>
+          <con:endRow/>
+          <con:trimValues>false</con:trimValues>
+          <con:entitizeValues>false</con:entitizeValues>
+          <con:restartOnRun>true</con:restartOnRun>
+          <con:expandProperties>true</con:expandProperties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="transfer" name="Property Transfer" id="698891de-841b-41d3-ad91-328bff9183a9">
+        <con:settings/>
+        <con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false">
+            <con:name>Combinatie</con:name>
+            <con:sourceType>Combinatie</con:sourceType>
+            <con:sourceStep>DataSource</con:sourceStep>
+            <con:targetType>Combinatie</con:targetType>
+            <con:targetStep>DataSinkXml</con:targetStep>
+            <con:upgraded>true</con:upgraded>
+          </con:transfers>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasink" name="DataSinkXml" id="12433b5d-1255-41ae-9947-acb1452cf7a5">
+        <con:settings/>
+        <con:config xsi:type="con:DataSinkStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSink type="Property">
+            <con:configuration><prefix>&lt;zaken></prefix><content>&lt;zaak>&lt;${DataSinkXml#Combinatie}>&lt;/zaak></content><suffix>&lt;/zaken></suffix><property>result</property></con:configuration>
+          </con:dataSink>
+          <con:properties>
+            <con:property>
+              <con:name>result</con:name>
+              <con:value/>
+            </con:property>
+            <con:property>
+              <con:name>Combinatie</con:name>
+              <con:value>3</con:value>
+            </con:property>
+          </con:properties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script 2" id="078b3876-50be-47b9-b9d3-381d534d7475">
+        <con:settings/>
+        <con:config>
+          <script>log.info testRunner.testCase.testSteps["DataSinkXml"].getPropertyValue("result");</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="datasourceloop" name="DataSource Loop" id="dfe4e3a4-7e49-46d0-8178-6c27ec9497d5">
+        <con:settings/>
+        <con:config>
+          <dataSourceStep>DataSource</dataSourceStep>
+          <targetStep>Property Transfer</targetStep>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" id="6cb1780c-b472-41a6-b065-b98bbbbf0d1a" disabled="true">
+        <con:settings/>
+        <con:config>
+          <script>log.info ${DataSinkXml#result}</script>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>ZAAKA</con:name>
+          <con:value>3</con:value>
+        </con:property>
+        <con:property>
+          <con:name>KVKA</con:name>
+          <con:value>456</con:value>
+        </con:property>
+        <con:property>
+          <con:name>KVKB</con:name>
+          <con:value>789</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>71d61604-840f-414b-9014-f41d649536b7</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>209b3cd8-b17d-49fb-ae9c-f29f9380d00c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>a3c5c7a7-4d02-4762-a654-f520cab0701e</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>156f3cab-b9bf-4292-97e7-706348050d23</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+      <con:breakPoints>
+        <con:testStepId>1b181dd6-b951-4258-b229-f8b9aadb1b40</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

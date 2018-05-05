@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="b2a08ed4-c7c1-4cf0-8547-afd6fc6cf893" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="TestCase 2" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="b2a08ed4-c7c1-4cf0-8547-afd6fc6cf893fileName">TestCase-2</con:setting></con:settings><con:testStep type="groovy" name="verderTesten?" id="e548e1e6-8467-4e11-9a45-526e61742871"><con:settings/><con:config><script>/*
+ * 
+ * 
+ */
+
+def doorgaan = testRunner.testCase.testSuite.getPropertyValue( "doorgaanTest" )
+
+if (doorgaan == "false")
+	testRunner.cancel( "Eerdere test ging fout" )	
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="logInfo" id="a48bd91d-1308-4029-84ce-de0be60e5ce3"><con:settings/><con:config><script>/*
+ * 
+ * 
+ */
+
+ log.inf 'Testcase 2'</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>

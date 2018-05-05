@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="2e55f6a9-4dbe-4539-95dd-19c0ee7a8c34" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="TestCase 1" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="2e55f6a9-4dbe-4539-95dd-19c0ee7a8c34fileName">TestCase-1</con:setting></con:settings><con:testStep type="request" name="SOAP Request" id="fc663106-b024-4e42-bb2d-eb4654f09e06"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CurrencyConvertorSoap</con:interface><con:operation>ConversionRate</con:operation><con:request name="SOAP Request" id="58d06534-57d3-4d1e-99a0-fdd119cbc502"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://www.webserviceX.NET/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <web:ConversionRate>\r
+         <web:FromCurrency>EUR</web:FromCurrency>\r
+         <web:ToCurrency>USD</web:ToCurrency>\r
+      </web:ConversionRate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="9e838f4b-6167-4146-9895-de8089b56e49"/><con:credentials><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/><con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>No Authorization</con:authProfile></con:entry></con:environmentSpec></con:request></con:config></con:testStep><con:testStep type="groovy" name="zetVerwerkingsIndicator" id="815f2fbf-874d-4ebf-b055-7d002beb1069"><con:settings/><con:config><script>/*
+ * 
+ * 
+ */
+
+testRunner.testCase.testSuite.setPropertyValue( "doorgaanTest", "true" )
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="verderTesten?" id="2fe3f210-0ab6-42dd-b3ca-9ce7099854fd"><con:settings/><con:config><script>/*
+ * 
+ * 
+ */
+
+
+doorgaan = "false"
+
+if( doorgaan == "false" )
+{
+	testRunner.testCase.testSuite.setPropertyValue( "doorgaanTest", "false" )
+	testRunner.fail( "Deze test gaat fout" )	
+}</script></con:config></con:testStep><con:testStep type="groovy" name="logInfo" id="e1d49a14-9be3-4598-b070-60ac789fd486"><con:settings/><con:config><script>/*
+ * 
+ * 
+ */
+
+ log.inf 'Testcase 1'</script></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>fc663106-b024-4e42-bb2d-eb4654f09e06</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="d939b410-ef26-45a2-be3e-95b927076791" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="LoopingNoDatasource" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="d939b410-ef26-45a2-be3e-95b927076791fileName">LoopingNoDatasource</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="ab4fe971-b171-4ace-a640-651308526b80"><con:settings/><con:config><script>log.info 'Logging: Run first teststep'</script></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script 2" id="7221b13a-fe5d-40fa-a81b-42803d65b37c"><con:settings/><con:config><script>if( context.loopIndex == null ) {
+	context.loopIndex = 0		
+	}
+ 
+if( ++context.loopIndex &lt; 5 ) {	
+	testRunner.gotoStepByName( "Groovy Script" ) 
+}</script></con:config></con:testStep><con:properties><con:property><con:name>max</con:name><con:value>5</con:value></con:property></con:properties><con:reportParameters/></con:testCase>

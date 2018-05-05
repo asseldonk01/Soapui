@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="CalledTestCase" searchProperties="true" id="53597d05-2d08-4fdf-9b45-6a0b02813505" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="53597d05-2d08-4fdf-9b45-6a0b02813505fileName">CalledTestCase</con:setting></con:settings>
+      <con:testStep type="groovy" name="Groovy Script" id="6e86fb13-4338-4aa5-95ed-9acce0f896e1">
+        <con:settings/>
+        <con:config><script>def eerste = context.expand( '${#TestCase#TCeerste}' )
+def tweede = context.expand( '${#TestCase#TCtweede}' )
+
+switch ( eerste ) {
+    case "1":
+        result = "11";
+        break;
+       
+    case "2":
+        result = "22";
+        break;
+
+    case "3":       
+        goto exit;
+
+    default:
+        result = "0"
+}
+
+log.info 'Resultaat:'+result
+
+testRunner.testCase.setPropertyValue( "TCret", result )
+
+
+</script></con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>TCeerste</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>TCtweede</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>TCret</con:name>
+          <con:value>11</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>

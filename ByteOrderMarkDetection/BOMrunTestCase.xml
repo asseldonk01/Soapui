@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="3fce9d1b-dac4-4570-9dd9-3ecf899438d1" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="BOMrunTestCase" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="3fce9d1b-dac4-4570-9dd9-3ecf899438d1fileName">BOMrunTestCase</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="eadeb62e-9f29-48fa-ad63-5257dd375eb5" disabled="true"><con:settings/><con:config><script>import org.apache.commons.io.input.BOMInputStream
+import org.apache.commons.io.ByteOrderMark
+
+//def fileName = 'e:/testBOMUTF-16-LE.txt'
+//def fileName = 'e:/testBOMUTF-8.txt'
+def fileName = 'e:/test.txt'
+
+InputStream inputStream = new FileInputStream(fileName)
+
+//BOMInputStream bomIn = new BOMInputStream(inputStream)
+
+BOMInputStream bomIn = new BOMInputStream(inputStream, 
+   ByteOrderMark.UTF_8,
+   ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_16BE,
+   ByteOrderMark.UTF_32LE, ByteOrderMark.UTF_32BE
+   )
+
+ if (bomIn.hasBOM() == false) {
+     log.info 'No BOM found'
+ } else if  (bomIn.hasBOM(ByteOrderMark.UTF_8)) {
+ 	log.info 'UTF-8 BOM found'
+ } else if (bomIn.hasBOM(ByteOrderMark.UTF_16LE)) {
+     log.info 'UTF-16 Little Endian BOM found'
+ } else if (bomIn.hasBOM(ByteOrderMark.UTF_16BE)) {
+     log.info 'UTF-16 Big Endian BOM found'
+ } else if (bomIn.hasBOM(ByteOrderMark.UTF_32LE)) {
+     log.info 'UTF-32 Little Endian BOM found'
+ } else if (bomIn.hasBOM(ByteOrderMark.UTF_32BE)) {
+     log.info 'UTF-32 Big Endian BOM found'
+ } else {
+ 	log.error 'Error: unual character found'
+ }
+ </script></con:config></con:testStep><con:testStep type="calltestcase" name="Run TestCase" id="15ca982c-0f8b-4b55-8f6c-3183504d63e8"><con:settings/><con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:targetTestCase>d1136e4f-7530-4415-a538-f29d5d72ed1b</con:targetTestCase><con:properties><con:property><con:name>BOMcode</con:name><con:value>UTF_8</con:value></con:property><con:property><con:name>found</con:name><con:value>false</con:value></con:property><con:property><con:name>file</con:name><con:value>e:/test.txt</con:value></con:property></con:properties><con:returnProperties><con:entry>found</con:entry></con:returnProperties><con:runMode>PARALLELL</con:runMode></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>eadeb62e-9f29-48fa-ad63-5257dd375eb5</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>15ca982c-0f8b-4b55-8f6c-3183504d63e8</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:tagId>df2f5be4-0bcc-4041-8538-46a2f6dd8b21</con:tagId></con:testCase>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="c22cd1e4-afd3-4436-918f-b020ec8b83d3" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="useTimeDurationInSeconds" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="c22cd1e4-afd3-4436-918f-b020ec8b83d3fileName">useTimeDurationInSeconds</con:setting></con:settings><con:savedRecentRuns>1</con:savedRecentRuns><con:testStep type="groovy" name="Groovy Script" id="72a7f435-f7c8-4f92-8a2d-a01f98d83348"><con:settings/><con:config><script>long startTimestamp = System.currentTimeMillis() / 1000;
+log.info startTimestamp
+
+sleep(1000)
+
+long endTimestamp = System.currentTimeMillis() / 1000;
+log.info endTimestamp
+
+log.info 'Verschil: '+(endTimestamp-startTimestamp)</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>

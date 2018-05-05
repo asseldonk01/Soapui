@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:mockService port="8089" path="/mockCurrencyConvertorSoap12" host="localhost" name="CurrencyConvertorSoap12 MockService" id="a42d482d-9c68-4ca9-8837-7557832402f6" xmlns:con="http://eviware.com/soapui/config">
+    <con:settings>
+      <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting>
+    <con:setting id="a42d482d-9c68-4ca9-8837-7557832402f6fileName">CurrencyConvertorSoap12-MockService</con:setting></con:settings>
+    <con:constraints><con:congestion>0</con:congestion><con:inputBandwidth>125</con:inputBandwidth><con:outputBandwidth>125</con:outputBandwidth><con:maxThreadPoolCapacity>20</con:maxThreadPoolCapacity><con:coreThreadPoolCapacity>5</con:coreThreadPoolCapacity><con:virtError><con:start>-1</con:start></con:virtError></con:constraints><con:dataSources/><con:headerValidator/>
+    <con:properties/>
+  </con:mockService>

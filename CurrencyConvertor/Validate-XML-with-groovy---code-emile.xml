@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Validate XML with groovy - code emile" searchProperties="true" id="2df51c3e-cc2d-41c6-a7bf-ded035e14c7e" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="2df51c3e-cc2d-41c6-a7bf-ded035e14c7efileName">Validate-XML-with-groovy---code-emile</con:setting></con:settings>
+      <con:testStep type="request" name="ConversionRate" id="7c084950-495e-43e7-8cf1-0e6b6280134d">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap12</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="7610302e-4516-4504-9e87-85ae95513135" defaultOutgoingWss="" defaultIncomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>EUR</web:FromCurrency>
+         <web:ToCurrency>USD</web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3" disabled="true"/>
+            <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313" disabled="true">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882" disabled="true"/>
+            <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800" disabled="true">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0" disabled="true">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.support.XmlHolder
+
+def holder = new XmlHolder( messageExchange.responseContentAsXml )
+holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
+def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
+
+assert node != null</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="18b382b5-24de-497d-9451-2889043dcd53" disabled="true">
+              <con:settings/><con:configuration>
+                <codes/>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Script Assertion" disabled="true" id="94cd2947-de64-41ca-9722-c9de281f5a91">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.impl.wsdl.WsdlInterface
+
+def project = messageExchange.modelItem.testStep.testCase.testSuite.project
+
+//def testCaseProperty = messageExchange.modelItem.testStep.testCase.getPropertyValue( "xmlContent" )
+
+// def xmlContent = context.expand( '${#TestCase#xmlContent}' )
+//log.info xmlContent
+
+//profileInterface = testRunner.testCase.testSuite.project.getInterfaceByName("CurrencyConvertorSoap12");
+//myInterface = (WsdlInterface) testRunner.testCase.testSuite.project.getInterfaceByName("SampleServiceSoapBinding")
+
+def wsdlcontext = project.getInterfaceByName("CurrencyConvertorSoap12").getDefinitionContext()
+def validator = new com.eviware.soapui.impl.wsdl.support.wsdl.WsdlValidator(wsdlcontext);
+
+def errors = validator.assertRequest(messageExchange, false)
+
+log.info errors.length
+
+assert errors.length &lt; 1</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Script Assertion 2" id="d3a648ba-1477-4d29-8631-f27b797c8025">
+              <con:configuration>
+                <scriptText>def project = messageExchange.modelItem.testStep.testCase.testSuite.project;
+
+def wsdlcontext = project.getInterfaceAt(0).getDefinitionContext();
+
+def validator = new com.eviware.soapui.impl.wsdl.support.wsdl.WsdlValidator(wsdlcontext);
+
+def errors = validator.assertRequest(messageExchange, false)
+
+for( error in errors )  
+assert false</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="validateXMLbasedOnProperty" id="bc9df033-ad86-4bb3-95f3-e7b9a32f659b">
+        <con:settings/>
+        <con:config>
+          <script>import com.eviware.soapui.impl.wsdl.WsdlInterface
+
+def project = messageExchange.modelItem.testStep.testCase.testSuite.project
+
+def testCaseProperty = messageExchange.modelItem.testStep.testCase.getPropertyValue( "xmlContent" )
+
+// def xmlContent = context.expand( '${#TestCase#xmlContent}' )
+//log.info xmlContent
+
+//profileInterface = testRunner.testCase.testSuite.project.getInterfaceByName("CurrencyConvertorSoap12");
+//myInterface = (WsdlInterface) testRunner.testCase.testSuite.project.getInterfaceByName("SampleServiceSoapBinding")
+
+def wsdlcontext = project.getInterfaceByName("CurrencyConvertorSoap12").getDefinitionContext()
+def validator = new com.eviware.soapui.impl.wsdl.support.wsdl.WsdlValidator(wsdlcontext);
+
+def errors = validator.assertRequest(messageExchange, false)
+
+assert errors.length &lt; 1</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="assertionteststep" name="Assertion TestStep" id="409ffc99-5c84-4707-aeb7-664ee4260034">
+        <con:settings/>
+        <con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script - code emiel" id="21e5e391-dac9-4c89-a4f6-ccc05dea8b6a">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def responseHolder = groovyUtils.getXmlHolder("zoekRegisterkaarten#Response")
+//log.info responseHolder.getPrettyXml()
+responseHolder.declareNamespace("soap", "http://schemas.xmlsoap.org/soap/envelope/")
+def detailNode = responseHolder.getDomNode("/soap:Envelope/soap:Body/soap:Fault/detail")
+assert detailNode != null : "Can not find detail node in SOAP Fault in response"
+def detailHolder = new com.eviware.soapui.support.XmlHolder(detailNode)
+//log.info detailHolder.getPrettyXml()
+def countNodesInDetailNode = detailHolder["count(/detail/*)"]
+//log.info "count: " + countNodesInDetailNode
+assert new Integer(countNodesInDetailNode)==new Integer(1) : "There must be one 'root' node in detail node of SOAP Fault, number of nodes: $countNodesInDetailNode"
+def faultRootNode = detailHolder.getDomNode("/detail/*[1]")
+assert faultRootNode != null : "can not find fault root element in detail node of SOAP Fault"
+def faultRootNodeHolder = new com.eviware.soapui.support.XmlHolder(faultRootNode)
+//log.info faultRootNodeHolder.getPrettyXml()
+ 
+//com.eviware.soapui.impl.wsdl.WsdlInterface myInterface = (com.eviware.soapui.impl.wsdl.WsdlInterface) testRunner.testCase.testSuite.project.getInterfaceByName("SampleServiceSoapBinding")
+ 
+def countWsdls = testRunner.testCase.testSuite.project.getInterfaces().size()
+//log.info "count: " + countWsdls
+assert new Integer(countWsdls)==new Integer(1) : "There should be one wsdl defined for this project, count= $countNodesInDetailNode"
+ 
+def wsdlLocation = testRunner.testCase.testSuite.project.getInterfaces().values().iterator().next().getDefinition()
+assert wsdlLocation != null : "wsdlLocation not found"
+//log.info "wsdl: " + wsdlLocation
+URL wsdlUrl = new URL(wsdlLocation);
+javax.xml.parsers.DocumentBuilderFactory dbf = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+javax.xml.parsers.DocumentBuilder db = dbf.newDocumentBuilder();
+org.w3c.dom.Document wsdlDoc = db.parse(wsdlUrl.openStream());
+assert wsdlDoc != null : "Can not parse wsdl or wsdl is null"
+def wsdlHolder = new com.eviware.soapui.support.XmlHolder(wsdlDoc)
+ 
+//log.info wsdlHolder.getPrettyXml()
+ 
+//get operation from request
+def testrequest = testRunner.testCase.getTestStepsOfType(com.eviware.soapui.impl.wsdl.teststeps.WsdlTestRequestStep.class).get(0)
+def operation = testrequest.getOperation().getName()
+//log.info "Operation: " + operation
+ 
+//with operation, search in wsdl for element defined as fault message
+def faultNode = wsdlHolder.getDomNode("/definitions/portType/operation[@name='" + operation + "']/fault")
+assert faultNode != null : "can not find a fault Message at operation " + operation + " in wsdl"
+def faultMessage = faultNode.getAttributes().getNamedItem('message').getNodeValue()
+//log.info "faultMessage: " + faultMessage
+//faultMessage contains name of message and optional the namespace prefix
+def parts = faultMessage.split(":")
+def faultMessagePrefix = null
+if (parts.length == 1){
+  //there is no prefix, apparently the target namespace is declared as the default namespace
+  faultMessageName = parts[0]
+}
+else{
+  faultMessagePrefix = parts[0]
+  faultMessageName = parts[1]
+}
+//log.info "faultMessagePrefix: " + faultMessagePrefix
+//log.info "faultMessageName: " + faultMessageName
+ 
+//now we can find the fault message declaration
+def faultMessageElementNode = wsdlHolder.getDomNode("/definitions/message[@name='" + faultMessageName + "']/part/@element")
+assert faultMessageElementNode != null : "can not find a part element for fault message " + faultMessageName + " in wsdl"
+def faultMessageElement = faultMessageElementNode.getNodeValue()
+//log.info "faultMessageElement: " + faultMessageElement
+//split up in prefix and local Name
+parts = faultMessageElement.split(":")
+def faultMessageElementPrefix = null
+if (parts.length == 1){
+  //there is no prefix, apparently the target namespace is declared as the default namespace
+  faultMessageElementName = parts[0]
+}
+else{
+  faultMessageElementPrefix = parts[0]
+  faultMessageElementName = parts[1]
+}
+//log.info "faultMessageElementName: " + faultMessageElementName
+//log.info "fault root name in response:" + faultRootNode.getLocalName()
+ 
+//compare fault element local name (response and wsdl defintion)
+assert (faultMessageElementName.equals(faultRootNode.getLocalName())) : "Fault element node name is incorrect: " + faultRootNode.getLocalName() + " (wsdl defintion=" + faultMessageElementName + ")"
+ 
+//find namespace declared for the fault element in the wsdl with the prefix
+def definitionsNode = wsdlHolder.getDomNode("/definitions[1]")
+assert definitionsNode != null : "Can not find root node 'definitions' in wsdl"
+//log.info "length: " + definitionsNode.getAttributes().getLength()
+def definitionAttrMap = definitionsNode.getAttributes()
+def faultMessageElementNS = null
+for (i=0; i &amp;lt; definitionAttrMap.getLength() &amp;amp;&amp;amp; faultMessageElementNS == null; i++){
+            def attr = definitionAttrMap.item(i);
+            def prefix = attr.getLocalName();
+            //log.info "prefix:" + prefix
+            if (faultMessageElementPrefix == null &amp;amp;&amp;amp; "xmlns".equals(prefix)){
+                        //no prefix, so it's the default namespace we're looking for
+                        faultMessageElementNS = attr.getNodeValue()            
+            }
+            else if (faultMessageElementPrefix.equals(prefix)){
+                        faultMessageElementNS = attr.getNodeValue()            
+            }
+}
+//log.info "faultMessageElementNS: " + faultMessageElementNS
+//log.info "namespace fault root node: " + faultRootNode.getNamespaceURI()
+ 
+//compare fault element namespace (response and wsdl defintion)
+assert (faultMessageElementNS.equals(faultRootNode.getNamespaceURI())) : "Fault element node namespace is incorrect: " + faultRootNode.getNamespaceURI() + " (wsdl defintion=" + faultMessageElementNS + ")"
+ 
+wsdlHolder.declareNamespace("xsd", "http://www.w3.org/2001/XMLSchema")
+def countImportNodes = wsdlHolder["count(//import)"]  //strange, I guess a bug in parsing, because the import element is parsed namespaceless
+//log.info "count: " + countImportNodes
+assert new Integer(countImportNodes) != new Integer(0) : "There should be a least one imported schema"
+def isValidatedOk = false
+for(xsdUrl in wsdlHolder.getNodeValues( "//import/@schemaLocation")) {
+  //log.info "xsdUrl: $xsdUrl"
+  if (!isValidatedOk){
+    //def xsdUrl = "http://localhost:7001/RegisterServices/PubliekeCurateleRegisterService/v1/proxy/PS_PubliekeCurateleRegisterService?SCHEMA%2FRegisterServices%2FPubliekeCurateleRegisterService%2Fv1%2Fxsd%2FPubliekeCurateleRegisterService"
+    try{
+      new URL(xsdUrl).withInputStream { xsd ->
+        new javax.xml.transform.dom.DOMSource(faultRootNode).with { xml ->
+          javax.xml.validation.SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI)
+            .newSchema(new javax.xml.transform.stream.StreamSource(xsd))
+              .newValidator()
+                .validate(xml)
+        }
+      }
+      isValidatedOk = true;
+    }
+    catch(Exception e){
+            log.error(e)
+    }
+  }
+}
+assert isValidatedOk : "Error in valdiation SOAP Fault against imported schema's"
+log.info "Validation result: " + isValidatedOk
+log.info "End"</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Copy of Groovy Script - code emiel" id="2565b4b7-59c6-440f-afac-1b2309cf68b0">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+//def countWsdls = testRunner.testCase.testSuite.project.getInterfaces().size()
+//def countWsdls = testRunner.testCase.testSuite.project.getInterfaceByName("CurrencyConverterSoap12").size()
+//def wsdlcontext = project.getInterfaceByName("CurrencyConvertorSoap12").getDefinitionContext()
+//log.info "count: " + countWsdls
+
+//assert new Integer(countWsdls)==new Integer(1)
+ 
+//def wsdlLocation = testRunner.testCase.testSuite.project.getInterfaces().values().iterator().next().getDefinition()
+//assert wsdlLocation != null : "wsdlLocation not found"
+//log.info "wsdl: " + wsdlLocation
+
+interfaceName= testRunner.testCase.testSuite.project.getInterfaceAt(1).getName();
+log.info interfaceName
+
+def wsdlLocation = testRunner.testCase.testSuite.project.getInterfaceAt(1).getDefinition()
+log.info wsdlLocation
+URL wsdlUrl = new URL(wsdlLocation);
+
+javax.xml.parsers.DocumentBuilderFactory dbf = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+javax.xml.parsers.DocumentBuilder db = dbf.newDocumentBuilder();
+org.w3c.dom.Document wsdlDoc = db.parse(wsdlUrl.openStream());
+assert wsdlDoc != null : "Can not parse wsdl or wsdl is null"
+def wsdlHolder = new com.eviware.soapui.support.XmlHolder(wsdlDoc)
+ 
+log.info wsdlHolder.getPrettyXml()
+
+wsdlHolder.declareNamespace("xsd", "http://www.w3.org/2001/XMLSchema")
+//def countImportNodes = wsdlHolder["count(//import)"]  //strange, I guess a bug in parsing, because the import element is parsed namespaceless
+//log.info "count: " + countImportNodes
+//assert new Integer(countImportNodes) != new Integer(0) : "There should be a least one imported schema"
+def isValidatedOk = false
+//for(xsdUrl in wsdlHolder.getNodeValues( "//import/@schemaLocation")) {
+for(xsdUrl in wsdlHolder.getNodeValues( "//schema")) {
+  //log.info "xsdUrl: $xsdUrl"
+  if (!isValidatedOk){
+    //def xsdUrl = "http://localhost:7001/RegisterServices/PubliekeCurateleRegisterService/v1/proxy/PS_PubliekeCurateleRegisterService?SCHEMA%2FRegisterServices%2FPubliekeCurateleRegisterService%2Fv1%2Fxsd%2FPubliekeCurateleRegisterService"
+    try{
+      new URL(xsdUrl).withInputStream { xsd ->
+        new javax.xml.transform.dom.DOMSource(faultRootNode).with { xml ->
+          javax.xml.validation.SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI)
+            .newSchema(new javax.xml.transform.stream.StreamSource(xsd))
+              .newValidator()
+                .validate(xml)
+        }
+      }
+      isValidatedOk = true;
+    }
+    catch(Exception e){
+            log.error(e)
+    }
+  }
+}
+assert isValidatedOk : "Error in valdiation SOAP Fault against imported schema's"
+log.info "Validation result: " + isValidatedOk
+log.info "End"</script>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>fromCurrency</con:name>
+          <con:value>EUR</con:value>
+        </con:property>
+        <con:property>
+          <con:name>xmlContent</con:name>
+          <con:value><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">    <soap:Header/>    <soap:Body>       <web:ConversionRate>          <web:ToCurrency>USD</web:ToCurrency>       </web:ConversionRate>    </soap:Body> </soap:Envelope>]]></con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>16a45bfa-ffb5-4dac-99ca-d29de768504c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

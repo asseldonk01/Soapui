@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SplitString" searchProperties="true" id="6af7b192-a44b-4f7a-86da-5962a2450578" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="6af7b192-a44b-4f7a-86da-5962a2450578fileName">SplitString</con:setting></con:settings>
+      <con:testStep type="request" name="ConversionRate" id="29dcd15c-7a9d-467f-9346-fc32747375ba">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="ConversionRate" id="ea4218c5-52d8-4eb3-84f3-e883cae46db7" defaultOutgoingWss="" defaultIncomingWss="" outgoingWss="" incomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://www.webserviceX.NET/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>${='${#TestCase#CurrencyString}'.split('/')[0]}</web:FromCurrency>
+         <web:ToCurrency>${='${#TestCase#CurrencyString}'.split('/')[1]}</web:ToCurrency>
+      </web:ConversionRate>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="http://www.webserviceX.NET/ConversionRate" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>CurrencyString</con:name>
+          <con:value>EUR/USD</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>f7f974bf-f661-4a9b-8d68-b572399237ad</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

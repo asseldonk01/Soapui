@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="855e4d46-ab85-4910-8055-d33623558092" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="SMBKopieerbestand" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="855e4d46-ab85-4910-8055-d33623558092fileName">SMBKopieerbestand</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="c06a519c-6a0b-4249-a72f-d9660eb80b9a"><con:settings/><con:config><script><![CDATA[import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import jcifs.smb.NtlmPasswordAuthentication
+import jcifs.smb.SmbFile
+import jcifs.smb.SmbFileInputStream
+import jcifs.smb.SmbFileOutputStream
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+
+def bronBestand 		= context.expand('${#TestCase#BronBestand}')
+def doelBestand 		= context.expand('${#TestCase#DoelBestand}')
+boolean smbBronBestand 	= bronBestand.startsWith('smb://')
+boolean smbDoelBestand 	= doelBestand.startsWith('smb://')
+
+def smbDomein 			= context.expand('${#TestCase#SmbDomein}')
+def smbGebruikersnaam 	= context.expand('${#TestCase#SmbGebruikersnaam}')
+def smbWachtwoord 		= context.expand('${#TestCase#SmbWachtwoord}')
+
+def bronFile 			= null
+def doelFile 			= null
+BufferedInputStream bis 	= null
+BufferedOutputStream bos = null
+
+def overwriteMode 		= context.expand( '${#TestCase#OverwriteMode}' )
+def overwrite 			= overwriteMode == "overwrite"
+def ignore 			= overwriteMode == "ignore"
+log.info "Copy mode [$overwriteMode]:"
+log.info "- Overwrite: [$overwrite]"
+log.info "- Ignore: [$ignore]"
+
+log.info "Kopieren van bestand ${bronBestand} naar ${doelBestand} als gebruiker ${smbDomein}\\${smbGebruikersnaam} via SMB"
+
+
+
+
+try{
+
+		log.info "Bron bestand bereikbaar via SMB: ${smbBronBestand}"
+			
+            if (smbBronBestand) {
+              bronFile = new SmbFile(bronBestand, new NtlmPasswordAuthentication(smbDomein, smbGebruikersnaam,smbWachtwoord))                        
+            } else {
+              bronFile = new File(projectPath, bronBestand)                        
+            }
+			
+			assert (bronFile.exists() && bronFile.isFile()), "Bron bestand ${bronFile} bestaat niet!"
+            bis = new BufferedInputStream(new SmbFileInputStream(bronFile))
+
+            log.info "Doel bestand bereikbaar via SMB: ${smbDoelBestand}"
+			
+            if (smbDoelBestand) {
+                        doelFile = new SmbFile(doelBestand, new NtlmPasswordAuthentication(smbDomein, smbGebruikersnaam, smbWachtwoord))
+                        if (doelFile.exists() && ignore) {
+                                   log.info "Doel bestand bestaat al, wordt genegeerd"
+                                   return
+                        }
+
+                        assert !doelFile.exists() || overwrite, "Doel bestand ${doelFile} bestaat al!"
+                        bos = new BufferedOutputStream(new SmbFileOutputStream(doelFile))
+            } else {
+                        doelFile = new File(projectPath, doelBestand)
+                        if (doelFile.exists() && ignore) {
+                                   log.info "Doel bestand bestaat al, wordt genegeerd"
+                                   return
+                        }
+
+                        assert !doelFile.exists() || overwrite, "Doel bestand ${doelFile} bestaat al!"
+                        bos = new BufferedOutputStream(new FileOutputStream(doelFile))
+            }
+
+            log.info "Kopiëren wordt gestart"
+
+            byte[] b = new byte[8192]
+            int n
+            while(( n = bis.read( b )) > 0 ) {
+				bos.write(b, 0, n)
+			}
+
+            log.info "Kopiëren is afgerond"
+} catch(e){
+            log.error "SMBKopieer fout: "   + e
+            testRunner.fail(e.toString())
+} finally {
+            if (bis != null) bis.close()
+            if (bos != null ) bos.close()
+
+            if (smbBronBestand && bronFile != null) bronFile.close()
+            if (smbDoelBestand && doelFile != null) doelFile.close()
+}
+]]></script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>

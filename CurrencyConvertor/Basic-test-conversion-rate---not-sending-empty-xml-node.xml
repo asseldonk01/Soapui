@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Basic test conversion rate - not sending empty xml node" searchProperties="true" id="619d981a-ec86-42cc-94e3-a67b3a9c29fe" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="619d981a-ec86-42cc-94e3-a67b3a9c29fefileName">Basic-test-conversion-rate---not-sending-empty-xml-node</con:setting></con:settings>
+      <con:testStep type="request" name="ConversionRateEmptyNodes" id="c3fbec34-d3cd-458d-b5b6-433c91a7be27">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap12</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="ConversionRateEmptyNodes" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@remove_empty_content">true</con:setting></con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency></web:FromCurrency>
+         <web:ToCurrency></web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3"/>
+            <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882"/>
+            <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.support.XmlHolder
+
+def holder = new XmlHolder( messageExchange.responseContentAsXml )
+holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
+def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
+
+assert node != null</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="18b382b5-24de-497d-9451-2889043dcd53">
+              <con:settings/><con:configuration><codes>200</codes></con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep>
+      
+      
+      
+      
+      
+      
+      
+      
+      <con:properties>
+        <con:property>
+          <con:name>fromCurrency</con:name>
+          <con:value>EUR</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>16a45bfa-ffb5-4dac-99ca-d29de768504c</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

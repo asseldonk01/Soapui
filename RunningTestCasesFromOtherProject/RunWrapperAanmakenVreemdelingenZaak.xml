@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="46b5489c-0b37-4791-9f60-735cdfb9ec94" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="RunWrapperAanmakenVreemdelingenZaak" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="46b5489c-0b37-4791-9f60-735cdfb9ec94fileName">RunWrapperAanmakenVreemdelingenZaak</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="747bee22-1797-4e7d-8eec-47c02657cc4e" disabled="true"><con:settings/><con:config><script>import com.eviware.soapui.impl.wsdl.WsdlProject
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def projectPath = groovyUtils.projectPath
+ 
+// TESTCASE SPECIFIC PARAMETERS--------------------------------------------------------------------
+ 
+def readPropertiesFile   = projectPath + '/PropertiesExample.txt'
+def writePropertiesFile  = projectPath + '/PropertiesWriteExample.txt'
+def omgeving 			= context.expand( '${#Project#Omgeving}' )
+def genericTestSuite	= context.expand( '${#TestCase#genericTestSuite}' )
+def genericTestCase		= context.expand( '${#TestCase#genericTestCase}' )
+
+
+// DO NOT EDIT AFTER THIS SECTION. ONLY COPY--------------------------------------------------------
+ 
+//get the project 
+def servicegenericproject 	= context.expand( '${#Project#serviceGenericProjectName}' )
+def servicegenericWsdlproject = context.expand( '${#Project#serviceGenericWsdlProjectFile}' )
+
+def project 				= null
+def workspace 				= testRunner.testCase.testSuite.project.getWorkspace();
+ 
+//if running Soapui
+if(workspace != null){
+            project = workspace.getProjectByName(servicegenericproject)
+}
+//if running in Jenkins/Hudson
+else{
+            project = new WsdlProject(servicegenericWsdlproject);
+            // project = new WsdlProject("../../Util-project-soapui-project.xml");
+}
+ 
+//make a connection to this project
+if(project.open &amp;&amp; project.name == servicegenericproject ) {
+            
+            def properties = new com.eviware.soapui.support.types.StringToObjectMap ()
+            
+            //Setup de mock WSDLs
+            //def testCase = project.getTestSuiteByName("WrapperTestsuite").getTestCaseByName("WrapperAanmakenVreemdelingenZaak");
+            def testCase = project.getTestSuiteByName(genericTestSuite).getTestCaseByName(genericTestCase);  
+            if(testCase == null)
+            {
+                        throw new RuntimeException("Could not locate testcase 'WrapperAanmakenVreemdelingenZaak'! ");
+            }
+            else{
+                        //update the variables of the testcase with your specific values
+                        testCase.setPropertyValue("ReadPropertiesFile", readPropertiesFile )
+                        testCase.setPropertyValue("WritePropertiesFile", writePropertiesFile)
+                        testCase.setPropertyValue("Omgeving", omgeving)
+                        
+                        //run the testcase
+                        def runner = testCase.run(properties, false);
+                        
+                        //retrieve the workorderId from the just executed run
+                        //def workorderId = testCase.getPropertyValue("WorkorderId");
+                        //set this value in your own testcase which can be used
+                        //testRunner.testCase.setPropertyValue("WorkorderId",  workorderId )
+            }
+}
+else{
+            throw new RuntimeException("Could not find project '$servicegenericproject' !")
+}           </script></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script JNB" id="98294168-e442-45ef-9c81-2a8be7a5267c" disabled="true"><con:settings/><con:config><script>import com.eviware.soapui.impl.wsdl.WsdlProject
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def projectPath = groovyUtils.projectPath
+// TESTCASE SPECIFIC PARAMETERS--------------------------------------------------------------------
+
+
+def omgeving					= context.expand( '${#Project#Omgeving}' )
+def genericTestSuite     		= 'TestSuite 1'
+def genericTestCase      		= 'GenericAanmakenVreemdelingenZaak'
+ 
+ 
+// DO NOT EDIT AFTER THIS SECTION. ONLY COPY--------------------------------------------------------
+//get the project Name
+def servicegenericprojectName      = context.expand( '${#Project#serviceGenericProjectName}' )
+log.info servicegenericprojectName
+
+// get the project xml file
+def servicegenericWsdlprojectFile 	= context.expand( '${#Project#serviceGenericWsdlProjectFile}' )
+log.info servicegenericWsdlprojectFile
+
+//def locationGenericTestProject 	= context.expand( '${#Project#locationServiceGenericProject}')
+def locationGenericTestProject 	= '../'
+ 
+def project					= null
+def workspace                      = testRunner.testCase.testSuite.project.getWorkspace();
+ 
+//if running Soapui
+if(workspace != null){
+ project = workspace.getProjectByName(servicegenericprojectName)
+}
+
+//if running in Jenkins/Hudson
+else{
+    project = new WsdlProject(locationGenericTestProject + servicegenericWsdlprojectFile); 
+    log.info locationGenericTestProject + servicegenericWsdlprojectFile     
+    // relatieve lokatie van dit generieke project 
+}
+assert project != null
+
+//make a connection to this project
+if(project.open &amp;&amp; project.name == servicegenericprojectName ) {
+           
+            def properties = new com.eviware.soapui.support.types.StringToObjectMap()           
+            
+            def testCase = project.getTestSuiteByName(genericTestSuite).getTestCaseByName(genericTestCase); 
+            
+            if(testCase == null)
+            {
+                 throw new RuntimeException("Kan deze testcase niet vinden: '$genericTestCase'! ");
+            }
+            else{    
+                  def currentCase = (context.getProperty("#CallingRunTestCaseStep#") != null) ? context.getProperty("#CallingRunTestCaseStep#").getTestCase() : testRunner.testCase
+                  def prefix = "testVoorEd"
+                  def propsDefined = true
+                  for (prop in testCase.getPropertyList()) {
+                  	 log.info 'Calling testcase: '+currentCase.getName()
+                  	 log.info 'Generic testcase: '+testCase.getName()
+                  	 log.info 'This testcase: '+testCase
+                  	 log.info 'property name: '+prop.getName()
+                  	 log.info 'property value: '+currentCase.getPropertyValue(prop.getName()).toString()
+                     if (currentCase.getPropertyValue(prefix+"."+prop.getName()) == null) {
+                        currentCase.setPropertyValue(prefix+"."+prop.getName(),"")
+                        propsDefined = false
+                     } else {
+                        testCase.setPropertyValue(prop.getName(),currentCase.getPropertyValue(prefix+"."+prop.getName()))
+                     }
+                     //if (currentCase.getPropertyValue(prop.getName()) == null) {
+                     //  currentCase.setPropertyValue(prop.getName(),"")
+                     //  propsDefined = false
+                     //}
+                     //else {
+                     //     testCase.setPropertyValue(prop.getName(),currentCase.getPropertyValue(prop.getName()))
+                     //  }                     
+                  }
+ 
+                  assert propsDefined, "Testcase properties nog niet bekend, lege properties aangemaakt"
+                  def runner = testCase.run(properties, false) 
+                  for (prop in testCase.getPropertyList()) {
+                     currentCase.setPropertyValue(prefix+"."+prop.getName(),testCase.getPropertyValue(prop.getName()))
+                  }                      
+            }
+}
+else{
+            throw new RuntimeException("Could not find project '$servicegenericproject' !")
+}          
+ </script></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script2" id="960401a5-ff17-4f03-af50-1bd37cb2b4d8" disabled="true"><con:settings/><con:config><script>import com.eviware.soapui.support.types.StringToObjectMap
+
+// get test suite
+def myTestSuite = testRunner.testCase.testSuite.project.getTestSuiteByName("TestSuite_APLtests")
+// get your test case
+def myTestCase = myTestSuite.getTestCaseByName("TestCase_General")
+// set the user and password properties in the context
+context.setProperty("user","userTestCaseN")
+context.setProperty("password","passwordTestCaseN")
+// run the testCase passing the context
+def contextMap = new StringToObjectMap( context )
+myTestCase.run(contextMap,false);
+
+//To access the context properties in the groovy script of your TestCase_General use this code:
+context.getProperty("userPassword")
+//Or if you prefer to use context.expand:
+
+context.expand('${#user}')</script></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script JNB - new" id="20bb6054-7845-406b-a82e-9a1822ddcb17"><con:settings/><con:config><script>import com.eviware.soapui.impl.wsdl.WsdlProject
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def projectPath = groovyUtils.projectPath
+// TESTCASE SPECIFIC PARAMETERS--------------------------------------------------------------------
+
+def omgeving					= context.expand( '${#Project#Omgeving}' )
+def genericTestSuite     		= 'TestSuite 1'
+def genericTestCase      		= 'GenericAanmakenVreemdelingenZaak'
+def wrappertestCase				= testRunner.testCase.name
+def currenttestCase				= context.getTestCase() 
+ 
+// DO NOT EDIT AFTER THIS SECTION. ONLY COPY--------------------------------------------------------
+//get the project Name
+def servicegenericprojectName      = context.expand( '${#Project#serviceGenericProjectName}' )
+log.info servicegenericprojectName
+
+// get the project xml file
+def servicegenericWsdlprojectFile 	= context.expand( '${#Project#serviceGenericWsdlProjectFile}' )
+log.info servicegenericWsdlprojectFile
+
+//def locationGenericTestProject 	= context.expand( '${#Project#locationServiceGenericProject}')
+def locationGenericTestProject 	= '../'
+ 
+def project					= null
+def workspace                      = testRunner.testCase.testSuite.project.getWorkspace();
+ 
+//if running Soapui
+if(workspace != null){
+ genericproject = workspace.getProjectByName(servicegenericprojectName)
+}
+
+//if running in Jenkins/Hudson
+else{
+	// new com.eviware.soapui.impl.wsdl.WsdlProjectPro
+    //genericproject = new WsdlProjectPro(locationGenericTestProject + servicegenericWsdlprojectFile); 
+    genericproject = new com.eviware.soapui.impl.wsdl.WsdlProjectPro(locationGenericTestProject + servicegenericWsdlprojectFile); 
+    log.info locationGenericTestProject + servicegenericWsdlprojectFile     
+    // relatieve lokatie van dit generieke project 
+}
+assert genericproject != null
+
+//make a connection to this project
+if(genericproject.open &amp;&amp; genericproject.name == servicegenericprojectName ) {
+           
+            def properties = new com.eviware.soapui.support.types.StringToObjectMap()           
+            
+            def generictestCase = genericproject.getTestSuiteByName(genericTestSuite).getTestCaseByName(genericTestCase); 
+            
+            if(generictestCase == null)
+            {
+                 throw new RuntimeException("Kan deze testcase niet vinden: '$generictestCase'! ");
+            }
+            else{    
+                  def callingtestCase = (context.getProperty("#CallingRunTestCaseStep#") != null) ? context.getProperty("#CallingRunTestCaseStep#").getTestCase() : testRunner.testCase
+                  def prefix = "testVoorEd"
+                  def propsDefined = true
+                  
+                  log.info 'Calling testcase: '+callingtestCase.getName()
+                  log.info 'Generic testcase: '+generictestCase.getName()
+                  log.info 'This testcase: '+currenttestCase.getName()
+                  	 
+                  for (prop in currenttestCase.getPropertyList()) {                  	 
+                  	 log.info 'property name: '+prop.getName()
+                  	 log.info 'property value: '+currenttestCase.getPropertyValue(prop.getName()).toString()
+                  	 
+                  	 generictestCase.setPropertyValue(prop.getName(),currenttestCase.getPropertyValue(prop.getName().toString()))
+                  	 
+                     /*
+                     if (callingtestCase.getPropertyValue(prefix+"."+prop.getName()) == null) {
+                        callingtestCase.setPropertyValue(prefix+"."+prop.getName(),"")
+                        propsDefined = false
+                     } else {
+                        generictestCase.setPropertyValue(prop.getName(),currenttestCase.getPropertyValue(prop.getName()))
+                     }
+                                        
+                      
+                     if (currentCase.getPropertyValue(prop.getName()) == null) {
+                       currentCase.setPropertyValue(prop.getName(),"")
+                       propsDefined = false
+                     }
+                     else {
+                          testCase.setPropertyValue(prop.getName(),currentCase.getPropertyValue(prop.getName()))
+                     }
+                     */                     
+                  }
+ 
+                  assert propsDefined, "Testcase properties nog niet bekend, lege properties aangemaakt"
+                  def runner = generictestCase.run(properties, false) 
+                  for (prop in generictestCase.getPropertyList()) {
+                  	log.info prop.getName()
+                  	log.info generictestCase.getPropertyValue(prop.getName())
+                  	//currenttestCase.setPropertyValue(prop.getName(),generictestCase.getPropertyValue(prop.getName()))
+                    callingtestCase.setPropertyValue(prop.getName(),generictestCase.getPropertyValue(prop.getName()))
+                  }                      
+            }
+}
+else{
+            throw new RuntimeException("Could not find project '$servicegenericproject' !")
+}          
+ </script></con:config></con:testStep><con:testStep type="groovy" name="arrayList" id="ce50a8a5-3f3e-4dbd-a1ec-6b4ddb185bfd" disabled="true"><con:settings/><con:config><script>def myArray = new ArrayList()
+myArray.add("First")
+myArray.add("Second")
+log.info myArray.size()
+//myArray.remove(0)
+//log.info myArray.size()
+log.info myArray[0]
+log.info myArray[1]</script></con:config></con:testStep><con:testStep type="groovy" name="Map" id="863a8509-ed0a-4859-9dd0-a1ab23ee2b4c" disabled="true"><con:settings/><con:config><script>def sampleMap = [:]
+sampleMap.put('thickness', 10)
+sampleMap['color'] = 'Blue'
+sampleMap.weight = 500
+sampleMap.'shape' = 'Circle'
+sampleMap &lt;&lt; [price:150]
+
+log.info sampleMap.size()
+</script></con:config></con:testStep><con:properties><con:property><con:name>zaakNummer</con:name><con:value>NL16.12345</con:value></con:property><con:property><con:name>bestand</con:name><con:value/></con:property></con:properties><con:reportParameters/></con:testCase>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Datasource - Excel" searchProperties="true" id="c70f0fac-ed36-46b2-85ec-291a172e42ed" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="c70f0fac-ed36-46b2-85ec-291a172e42edfileName">Datasource---Excel</con:setting></con:settings>
+      <con:testStep type="datasource" name="DataSource" id="f7f974bf-f661-4a9b-8d68-b572399237ad">
+        <con:settings/>
+        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:dataSource type="Excel">
+            <con:configuration><file>Bestanden/DataSource_voorbeeld.xlsx</file><worksheet/><cell>A2</cell><ignoreEmpty>false</ignoreEmpty><evaluateFormulas>false</evaluateFormulas></con:configuration>
+          </con:dataSource>
+          <con:property>Combinatie</con:property>
+          <con:property>Verzoeker</con:property>
+          <con:property>Verweerder</con:property>
+          <con:property>GerechtCode</con:property>
+          <con:property>InstantieCode</con:property>
+          <con:property>Gerecht</con:property>
+          <con:property>Instantie</con:property>
+          <con:startRow/>
+          <con:endRow/>
+          <con:completeLastOperation>true</con:completeLastOperation><con:trimValues>false</con:trimValues>
+          <con:entitizeValues>false</con:entitizeValues>
+          <con:restartOnRun>true</con:restartOnRun>
+          <con:expandProperties>true</con:expandProperties>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" disabled="true" id="e9ae8927-9629-49b4-ac25-c678d2a7d88b">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[def GekozenCombinatie = testRunner.testCase.testSuite.project.getPropertyValue('Combinatie')
+def ds = testRunner.testCase.getTestStepByName('DataSource')
+def rowsToRead = 3
+def Combinatie, Verzoeker, Verweerder, GerechtCode, InstantieCode, Gerecht, Instantie
+log.info 'Gekozen combinatie: '+GekozenCombinatie
+
+for (row in 1..rowsToRead) {
+	log.info 'Row: '+row
+   
+   //if (row > 1) {
+     // testRunner.testCase.getTestStepByName('DataSource').next(testRunner, context)
+   //} else {
+    //  break;   
+   //}
+   Combinatie = ds.getPropertyValue('Combinatie')
+   Verzoeker = ds.getPropertyValue('Verzoeker')
+   Verweerder = ds.getPropertyValue('Verweerder')
+   GerechtCode = ds.getPropertyValue('GerechtCode')
+   InstantieCode = ds.getPropertyValue('InstantieCode')
+   Gerecht = ds.getPropertyValue('Gerecht')
+   Instantie = ds.getPropertyValue('Instantie')
+   log.info Combinatie Verzoeker Verweerder GerechtCode InstantieCode Gerecht Instantie 
+   
+   //reqFrag += """<name><firstname>${firstName}</firstname><lastname>${lastName}</lastname></name>""" 
+}
+
+//reqFrag = """<person>${reqFrag}<level><class>${clazz}</class></level></person>"""
+
+//return reqFrag
+
+//then reference the script result in the request, eg:
+
+//CODE: SELECT ALL
+//<people>
+//${Groovy Script#result}
+//</people>]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Groovy Script 2" id="3e85e7c8-d881-4a95-b4e9-226e0747883e">
+        <con:settings/>
+        <con:config><script>def combinatie = context.expand( '${DataSource#Combinatie}' )
+def verzoeker = context.expand( '${DataSource#Verzoeker}' )
+def verweerder = context.expand( '${DataSource#Verweerder}' )
+def gerechtcode = context.expand( '${DataSource#GerechtCode}' )
+def instantiecode = context.expand( '${DataSource#InstantieCode}' )
+def gerecht = context.expand( '${DataSource#Gerecht}' )
+def instantie = context.expand( '${DataSource#Instantie}' )
+
+def gekozenCombinatie = testRunner.testCase.testSuite.project.getPropertyValue('Combinatie')
+
+log.info 'Gekozen combinatie: '+gekozenCombinatie
+
+if (combinatie.equals(gekozenCombinatie)) {
+	log.info 'FOUND'	
+	testRunner.testCase.testSuite.project.setPropertyValue( "Verzoeker", verzoeker )
+	testRunner.testCase.testSuite.project.setPropertyValue( "Verweerder", verweerder )
+	testRunner.testCase.testSuite.project.setPropertyValue( "GerechtCode", gerechtcode )
+	testRunner.testCase.testSuite.project.setPropertyValue( "InstantieCode", instantiecode )
+	testRunner.testCase.testSuite.project.setPropertyValue( "Gerecht", gerecht )
+	testRunner.testCase.testSuite.project.setPropertyValue( "Instantie", instantie )
+	testRunner.gotoStepByName( "Einde zoeken combinatie")
+}
+else {
+	log.info 'NOT FOUND'
+}
+
+DataTable dt = (DataTable) 
+int count = dt.Rows.Count;</script></con:config>
+      </con:testStep>
+      <con:testStep type="goto" name="Conditional Goto" disabled="true" id="4580423e-ee25-4321-93b1-a7fac4271f71">
+        <con:settings/>
+        <con:config xsi:type="con:GotoStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:condition>
+            <con:name>Condition 1</con:name>
+            <con:type>XPATH</con:type>
+            <con:expression>def combinatie = context.expand( '${DataSource#Combinatie}' )
+def gekozenCombinatie = testRunner.testCase.testSuite.project.getPropertyValue('Combinatie')
+
+log.info 'Gekozen combinatie: '+gekozenCombinatie
+log.info combinatie
+log.info verzoeker
+log.info 'Passed'</con:expression>
+          </con:condition>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Einde zoeken combinatie" id="bcfe1698-bc3b-4e11-b6f3-30015ee1218d">
+        <con:settings/>
+        <con:config>
+          <script>def alert = com.eviware.soapui.support.UISupport;
+def verzoeker = testRunner.testCase.testSuite.project.getPropertyValue('Verzoeker')
+
+//This will display an information message
+alert.showInfoMessage('De gevonden verzoeker is: '+verzoeker);</script>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+      <con:reportParameters/>
+      <con:breakPoints>
+        <con:testStepId>f7f974bf-f661-4a9b-8d68-b572399237ad</con:testStepId>
+        <con:status>NONE</con:status>
+        <con:properties/>
+      </con:breakPoints>
+    </con:testCase>

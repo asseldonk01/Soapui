@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite name="Use datasink" id="a1a8479a-da07-4b40-887e-420afd0f9104" xmlns:con="http://eviware.com/soapui/config">
+    <con:settings><con:setting id="a1a8479a-da07-4b40-887e-420afd0f9104fileName">Use-datasink</con:setting></con:settings>
+    <con:runType>SEQUENTIAL</con:runType>
+    
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>

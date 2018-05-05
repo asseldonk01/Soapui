@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="fb49609c-4b82-4ae3-917b-42693e050305" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Adding Node to XML via datasink - XML property - datasource 2*" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="fb49609c-4b82-4ae3-917b-42693e050305fileName">Adding-Node-to-XML-via-datasink---XML-property---datasource-2%2A</con:setting></con:settings><con:testStep type="datasource" name="DataSource" id="1152e1c3-77f4-459d-ad76-81ac07956aaf"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>AddingNodeToXml/DataSource.xlsx</file><worksheet>Bestanden</worksheet><cell>A2</cell><ignoreEmpty>false</ignoreEmpty><evaluateFormulas>false</evaluateFormulas></con:configuration></con:dataSource><con:property>Bestandsnaam</con:property><con:property>Code</con:property><con:property>Naam</con:property><con:property>NummerExternSysteemID</con:property><con:property>MimeContentId</con:property><con:property>MimeContentTypeCode</con:property><con:startRow/><con:endRow/><con:trimValues>true</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>true</con:expandProperties></con:config></con:testStep><con:testStep type="datasink" name="DataSink" id="86f42acf-eca4-43d9-b7ca-b78abd183d40"><con:settings/><con:config xsi:type="con:DataSinkStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSink type="Property"><con:configuration><prefix><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<bd:Document xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" 
+xmlns:clm63055="urn:un:unece:uncefact:codelist:standard:6:3055:D09B" 
+xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:11" 
+xmlns:s2s_rechtspraak="http://data.justid.nl/s2srechtspraak/dictionary-0" 
+xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:11" 
+xmlns:srk="http://data.justid.nl/srk/dictionary-1" 
+xmlns:clmEBVFoutniveausCode="http://data.justid.nl/codelist-FoutniveausCode" 
+xmlns:jk="http://data.justid.nl/jk/dictionary-1" 
+xmlns:clmEBVRechtsvormenCode="http://data.justid.nl/codelist-RechtsvormenCode" 
+xmlns:clmSPIR-ITTINSTANTIECode="http://data.justid.nl/codelist-TINSTANTIECode" 
+xmlns:clmSPIR-ITTNATCode="http://data.justid.nl/codelist-TNATCode" 
+xmlns:clmIANAIANAMimeMediaTypeCode="http://data.justid.nl/codelist-IANAMimeMediaTypeCode" 
+xmlns:clmEBVGeslachtenCode="http://data.justid.nl/codelist-GeslachtenCode" 
+xmlns:clmSPIR-ITTVOORVOEGCode="http://data.justid.nl/codelist-TVOORVOEGCode" 
+xmlns:clmEBVSoortenZaakclusterCode="http://data.justid.nl/codelist-SoortenZaakclusterCode" 
+xmlns:clmEBVStatussenNotificatieobjectCode="http://data.justid.nl/codelist-StatussenNotificatieobjectCode" 
+xmlns:clmEBVBehandeltypesCode="http://data.justid.nl/codelist-BehandeltypesCode" 
+xmlns:clmEBVSoortenCommunicatiemiddelCode="http://data.justid.nl/codelist-SoortenCommunicatiemiddelCode" 
+xmlns:clmEBVSoortenRegistratieCode="http://data.justid.nl/codelist-SoortenRegistratieCode" 
+xmlns:clmEBVTypenNotificatieobjectCode="http://data.justid.nl/codelist-TypenNotificatieobjectCode" 
+xmlns:clmEBVRollenPartijCode="http://data.justid.nl/codelist-RollenPartijCode" 
+xmlns:bd="http://data.justid.nl/s2srechtspraak/document/Document-1" xmlns:arch="http://data.justid.nl/arch/dictionary-1" xmlns:ebvh="http://data.justid.nl/common/header-2" xmlns:ccl="http://data.justid.nl/ccl/dictionary-D11A" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://data.justid.nl/s2srechtspraak/document/Document-1 D:\Projecten\Services\other\GedeeldeObjecten\apps\presentatie\AxwayS2SMockBerichtVerwerkerService\1.0\ebv\Document_BD-023005\data\standard\Document.xsd">
+            <ebvh:ID>0123456789</ebvh:ID>
+            <ebvh:VerzendendeInstantie>
+                        <ebvh:Instantiecode>IND003</ebvh:Instantiecode>
+            </ebvh:VerzendendeInstantie>
+            <ebvh:OntvangendeInstantie>
+                        <ebvh:Instantiecode>AR0040</ebvh:Instantiecode>
+            </ebvh:OntvangendeInstantie>
+            <ebvh:Datum>2014-12-31+02:00</ebvh:Datum>
+            <ebvh:Tijdstip>15:05:43.068+02:00</ebvh:Tijdstip>      
+            <ebvh:SchemaVersieID>1.0</ebvh:SchemaVersieID>
+            <bd:RegistratieveRelatieZaak>
+                        <srk:Zaakidentificatiecode>VK 14 / 10503</srk:Zaakidentificatiecode>
+            </bd:RegistratieveRelatieZaak>  ]]></prefix><content><![CDATA[<bd:DocumentAggregatieniveau>
+	<arch:ClassificatieDocumentClassificatie>
+	<arch:Code>${DataSource#Code}</arch:Code>
+	</arch:ClassificatieDocumentClassificatie>
+	<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID>
+	<arch:Naam>${DataSource#Naam}</arch:Naam>
+	<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum>
+	<arch:ExterneIdentificatiekenmerken>
+	    <arch:NummerExternSysteemID>${DataSource#NummerExternSysteemID}</arch:NummerExternSysteemID>
+	</arch:ExterneIdentificatiekenmerken>
+	<arch:Bijlage>
+	      <jk:MimeContentId>${DataSource#MimeContentId}</jk:MimeContentId>
+	     <jk:MimeContentTypeCode listAgencyID="IANA">${DataSource#MimeContentTypeCode}</jk:MimeContentTypeCode>
+	</arch:Bijlage>
+</bd:DocumentAggregatieniveau>]]></content><suffix>&lt;/bd:Document></suffix><property>result</property></con:configuration></con:dataSink><con:properties><con:property><con:name>result</con:name><con:value/></con:property></con:properties></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop" id="4e56b3b0-e271-4c6f-9246-496654b6ed33"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>DataSink</targetStep></con:config></con:testStep><con:testStep type="transfer" name="Property Transfer" id="29a50e3a-1816-42ab-9d46-1d69fa551504"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>resultaat</con:name><con:sourceType>result</con:sourceType><con:sourceStep>DataSink</con:sourceStep><con:targetType>Resultaat</con:targetType><con:targetStep>#TestCase#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="datasource" name="DataSource-2" id="cfce4c01-b20c-4d52-95f4-e86cf45e9bdd" disabled="true"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>AddingNodeToXml/DataSource.xlsx</file><worksheet>Bestanden</worksheet><cell>A2</cell><ignoreEmpty>false</ignoreEmpty><evaluateFormulas>false</evaluateFormulas></con:configuration></con:dataSource><con:property>Bestandsnaam</con:property><con:property>Code</con:property><con:property>Naam</con:property><con:property>NummerExternSysteemID</con:property><con:property>MimeContentId</con:property><con:property>MimeContentTypeCode</con:property><con:startRow/><con:endRow/><con:trimValues>true</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>true</con:expandProperties></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script-2" id="e7868b3c-2a3c-4b84-8410-fc89f4714301" disabled="true"><con:settings/><con:config><script>//def naam = context.expand( '${DataSource-2#Naam}' )
+//def code = context.expand( '${DataSource-2#Code}' )
+def row = testRunner.testCase.getTestStepByName("DataSource-2").getCurrentRow()
+def contentID = context.expand( '${DataSink#result#//bd:Document[1]/bd:DocumentAggregatieniveau['+row+']/arch:Bijlage[1]/jk:MimeContentId[1]}' )
+def naam = context.expand( '${DataSink#result#//bd:Document[1]/bd:DocumentAggregatieniveau['+row+']/arch:Naam[1]}' )
+def code = context.expand( '${DataSink#result#//bd:Document[1]/bd:DocumentAggregatieniveau['+row+']/arch:ClassificatieDocumentClassificatie[1]/arch:Code[1]}' )
+def maxRows = context.expand( '${#TestCase#Resultaat#count(//DocumentAggregatieniveau)}' )
+
+
+log.info 'ROW :'+row
+log.info 'NAAM: '+naam
+log.info 'CODE: '+code
+log.info 'CONTENT ID: '+contentID
+log.info 'MaxRows: '+maxRows
+
+
+
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script-end" id="3a892f24-fd68-45a7-a268-f18bb9b860a2" disabled="true"><con:settings/><con:config><script>def numberOfRows = context.expand( '${#TestCase#Resultaat#count(//bd:DocumentAggregatieniveau)}' )
+log.info numberOfRows
+
+if( context.loopIndex == null )
+context.loopIndex = 1
+
+log.info 'END, context.loopIndex: '+context.loopIndex
+
+if( ++context.loopIndex &lt;= numberOfRows )
+testRunner.gotoStepByName( "Groovy Script-2" )</script></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop - 2" id="ac9ed326-5b83-49d6-936f-96badb44b22d" disabled="true"><con:settings/><con:config><dataSourceStep>DataSource-2</dataSourceStep><targetStep>Groovy Script-2</targetStep></con:config></con:testStep><con:testStep type="groovy" name="bepaalAantalBestanden" id="c21c5a6c-d599-4bad-8841-5788f2aaf8c9"><con:settings/><con:config><script>def maxRows = context.expand( '${#TestCase#Resultaat#declare namespace bd=\'http://data.justid.nl/s2srechtspraak/document/Document-1\'; count(//bd:DocumentAggregatieniveau)}' )
+testRunner.testCase.setPropertyValue( "maxRows", maxRows )
+log.info 'MaxRows: '+maxRows
+
+
+
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="bepaalBestanden" id="fd380c19-0fb3-4306-968e-d215f0877613"><con:settings/><con:config><script>//def maxRows = testRunner.testCase.gePropertyValue( "maxRows" )
+
+def maxRows = context.expand( '${#TestCase#maxRows}' )
+log.info 'maxRows: '+maxRows</script></con:config></con:testStep><con:testStep type="groovy" name="Copy of bepaalBestanden" id="eb0efb8e-3c6e-4109-b862-001741364871"><con:settings/><con:config><script>def maxRows = context.expand( '${#TestCase#maxRows}' )
+log.info 'maxRows: '+maxRows
+
+
+for (int index=1; index.toString() &lt;= maxRows.toString(); index++) {
+
+	def contentID = context.expand( '${#TestCase#Resultaat#//bd:DocumentAggregatieniveau['+index+']/arch:Bijlage[1]/jk:MimeContentId[1]}' );
+	def naam = context.expand( '${#TestCase#Resultaat#//bd:DocumentAggregatieniveau['+index+']/arch:Naam[1]}' );
+	//def naam = context.expand( '${#TestCase#Resultaat#declare namespace bd=\'http://data.justid.nl/s2srechtspraak/document/Document-1\'; declare namespace arch=\'http://data.justid.nl/arch/dictionary-1\'; //bd:Document[1]/bd:DocumentAggregatieniveau['+index+']/arch:Naam[1]}' );
+	def code = context.expand( '${#TestCase#Resultaat#//bd:DocumentAggregatieniveau['+index+']/arch:ClassificatieDocumentClassificatie[1]/arch:Code[1]}' );
+    
+ 	log.info 'NAAM: '+naam;
+	log.info 'CODE: '+code;
+	log.info 'CONTENT ID: '+contentID;
+
+	log.info 'INDEX '+index
+}</script></con:config></con:testStep><con:properties><con:property><con:name>Resultaat</con:name><con:value><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<bd:Document xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" 
+xmlns:clm63055="urn:un:unece:uncefact:codelist:standard:6:3055:D09B" 
+xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:11" 
+xmlns:s2s_rechtspraak="http://data.justid.nl/s2srechtspraak/dictionary-0" 
+xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:11" 
+xmlns:srk="http://data.justid.nl/srk/dictionary-1" 
+xmlns:clmEBVFoutniveausCode="http://data.justid.nl/codelist-FoutniveausCode" 
+xmlns:jk="http://data.justid.nl/jk/dictionary-1" 
+xmlns:clmEBVRechtsvormenCode="http://data.justid.nl/codelist-RechtsvormenCode" 
+xmlns:clmSPIR-ITTINSTANTIECode="http://data.justid.nl/codelist-TINSTANTIECode" 
+xmlns:clmSPIR-ITTNATCode="http://data.justid.nl/codelist-TNATCode" 
+xmlns:clmIANAIANAMimeMediaTypeCode="http://data.justid.nl/codelist-IANAMimeMediaTypeCode" 
+xmlns:clmEBVGeslachtenCode="http://data.justid.nl/codelist-GeslachtenCode" 
+xmlns:clmSPIR-ITTVOORVOEGCode="http://data.justid.nl/codelist-TVOORVOEGCode" 
+xmlns:clmEBVSoortenZaakclusterCode="http://data.justid.nl/codelist-SoortenZaakclusterCode" 
+xmlns:clmEBVStatussenNotificatieobjectCode="http://data.justid.nl/codelist-StatussenNotificatieobjectCode" 
+xmlns:clmEBVBehandeltypesCode="http://data.justid.nl/codelist-BehandeltypesCode" 
+xmlns:clmEBVSoortenCommunicatiemiddelCode="http://data.justid.nl/codelist-SoortenCommunicatiemiddelCode" 
+xmlns:clmEBVSoortenRegistratieCode="http://data.justid.nl/codelist-SoortenRegistratieCode" 
+xmlns:clmEBVTypenNotificatieobjectCode="http://data.justid.nl/codelist-TypenNotificatieobjectCode" 
+xmlns:clmEBVRollenPartijCode="http://data.justid.nl/codelist-RollenPartijCode" 
+xmlns:bd="http://data.justid.nl/s2srechtspraak/document/Document-1" xmlns:arch="http://data.justid.nl/arch/dictionary-1" xmlns:ebvh="http://data.justid.nl/common/header-2" xmlns:ccl="http://data.justid.nl/ccl/dictionary-D11A" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://data.justid.nl/s2srechtspraak/document/Document-1 D:\Projecten\Services\other\GedeeldeObjecten\apps\presentatie\AxwayS2SMockBerichtVerwerkerService\1.0\ebv\Document_BD-023005\data\standard\Document.xsd">
+            <ebvh:ID>0123456789</ebvh:ID>
+            <ebvh:VerzendendeInstantie>
+                        <ebvh:Instantiecode>IND003</ebvh:Instantiecode>
+            </ebvh:VerzendendeInstantie>
+            <ebvh:OntvangendeInstantie>
+                        <ebvh:Instantiecode>AR0040</ebvh:Instantiecode>
+            </ebvh:OntvangendeInstantie>
+            <ebvh:Datum>2014-12-31+02:00</ebvh:Datum>
+            <ebvh:Tijdstip>15:05:43.068+02:00</ebvh:Tijdstip>      
+            <ebvh:SchemaVersieID>1.0</ebvh:SchemaVersieID>
+            <bd:RegistratieveRelatieZaak>
+                        <srk:Zaakidentificatiecode>VK 14 / 10503</srk:Zaakidentificatiecode>
+            </bd:RegistratieveRelatieZaak>  <bd:DocumentAggregatieniveau>
+	<arch:ClassificatieDocumentClassificatie>
+	<arch:Code>1</arch:Code>
+	</arch:ClassificatieDocumentClassificatie>
+	<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID>
+	<arch:Naam>DocumentNaamPDF1</arch:Naam>
+	<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum>
+	<arch:ExterneIdentificatiekenmerken>
+	    <arch:NummerExternSysteemID>Token01</arch:NummerExternSysteemID>
+	</arch:ExterneIdentificatiekenmerken>
+	<arch:Bijlage>
+	      <jk:MimeContentId>1@test.nl</jk:MimeContentId>
+	     <jk:MimeContentTypeCode listAgencyID="IANA">application/pdf1</jk:MimeContentTypeCode>
+	</arch:Bijlage>
+</bd:DocumentAggregatieniveau><bd:DocumentAggregatieniveau>
+	<arch:ClassificatieDocumentClassificatie>
+	<arch:Code>2</arch:Code>
+	</arch:ClassificatieDocumentClassificatie>
+	<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID>
+	<arch:Naam>DocumentNaamPDF2</arch:Naam>
+	<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum>
+	<arch:ExterneIdentificatiekenmerken>
+	    <arch:NummerExternSysteemID>Token02</arch:NummerExternSysteemID>
+	</arch:ExterneIdentificatiekenmerken>
+	<arch:Bijlage>
+	      <jk:MimeContentId>2@test.nl</jk:MimeContentId>
+	     <jk:MimeContentTypeCode listAgencyID="IANA">application/pdf2</jk:MimeContentTypeCode>
+	</arch:Bijlage>
+</bd:DocumentAggregatieniveau><bd:DocumentAggregatieniveau>
+	<arch:ClassificatieDocumentClassificatie>
+	<arch:Code>2</arch:Code>
+	</arch:ClassificatieDocumentClassificatie>
+	<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID>
+	<arch:Naam>DocumentNaamPDF3</arch:Naam>
+	<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum>
+	<arch:ExterneIdentificatiekenmerken>
+	    <arch:NummerExternSysteemID>Token03</arch:NummerExternSysteemID>
+	</arch:ExterneIdentificatiekenmerken>
+	<arch:Bijlage>
+	      <jk:MimeContentId>3@test.nl</jk:MimeContentId>
+	     <jk:MimeContentTypeCode listAgencyID="IANA">application/pdf3</jk:MimeContentTypeCode>
+	</arch:Bijlage>
+</bd:DocumentAggregatieniveau></bd:Document>]]></con:value></con:property><con:property><con:name>Invoer</con:name><con:value><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<bd:Document xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2"
+             xmlns:clm63055="urn:un:unece:uncefact:codelist:standard:6:3055:D09B"
+             xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:11"
+             xmlns:s2s_rechtspraak="http://data.justid.nl/s2srechtspraak/dictionary-0"
+             xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:11"
+             xmlns:srk="http://data.justid.nl/srk/dictionary-1"
+             xmlns:clmEBVFoutniveausCode="http://data.justid.nl/codelist-FoutniveausCode"
+             xmlns:jk="http://data.justid.nl/jk/dictionary-1"
+             xmlns:clmEBVRechtsvormenCode="http://data.justid.nl/codelist-RechtsvormenCode"
+             xmlns:clmSPIR-ITTINSTANTIECode="http://data.justid.nl/codelist-TINSTANTIECode"
+             xmlns:clmSPIR-ITTNATCode="http://data.justid.nl/codelist-TNATCode"
+             xmlns:clmIANAIANAMimeMediaTypeCode="http://data.justid.nl/codelist-IANAMimeMediaTypeCode"
+             xmlns:clmEBVGeslachtenCode="http://data.justid.nl/codelist-GeslachtenCode"
+             xmlns:clmSPIR-ITTVOORVOEGCode="http://data.justid.nl/codelist-TVOORVOEGCode"
+             xmlns:clmEBVSoortenZaakclusterCode="http://data.justid.nl/codelist-SoortenZaakclusterCode"
+             xmlns:clmEBVStatussenNotificatieobjectCode="http://data.justid.nl/codelist-StatussenNotificatieobjectCode"
+             xmlns:clmEBVBehandeltypesCode="http://data.justid.nl/codelist-BehandeltypesCode"
+             xmlns:clmEBVSoortenCommunicatiemiddelCode="http://data.justid.nl/codelist-SoortenCommunicatiemiddelCode"
+             xmlns:clmEBVSoortenRegistratieCode="http://data.justid.nl/codelist-SoortenRegistratieCode"
+             xmlns:clmEBVTypenNotificatieobjectCode="http://data.justid.nl/codelist-TypenNotificatieobjectCode"
+             xmlns:clmEBVRollenPartijCode="http://data.justid.nl/codelist-RollenPartijCode"
+             xmlns:bd="http://data.justid.nl/s2srechtspraak/document/Document-1"
+             xmlns:arch="http://data.justid.nl/arch/dictionary-1"
+             xmlns:ebvh="http://data.justid.nl/common/header-2"
+             xmlns:ccl="http://data.justid.nl/ccl/dictionary-D11A"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://data.justid.nl/s2srechtspraak/document/Document-1 D:\Projecten\Services\other\GedeeldeObjecten\apps\presentatie\AxwayS2SMockBerichtVerwerkerService\1.0\ebv\Document_BD-023005\data\standard\Document.xsd">
+  <ebvh:ID>0123456789</ebvh:ID>
+  <ebvh:VerzendendeInstantie>
+      <ebvh:Instantiecode>IND003</ebvh:Instantiecode>
+  </ebvh:VerzendendeInstantie>
+  <ebvh:OntvangendeInstantie>
+      <ebvh:Instantiecode>AR0040</ebvh:Instantiecode>
+  </ebvh:OntvangendeInstantie>
+  <ebvh:Datum>2014-12-31+02:00</ebvh:Datum>
+  <ebvh:Tijdstip>15:05:43.068+02:00</ebvh:Tijdstip>
+  <ebvh:SchemaVersieID>1.0</ebvh:SchemaVersieID>
+  <bd:RegistratieveRelatieZaak>
+      <srk:Zaakidentificatiecode>VK 14 / 10503</srk:Zaakidentificatiecode>
+  </bd:RegistratieveRelatieZaak>
+</bd:Document>]]></con:value></con:property><con:property><con:name>maxRows</con:name><con:value>3</con:value></con:property></con:properties><con:reportParameters/><con:breakPoints><con:testStepId>707f5c73-f575-49d9-b7f1-977bfbf3dab3</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>a2e0ee90-4ca0-4931-a34e-ef81db49bccc</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>d37a0824-6ad2-435a-a194-357c01bb819a</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>cfce4c01-b20c-4d52-95f4-e86cf45e9bdd</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>

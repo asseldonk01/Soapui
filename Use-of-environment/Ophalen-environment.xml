@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="7b969546-ba84-4718-9a97-09b5ae963a61" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Ophalen environment" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="7b969546-ba84-4718-9a97-09b5ae963a61fileName">Ophalen-environment</con:setting></con:settings><con:savedRecentRuns>1</con:savedRecentRuns><con:testStep type="groovy" name="getEnvironment" id="0175d92f-714f-4a36-b795-7a3923d6e644"><con:settings/><con:config><script>def env = testRunner.testCase.testSuite.project.activeEnvironment.name
+def omgeving = context.expand( '${#Project#Omgeving}' )
+
+if (env == 'VOORLOOP' || omgeving == 'VOORLOOP') {
+	log.info 'Het is een VOORLOOP omgeving'
+	return
+}
+
+log.info 'Het is geen VOORLOOP omgeving'</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>

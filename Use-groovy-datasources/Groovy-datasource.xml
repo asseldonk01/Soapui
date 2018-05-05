@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Groovy datasource" searchProperties="true" id="26748b26-23ea-49e9-9762-7116e97a1176" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="26748b26-23ea-49e9-9762-7116e97a1176fileName">Groovy-datasource</con:setting></con:settings>
+      <con:testStep type="datasource" name="DataSource" id="c3354be2-430f-47a7-a980-e652a5bbe487"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Groovy"><con:configuration><script>def currentRow = testRunner.testCase.testSteps["DataSource"].currentRow + 1
+ 
+def row = context.expand( '${#TestCase#_jmsMessage.' + currentRow + '.Text}' )
+def naam = context.expand( '${#TestCase#_jmsMessage.' + currentRow + '.Name}' )
+if (row != "" ) {
+	result['i']=row
+	result['Naam']=naam
+}</script></con:configuration></con:dataSource><con:property>i</con:property><con:property>Naam</con:property><con:startRow/><con:endRow/><con:completeLastOperation>true</con:completeLastOperation><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" id="f09ef0a9-c89a-422e-913d-206f4796269f">
+        <con:settings/>
+        <con:config><script>log.info context.expand( '${DataSource#i}' )
+log.info context.expand( '${DataSource#Naam}' )</script></con:config>
+      </con:testStep>
+      
+      
+      
+      <con:testStep type="datasourceloop" name="DataSource Loop" id="ff644d80-cc7a-44b6-a42f-356a97e38921"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Groovy Script</targetStep></con:config></con:testStep><con:properties><con:property><con:name>_jmsMessage.1.Text</con:name><con:value>&lt;a>xml 1-ste tekst&lt;/a></con:value></con:property><con:property><con:name>_jmsMessage.1.Name</con:name><con:value>Name Eerste test</con:value></con:property><con:property><con:name>_jmsMessage.2.Text</con:name><con:value>&lt;b>xml 2-de tekst&lt;/b></con:value></con:property><con:property><con:name>_jmsMessage.2.Name</con:name><con:value>Name Tweede test</con:value></con:property></con:properties>
+      <con:reportParameters/>
+    <con:breakPoints><con:testStepId>c3354be2-430f-47a7-a980-e652a5bbe487</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>

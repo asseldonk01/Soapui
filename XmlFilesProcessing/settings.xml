@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="674a76ec-91b2-4ce6-b9b1-8297a2751664" name="XmlFilesProcessing" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="674a76ec-91b2-4ce6-b9b1-8297a2751664fileName">XmlFilesProcessing</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:properties/><con:reportParameters/></con:testSuite>

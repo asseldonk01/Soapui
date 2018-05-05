@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="f5cbfa28-78be-4c22-9f78-44629d622cef" name="useOfTimeDuration" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="f5cbfa28-78be-4c22-9f78-44629d622ceffileName">useOfTimeDuration</con:setting></con:settings><con:savedRecentRuns>1</con:savedRecentRuns><con:runType>SEQUENTIAL</con:runType><con:properties/><con:reportParameters/></con:testSuite>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Groovy datasource" searchProperties="true" id="cc1d2f9d-2293-4ca5-8a67-8cf98354a178" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="cc1d2f9d-2293-4ca5-8a67-8cf98354a178fileName">Groovy-datasource</con:setting></con:settings>
+      <con:testStep type="datasource" name="DataSource" id="6e3c93b2-7385-40c7-951e-9e748bc6177a"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="XML"><con:configuration><sourceStep/><sourceProperty/><rowPath/><columnPath>i/text()</columnPath><columnPath>Naam/text()</columnPath></con:configuration></con:dataSource><con:property>i</con:property><con:property>Naam</con:property><con:startRow/><con:endRow/><con:completeLastOperation>true</con:completeLastOperation><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep>
+      <con:testStep type="groovy" name="Groovy Script" id="d74020ad-051d-4a1e-94e0-dc33632b1fc9">
+        <con:settings/>
+        <con:config><script>log.info context.expand( '${DataSource#i}' )
+log.info context.expand( '${DataSource#Naam}' )</script></con:config>
+      </con:testStep>
+      
+      
+      
+      <con:testStep type="datasourceloop" name="DataSource Loop" id="44d5e481-3940-49f9-8877-6e2da2f2b448"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Groovy Script</targetStep></con:config></con:testStep><con:properties><con:property><con:name>_jmsMessage.Xml</con:name><con:value><![CDATA[</nodes> <node>NodeA</node> <node>NodeB</node> </nodes>]]></con:value></con:property></con:properties>
+      <con:reportParameters/>
+    <con:breakPoints><con:testStepId>c3354be2-430f-47a7-a980-e652a5bbe487</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>

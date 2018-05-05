@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="c33d1ada-c541-44ac-a6bd-56c7c0b620c3" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Test 1.5.0" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="c33d1ada-c541-44ac-a6bd-56c7c0b620c3fileName">Test-1.5.0</con:setting></con:settings><con:testStep type="groovy" name="VerwijderLegeNodes" id="cabfd176-d294-4416-ae71-6fcb9c8602f0"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+
+def nestedIndex = testRunner.testCase.getPropertyValue( 'nestedIndex' )
+def readXml = testRunner.testCase.getPropertyValue( 'readXml' )
+writeXml = readXml
+
+if (nestedIndex == ''){ nestedIndex = 1}
+log.info 'NextedIndex: '+nestedIndex
+
+for (i=0; i&lt;nestedIndex; i++) {	
+	holderXML = groovyUtils.getXmlHolder(writeXml)
+	for( item in holderXML.getDomNodes( "//*[normalize-space(.) = '' and count(*) = 0]" )){
+		item.removeXobj()
+	}
+	holderXML.updateProperty()
+	writeXml = holderXML.xml
+}
+
+testRunner.testCase.setPropertyValue( 'writeXml' , writeXml )	
+
+
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="Copy of VerwijderLegeNodes" id="d195955e-233f-4ba6-b0bf-1e9452f9b4da" disabled="true"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+
+def nestedIndex = testRunner.testCase.getPropertyValue( 'nestedIndex' )
+def readXml = testRunner.testCase.getPropertyValue( 'readXml' )
+testRunner.testCase.setPropertyValue( 'writeXml' , readXml )
+
+
+for i=1 to nextedIndex {
+	writeXml = testRunner.testCase.getPropertyValue( 'writeXml' )
+	holderXML = groovyUtils.getXmlHolder(writeXml)
+	for( item in holderXML.getDomNodes( "//*[normalize-space(.) = '' and count(*) = 0]" )){
+		item.removeXobj()
+	}
+	holderXML.updateProperty()
+	testRunner.testCase.setPropertyValue( 'writeXml' , holderXML.xml )
+	
+}
+
+// Ronde 1: verwijder alle xml nodes die geen waarde of alleen spaties bevatten
+String fileContents = new File(projectDir+'/'+'DocumentNodesWithEmptyNodes.xml').getText('UTF-8')
+def holderXML = groovyUtils.getXmlHolder(fileContents)
+for( item in holderXML.getDomNodes( "//*[normalize-space(.) = '' and count(*) = 0]" )){
+	item.removeXobj()
+}
+holderXML.updateProperty()
+
+// Ronde 2: verwijder alle xml nodes die geen child nodes bevatten en daardoor leeg zijn  -->
+holderXML = groovyUtils.getXmlHolder(holderXML.xml)
+for( item in holderXML.getDomNodes( "//*[normalize-space(.) = '' and count(*) = 0]" )){
+	item.removeXobj()
+}
+holderXML.updateProperty()
+
+// Write to file
+// file = new File(projectDir+'/'+'DocumentNodes_new.xml')
+// file.createNewFile()
+// file.write(holderXML.xml)
+
+testRunner.testCase.setPropertyValue( 'XmlWrite' , holderXML.xml )
+
+</script></con:config></con:testStep><con:testStep type="request" name="ConversionRate" id="af1fd7ce-80aa-41b1-b56b-36453f13dff0">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>CurrencyConvertorSoap12</con:interface>
+          <con:operation>ConversionRate</con:operation>
+          <con:request name="ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+            <con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+   <soap:Header/>
+   <soap:Body>
+      <web:ConversionRate>
+         <web:FromCurrency>&#228;</web:FromCurrency>
+         <web:ToCurrency>USD</web:ToCurrency>
+      </web:ConversionRate>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3"/>
+            <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882"/>
+            <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0">
+              <con:configuration>
+                <scriptText>import com.eviware.soapui.support.XmlHolder
+
+def holder = new XmlHolder( messageExchange.responseContentAsXml )
+holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
+def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
+
+assert node != null</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="18b382b5-24de-497d-9451-2889043dcd53">
+              <con:settings/><con:configuration><codes>200</codes></con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+            <con:wsrmConfig version="1.2"/>
+          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
+        </con:config>
+      </con:testStep><con:testStep type="groovy" name="Copy of VerwijderLegeNodes 1" id="bed3e677-4208-4f96-a570-1922a415af53"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectDir = groovyUtils.projectPath
+
+def nestedIndex = testRunner.testCase.getPropertyValue( 'nestedIndex' )
+def readXml = testRunner.testCase.getPropertyValue( 'readXml' )
+testRunner.testCase.setPropertyValue( 'writeXml' , readXml )
+
+if (nestedIndex == ''){ nestedIndex = 1}
+log.info 'NextedIndex: '+nestedIndex
+
+for (i=0; i&lt;nestedIndex; i++) {
+	writeXml = testRunner.testCase.getPropertyValue( 'writeXml' )
+	holderXML = groovyUtils.getXmlHolder(writeXml)
+	for( item in holderXML.getDomNodes( "//*[normalize-space(.) = '' and count(*) = 0]" )){
+		item.removeXobj()
+	}
+	holderXML.updateProperty()
+	testRunner.testCase.setPropertyValue( 'writeXml' , holderXML.xml )	
+}
+
+testRunner.testCase.setPropertyValue( 'writeXml' , writeXml )	
+
+
+
+</script></con:config></con:testStep><con:properties><con:property><con:name>XMLread</con:name><con:value>Dit is een document</con:value></con:property><con:property><con:name>FileContents</con:name><con:value><![CDATA[<?xml version="1.0" encoding="UTF-8"?>  <bd:Document xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2"  xmlns:clm63055="urn:un:unece:uncefact:codelist:standard:6:3055:D09B"  xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:11"  xmlns:s2s_rechtspraak="http://data.justid.nl/s2srechtspraak/dictionary-0"  xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:11"  xmlns:srk="http://data.justid.nl/srk/dictionary-1"  xmlns:clmEBVFoutniveausCode="http://data.justid.nl/codelist-FoutniveausCode"  xmlns:jk="http://data.justid.nl/jk/dictionary-1"  xmlns:clmEBVRechtsvormenCode="http://data.justid.nl/codelist-RechtsvormenCode"  xmlns:clmSPIR-ITTINSTANTIECode="http://data.justid.nl/codelist-TINSTANTIECode"  xmlns:clmSPIR-ITTNATCode="http://data.justid.nl/codelist-TNATCode"  xmlns:clmIANAIANAMimeMediaTypeCode="http://data.justid.nl/codelist-IANAMimeMediaTypeCode"  xmlns:clmEBVGeslachtenCode="http://data.justid.nl/codelist-GeslachtenCode"  xmlns:clmSPIR-ITTVOORVOEGCode="http://data.justid.nl/codelist-TVOORVOEGCode"  xmlns:clmEBVSoortenZaakclusterCode="http://data.justid.nl/codelist-SoortenZaakclusterCode"  xmlns:clmEBVStatussenNotificatieobjectCode="http://data.justid.nl/codelist-StatussenNotificatieobjectCode"  xmlns:clmEBVBehandeltypesCode="http://data.justid.nl/codelist-BehandeltypesCode"  xmlns:clmEBVSoortenCommunicatiemiddelCode="http://data.justid.nl/codelist-SoortenCommunicatiemiddelCode"  xmlns:clmEBVSoortenRegistratieCode="http://data.justid.nl/codelist-SoortenRegistratieCode"  xmlns:clmEBVTypenNotificatieobjectCode="http://data.justid.nl/codelist-TypenNotificatieobjectCode"  xmlns:clmEBVRollenPartijCode="http://data.justid.nl/codelist-RollenPartijCode"  xmlns:bd="http://data.justid.nl/s2srechtspraak/document/Document-1" xmlns:arch="http://data.justid.nl/arch/dictionary-1" xmlns:ebvh="http://data.justid.nl/common/header-2" xmlns:ccl="http://data.justid.nl/ccl/dictionary-D11A" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://data.justid.nl/s2srechtspraak/document/Document-1 D:\Projecten\Services\other\GedeeldeObjecten\apps\presentatie\AxwayS2SMockBerichtVerwerkerService\1.0\ebv\Document_BD-023005\data\standard\Document.xsd">  	<ebvh:ID>0123456789</ebvh:ID>  	<ebvh:VerzendendeInstantie>  		<ebvh:Instantiecode>IND003</ebvh:Instantiecode>  	</ebvh:VerzendendeInstantie>  	<ebvh:OntvangendeInstantie>  		<ebvh:Instantiecode>AR0040</ebvh:Instantiecode>  	</ebvh:OntvangendeInstantie>  	<ebvh:Datum>2014-12-31+02:00</ebvh:Datum>  	<ebvh:Tijdstip>15:05:43.068+02:00</ebvh:Tijdstip>  	<ebvh:SchemaVersieID>1.0</ebvh:SchemaVersieID>  	<bd:RegistratieveRelatieZaak>  		<srk:Zaakidentificatiecode>${zaaknummer}</srk:Zaakidentificatiecode>  	</bd:RegistratieveRelatieZaak>  	<bd:DocumentAggregatieniveau>  		<arch:ClassificatieDocumentClassificatie>  			<arch:Code>1</arch:Code>  		</arch:ClassificatieDocumentClassificatie>  		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID>  		<arch:Naam>DocumentNaamPDF1</arch:Naam>  		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum>  		<arch:ExterneIdentificatiekenmerken>  			<arch:NummerExternSysteemID>Token01</arch:NummerExternSysteemID>  		</arch:ExterneIdentificatiekenmerken>  		<arch:Bijlage>  			<jk:MimeContentId>1@test.nl</jk:MimeContentId>  			<jk:MimeContentTypeCode listAgencyID="IANA">application/pdf1</jk:MimeContentTypeCode>  		</arch:Bijlage>  	</bd:DocumentAggregatieniveau>  	<bd:DocumentAggregatieniveau>  		<arch:ClassificatieDocumentClassificatie>  			<arch:Code>2</arch:Code>  		</arch:ClassificatieDocumentClassificatie>  		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID>  		<arch:Naam>DocumentNaamPDF2</arch:Naam>  		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum>  		<arch:ExterneIdentificatiekenmerken>  			<arch:NummerExternSysteemID>Token02</arch:NummerExternSysteemID>  		</arch:ExterneIdentificatiekenmerken>  		<arch:Bijlage>  			<jk:MimeContentId>2@test.nl</jk:MimeContentId>  			<jk:MimeContentTypeCode listAgencyID="IANA">application/pdf2</jk:MimeContentTypeCode>  		</arch:Bijlage>  	</bd:DocumentAggregatieniveau>  	<bd:DocumentAggregatieniveau>  		<arch:ClassificatieDocumentClassificatie>  			<arch:Code>2</arch:Code>  		</arch:ClassificatieDocumentClassificatie>  		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID>  		<arch:Naam>DocumentNaamPDF3</arch:Naam>  		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum>  		<arch:ExterneIdentificatiekenmerken>  			<arch:NummerExternSysteemID>Token03</arch:NummerExternSysteemID>  		</arch:ExterneIdentificatiekenmerken>  		<arch:Bijlage>  			<jk:MimeContentId>3@test.nl</jk:MimeContentId>  			<jk:MimeContentTypeCode listAgencyID="IANA">application/pdf3</jk:MimeContentTypeCode>  		</arch:Bijlage>  	</bd:DocumentAggregatieniveau>  </bd:Document>]]></con:value></con:property><con:property><con:name>XmlWrite</con:name><con:value><![CDATA[<bd:Document xsi:schemaLocation="http://data.justid.nl/s2srechtspraak/document/Document-1 D:\Projecten\Services\other\GedeeldeObjecten\apps\presentatie\AxwayS2SMockBerichtVerwerkerService\1.0\ebv\Document_BD-023005\data\standard\Document.xsd" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns:clm63055="urn:un:unece:uncefact:codelist:standard:6:3055:D09B" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:11" xmlns:s2s_rechtspraak="http://data.justid.nl/s2srechtspraak/dictionary-0" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:11" xmlns:srk="http://data.justid.nl/srk/dictionary-1" xmlns:clmEBVFoutniveausCode="http://data.justid.nl/codelist-FoutniveausCode" xmlns:jk="http://data.justid.nl/jk/dictionary-1" xmlns:clmEBVRechtsvormenCode="http://data.justid.nl/codelist-RechtsvormenCode" xmlns:clmSPIR-ITTINSTANTIECode="http://data.justid.nl/codelist-TINSTANTIECode" xmlns:clmSPIR-ITTNATCode="http://data.justid.nl/codelist-TNATCode" xmlns:clmIANAIANAMimeMediaTypeCode="http://data.justid.nl/codelist-IANAMimeMediaTypeCode" xmlns:clmEBVGeslachtenCode="http://data.justid.nl/codelist-GeslachtenCode" xmlns:clmSPIR-ITTVOORVOEGCode="http://data.justid.nl/codelist-TVOORVOEGCode" xmlns:clmEBVSoortenZaakclusterCode="http://data.justid.nl/codelist-SoortenZaakclusterCode" xmlns:clmEBVStatussenNotificatieobjectCode="http://data.justid.nl/codelist-StatussenNotificatieobjectCode" xmlns:clmEBVBehandeltypesCode="http://data.justid.nl/codelist-BehandeltypesCode" xmlns:clmEBVSoortenCommunicatiemiddelCode="http://data.justid.nl/codelist-SoortenCommunicatiemiddelCode" xmlns:clmEBVSoortenRegistratieCode="http://data.justid.nl/codelist-SoortenRegistratieCode" xmlns:clmEBVTypenNotificatieobjectCode="http://data.justid.nl/codelist-TypenNotificatieobjectCode" xmlns:clmEBVRollenPartijCode="http://data.justid.nl/codelist-RollenPartijCode" xmlns:bd="http://data.justid.nl/s2srechtspraak/document/Document-1" xmlns:arch="http://data.justid.nl/arch/dictionary-1" xmlns:ebvh="http://data.justid.nl/common/header-2" xmlns:ccl="http://data.justid.nl/ccl/dictionary-D11A" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> 	<ebvh:ID>0123456789</ebvh:ID> 	<ebvh:VerzendendeInstantie> 		<ebvh:Instantiecode>IND003</ebvh:Instantiecode> 	</ebvh:VerzendendeInstantie> 	<ebvh:OntvangendeInstantie> 		<ebvh:Instantiecode>AR0040</ebvh:Instantiecode> 	</ebvh:OntvangendeInstantie> 	<ebvh:Datum>2014-12-31+02:00</ebvh:Datum> 	<ebvh:Tijdstip>15:05:43.068+02:00</ebvh:Tijdstip> 	<ebvh:SchemaVersieID>1.0</ebvh:SchemaVersieID> 	<bd:DocumentAggregatieniveau> 		<arch:ClassificatieDocumentClassificatie> 			<arch:Code>1</arch:Code> 		</arch:ClassificatieDocumentClassificatie> 		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID> 		<arch:Naam>DocumentNaamPDF1</arch:Naam> 		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum> 		<arch:ExterneIdentificatiekenmerken> 			<arch:NummerExternSysteemID>Token01</arch:NummerExternSysteemID> 		</arch:ExterneIdentificatiekenmerken> 		</bd:DocumentAggregatieniveau> 	<bd:DocumentAggregatieniveau> 		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID> 		<arch:Naam>DocumentNaamPDF2</arch:Naam> 		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum> 		<arch:ExterneIdentificatiekenmerken> 			<arch:NummerExternSysteemID>Token02</arch:NummerExternSysteemID> 		</arch:ExterneIdentificatiekenmerken> 		<arch:Bijlage> 			<jk:MimeContentId>2@test.nl</jk:MimeContentId> 			<jk:MimeContentTypeCode listAgencyID="IANA">application/pdf2</jk:MimeContentTypeCode>		 		</arch:Bijlage> 	</bd:DocumentAggregatieniveau> 	<bd:DocumentAggregatieniveau> 		<arch:ClassificatieDocumentClassificatie> 			<arch:Code>2</arch:Code> 		</arch:ClassificatieDocumentClassificatie> 		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID> 		<arch:Naam>DocumentNaamPDF3</arch:Naam> 		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum> 		<arch:ExterneIdentificatiekenmerken> 			<arch:NummerExternSysteemID>Token03</arch:NummerExternSysteemID> 		</arch:ExterneIdentificatiekenmerken> 		<arch:Bijlage> 			<jk:MimeContentId>3@test.nl</jk:MimeContentId> 			<jk:MimeContentTypeCode listAgencyID="IANA">application/pdf3</jk:MimeContentTypeCode> 		</arch:Bijlage> 	</bd:DocumentAggregatieniveau> </bd:Document>]]></con:value></con:property><con:property><con:name>nestedIndex</con:name><con:value>2</con:value></con:property><con:property><con:name>readXml</con:name><con:value><![CDATA[<bd:Document xsi:schemaLocation="http://data.justid.nl/s2srechtspraak/document/Document-1 D:\Projecten\Services\other\GedeeldeObjecten\apps\presentatie\AxwayS2SMockBerichtVerwerkerService\1.0\ebv\Document_BD-023005\data\standard\Document.xsd" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns:clm63055="urn:un:unece:uncefact:codelist:standard:6:3055:D09B" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:11" xmlns:s2s_rechtspraak="http://data.justid.nl/s2srechtspraak/dictionary-0" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:11" xmlns:srk="http://data.justid.nl/srk/dictionary-1" xmlns:clmEBVFoutniveausCode="http://data.justid.nl/codelist-FoutniveausCode" xmlns:jk="http://data.justid.nl/jk/dictionary-1" xmlns:clmEBVRechtsvormenCode="http://data.justid.nl/codelist-RechtsvormenCode" xmlns:clmSPIR-ITTINSTANTIECode="http://data.justid.nl/codelist-TINSTANTIECode" xmlns:clmSPIR-ITTNATCode="http://data.justid.nl/codelist-TNATCode" xmlns:clmIANAIANAMimeMediaTypeCode="http://data.justid.nl/codelist-IANAMimeMediaTypeCode" xmlns:clmEBVGeslachtenCode="http://data.justid.nl/codelist-GeslachtenCode" xmlns:clmSPIR-ITTVOORVOEGCode="http://data.justid.nl/codelist-TVOORVOEGCode" xmlns:clmEBVSoortenZaakclusterCode="http://data.justid.nl/codelist-SoortenZaakclusterCode" xmlns:clmEBVStatussenNotificatieobjectCode="http://data.justid.nl/codelist-StatussenNotificatieobjectCode" xmlns:clmEBVBehandeltypesCode="http://data.justid.nl/codelist-BehandeltypesCode" xmlns:clmEBVSoortenCommunicatiemiddelCode="http://data.justid.nl/codelist-SoortenCommunicatiemiddelCode" xmlns:clmEBVSoortenRegistratieCode="http://data.justid.nl/codelist-SoortenRegistratieCode" xmlns:clmEBVTypenNotificatieobjectCode="http://data.justid.nl/codelist-TypenNotificatieobjectCode" xmlns:clmEBVRollenPartijCode="http://data.justid.nl/codelist-RollenPartijCode" xmlns:bd="http://data.justid.nl/s2srechtspraak/document/Document-1" xmlns:arch="http://data.justid.nl/arch/dictionary-1" xmlns:ebvh="http://data.justid.nl/common/header-2" xmlns:ccl="http://data.justid.nl/ccl/dictionary-D11A" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> 	<ebvh:ID>0123456789</ebvh:ID> 	<ebvh:VerzendendeInstantie> 		<ebvh:Instantiecode>IND003</ebvh:Instantiecode> 	</ebvh:VerzendendeInstantie> 	<ebvh:OntvangendeInstantie> 		<ebvh:Instantiecode>AR0040</ebvh:Instantiecode> 	</ebvh:OntvangendeInstantie> 	<ebvh:Datum>2014-12-31+02:00</ebvh:Datum> 	<ebvh:Tijdstip>15:05:43.068+02:00</ebvh:Tijdstip> 	<ebvh:SchemaVersieID>1.0</ebvh:SchemaVersieID> 	<bd:RegistratieveRelatieZaak> 		<srk:Zaakidentificatiecode>${zaaknummer}</srk:Zaakidentificatiecode> 	</bd:RegistratieveRelatieZaak> 	<bd:DocumentAggregatieniveau> 		<arch:ClassificatieDocumentClassificatie> 			<arch:Code>1</arch:Code> 		</arch:ClassificatieDocumentClassificatie> 		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID> 		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum> 		<arch:ExterneIdentificatiekenmerken> 			<arch:NummerExternSysteemID>Token01</arch:NummerExternSysteemID> 		</arch:ExterneIdentificatiekenmerken> 		<arch:Bijlage> 			<jk:MimeContentTypeCode listAgencyID="IANA"></jk:MimeContentTypeCode> 		</arch:Bijlage> 	</bd:DocumentAggregatieniveau> 	<bd:DocumentAggregatieniveau> 		<arch:ClassificatieDocumentClassificatie> 			<arch:Code>2</arch:Code> 		</arch:ClassificatieDocumentClassificatie> 		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID> 		<arch:Naam>DocumentNaamPDF2</arch:Naam> 		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum> 		<arch:ExterneIdentificatiekenmerken> 			<arch:NummerExternSysteemID>Token02</arch:NummerExternSysteemID> 		</arch:ExterneIdentificatiekenmerken> 		<arch:Bijlage> 			<jk:MimeContentId>2@test.nl</jk:MimeContentId> 			<jk:MimeContentTypeCode listAgencyID="IANA">application/pdf2</jk:MimeContentTypeCode> 		</arch:Bijlage> 	</bd:DocumentAggregatieniveau> 	<bd:DocumentAggregatieniveau> 		<arch:ClassificatieDocumentClassificatie> 			<arch:Code>2</arch:Code> 		</arch:ClassificatieDocumentClassificatie> 		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID> 		<arch:Naam>DocumentNaamPDF3</arch:Naam> 		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum> 		<arch:ExterneIdentificatiekenmerken> 			<arch:NummerExternSysteemID>Token03</arch:NummerExternSysteemID> 		</arch:ExterneIdentificatiekenmerken> 		<arch:Bijlage> 			<jk:MimeContentId>3@test.nl</jk:MimeContentId> 			<jk:MimeContentTypeCode listAgencyID="IANA">application/pdf3</jk:MimeContentTypeCode> 		</arch:Bijlage> 	</bd:DocumentAggregatieniveau> </bd:Document>]]></con:value></con:property><con:property><con:name>writeXml</con:name><con:value><![CDATA[<bd:Document xsi:schemaLocation="http://data.justid.nl/s2srechtspraak/document/Document-1 D:\Projecten\Services\other\GedeeldeObjecten\apps\presentatie\AxwayS2SMockBerichtVerwerkerService\1.0\ebv\Document_BD-023005\data\standard\Document.xsd" xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2" xmlns:clm63055="urn:un:unece:uncefact:codelist:standard:6:3055:D09B" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:11" xmlns:s2s_rechtspraak="http://data.justid.nl/s2srechtspraak/dictionary-0" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:11" xmlns:srk="http://data.justid.nl/srk/dictionary-1" xmlns:clmEBVFoutniveausCode="http://data.justid.nl/codelist-FoutniveausCode" xmlns:jk="http://data.justid.nl/jk/dictionary-1" xmlns:clmEBVRechtsvormenCode="http://data.justid.nl/codelist-RechtsvormenCode" xmlns:clmSPIR-ITTINSTANTIECode="http://data.justid.nl/codelist-TINSTANTIECode" xmlns:clmSPIR-ITTNATCode="http://data.justid.nl/codelist-TNATCode" xmlns:clmIANAIANAMimeMediaTypeCode="http://data.justid.nl/codelist-IANAMimeMediaTypeCode" xmlns:clmEBVGeslachtenCode="http://data.justid.nl/codelist-GeslachtenCode" xmlns:clmSPIR-ITTVOORVOEGCode="http://data.justid.nl/codelist-TVOORVOEGCode" xmlns:clmEBVSoortenZaakclusterCode="http://data.justid.nl/codelist-SoortenZaakclusterCode" xmlns:clmEBVStatussenNotificatieobjectCode="http://data.justid.nl/codelist-StatussenNotificatieobjectCode" xmlns:clmEBVBehandeltypesCode="http://data.justid.nl/codelist-BehandeltypesCode" xmlns:clmEBVSoortenCommunicatiemiddelCode="http://data.justid.nl/codelist-SoortenCommunicatiemiddelCode" xmlns:clmEBVSoortenRegistratieCode="http://data.justid.nl/codelist-SoortenRegistratieCode" xmlns:clmEBVTypenNotificatieobjectCode="http://data.justid.nl/codelist-TypenNotificatieobjectCode" xmlns:clmEBVRollenPartijCode="http://data.justid.nl/codelist-RollenPartijCode" xmlns:bd="http://data.justid.nl/s2srechtspraak/document/Document-1" xmlns:arch="http://data.justid.nl/arch/dictionary-1" xmlns:ebvh="http://data.justid.nl/common/header-2" xmlns:ccl="http://data.justid.nl/ccl/dictionary-D11A" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> 	<ebvh:ID>0123456789</ebvh:ID> 	<ebvh:VerzendendeInstantie> 		<ebvh:Instantiecode>IND003</ebvh:Instantiecode> 	</ebvh:VerzendendeInstantie> 	<ebvh:OntvangendeInstantie> 		<ebvh:Instantiecode>AR0040</ebvh:Instantiecode> 	</ebvh:OntvangendeInstantie> 	<ebvh:Datum>2014-12-31+02:00</ebvh:Datum> 	<ebvh:Tijdstip>15:05:43.068+02:00</ebvh:Tijdstip> 	<ebvh:SchemaVersieID>1.0</ebvh:SchemaVersieID> 	<bd:RegistratieveRelatieZaak> 		<srk:Zaakidentificatiecode>${zaaknummer}</srk:Zaakidentificatiecode> 	</bd:RegistratieveRelatieZaak> 	<bd:DocumentAggregatieniveau> 		<arch:ClassificatieDocumentClassificatie> 			<arch:Code>1</arch:Code> 		</arch:ClassificatieDocumentClassificatie> 		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID> 		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum> 		<arch:ExterneIdentificatiekenmerken> 			<arch:NummerExternSysteemID>Token01</arch:NummerExternSysteemID> 		</arch:ExterneIdentificatiekenmerken> 		</bd:DocumentAggregatieniveau> 	<bd:DocumentAggregatieniveau> 		<arch:ClassificatieDocumentClassificatie> 			<arch:Code>2</arch:Code> 		</arch:ClassificatieDocumentClassificatie> 		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID> 		<arch:Naam>DocumentNaamPDF2</arch:Naam> 		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum> 		<arch:ExterneIdentificatiekenmerken> 			<arch:NummerExternSysteemID>Token02</arch:NummerExternSysteemID> 		</arch:ExterneIdentificatiekenmerken> 		<arch:Bijlage> 			<jk:MimeContentId>2@test.nl</jk:MimeContentId> 			<jk:MimeContentTypeCode listAgencyID="IANA">application/pdf2</jk:MimeContentTypeCode> 		</arch:Bijlage> 	</bd:DocumentAggregatieniveau> 	<bd:DocumentAggregatieniveau> 		<arch:ClassificatieDocumentClassificatie> 			<arch:Code>2</arch:Code> 		</arch:ClassificatieDocumentClassificatie> 		<arch:IdentificatiekenmerkID>DSR0001</arch:IdentificatiekenmerkID> 		<arch:Naam>DocumentNaamPDF3</arch:Naam> 		<arch:DagtekeningDatum>2014-12-01</arch:DagtekeningDatum> 		<arch:ExterneIdentificatiekenmerken> 			<arch:NummerExternSysteemID>Token03</arch:NummerExternSysteemID> 		</arch:ExterneIdentificatiekenmerken> 		<arch:Bijlage> 			<jk:MimeContentId>3@test.nl</jk:MimeContentId> 			<jk:MimeContentTypeCode listAgencyID="IANA">application/pdf3</jk:MimeContentTypeCode> 		</arch:Bijlage> 	</bd:DocumentAggregatieniveau> </bd:Document>]]></con:value></con:property></con:properties><con:reportParameters/><con:breakPoints><con:testStepId>d711d7ff-8c7d-44b9-bf1b-ee04e542015d</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>

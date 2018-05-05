@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="MainTestCase" searchProperties="true" id="ebeff85b-9869-4a19-9460-fc1de2515d08" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="ebeff85b-9869-4a19-9460-fc1de2515d08fileName">MainTestCase</con:setting></con:settings>
+      <con:testStep type="groovy" name="Display values" id="19d9bb6e-e4d3-4d41-9a77-1209b717bbb2">
+        <con:settings/>
+        <con:config>
+          <script>def alert = com.eviware.soapui.support.UISupport;
+
+def firstname = context.expand( '${#TestCase#FirstName}' )
+def lastname = context.expand( '${#TestCase#LastName}' )
+def prefix = context.expand( '${#TestCase#Prefix}' )
+
+log.info firstname
+log.info lastname
+log.info prefix
+
+//This will display an information message
+alert.showInfoMessage('Theses are the variables: '+firstname+' '+prefix+' '+lastname);</script>
+        </con:config>
+      </con:testStep>
+      <con:properties>
+        <con:property>
+          <con:name>FirstName</con:name>
+          <con:value>Ed</con:value>
+        </con:property>
+        <con:property>
+          <con:name>LastName</con:name>
+          <con:value>Asseldonk</con:value>
+        </con:property>
+        <con:property>
+          <con:name>Prefix</con:name>
+          <con:value>van</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>

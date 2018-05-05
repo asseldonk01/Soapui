@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="a0059cb7-c7e4-44a6-8920-d2292ad1257b" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="SchrijfProperties" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="a0059cb7-c7e4-44a6-8920-d2292ad1257bfileName">SchrijfProperties</con:setting></con:settings><con:testStep type="groovy" name="SchrijfProperties" id="6f4d4d42-ab15-4bae-9287-957235e50681"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def writePropertiesFile = context.expand( '${#TestCase#WritePropertiesFile}' )
+
+Properties props = new Properties()
+File propsFile = new File(writePropertiesFile)
+
+Integer rand = new Random().next(4)
+props.setProperty('porcupine', rand.toString())
+props.setProperty('Veld01', 'Ha ha')
+props.setProperty('Veld02', '81200')
+props.store(propsFile.newWriter(), null)
+
+
+</script></con:config></con:testStep><con:properties><con:property><con:name>WritePropertiesFile</con:name><con:value/></con:property></con:properties><con:reportParameters/></con:testCase>

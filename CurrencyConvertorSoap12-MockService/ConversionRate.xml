@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:mockOperation name="ConversionRate" interface="CurrencyConvertorSoap12" operation="ConversionRate" id="799a61fe-bb9e-4588-87dd-2770d0dccf0b" xmlns:con="http://eviware.com/soapui/config">
+      <con:settings><con:setting id="799a61fe-bb9e-4588-87dd-2770d0dccf0bfileName">ConversionRate</con:setting></con:settings>
+      <con:dispatchPath>import com.eviware.soapui.support.GroovyUtils
+import groovy.xml.XmlUtil
+
+def groovyUtils = new GroovyUtils(context)
+def xmlParser = new XmlParser()
+def responseContent
+
+def requestXmlHolder = groovyUtils.getXmlHolder(mockRequest.getRequestContent())
+
+requestXmlHolder.declareNamespace("web","http://www.webserviceX.NET/")
+
+def fromCurrency = requestXmlHolder.getNodeValue("//web:ConversionRate[1]/web:FromCurrency[1]")
+def toCurrency = requestXmlHolder.getNodeValue("//web:ConversionRate[1]/web:ToCurrency[1]")
+
+if (fromCurrency == 'XXX' || toCurrency == 'XXX') {
+	responseContent = xmlParser.parse(groovyUtils.projectPath + "/mockresponses/soap-fault-response.xml")
+} else {
+	responseContent = xmlParser.parse(groovyUtils.projectPath + "/mockresponses/1-response.xml")
+}
+
+context.content = XmlUtil.serialize(responseContent)</con:dispatchPath>
+      <con:dispatchStyle>SCRIPT</con:dispatchStyle>
+      <con:defaultResponse>MockResponse 2</con:defaultResponse>
+      <con:dispatchXPath/><con:routeScript/><con:response name="MockResponse 2" encoding="UTF-8" httpResponseStatus="200" id="ab6fe18a-ba06-41d8-abc2-166bee6a3c8c" dataSource="">
+        <con:settings/>
+        <con:responseContent>${content}</con:responseContent>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateResponse"/>
+      </con:response>
+      <con:dispatchConfig/>
+    </con:mockOperation>

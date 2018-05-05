@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite name="Events TestSuite" id="9298c17b-e5fd-4c77-bb38-d8cd4f13bc73" xmlns:con="http://eviware.com/soapui/config">
+    <con:settings><con:setting id="9298c17b-e5fd-4c77-bb38-d8cd4f13bc73fileName">Events-TestSuite</con:setting></con:settings>
+    <con:runType>SEQUENTIAL</con:runType>
+    
+    <con:properties/>
+    <con:reportParameters/>
+  </con:testSuite>
