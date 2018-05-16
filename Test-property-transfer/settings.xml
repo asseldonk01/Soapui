@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="f7d9023e-6082-48a5-b6d6-a32ed93291c3" name="Test-property-transfer" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="f7d9023e-6082-48a5-b6d6-a32ed93291c3fileName">Test-property-transfer</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:runType>SEQUENTIAL</con:runType>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testSuite>

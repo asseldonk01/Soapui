@@ -22,5 +22,6 @@ Use-datasink
 Groovy
 Use-of-environment
 useOfTimeDuration
+Test-property-transfer
 CurrencyConvertorSoap12-MockService
 CurrencyConvertorSoap12-Virt
