@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="92af0300-4893-49d2-a9e0-d52b0f9eff35" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="HTML parsing" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="92af0300-4893-49d2-a9e0-d52b0f9eff35fileName">HTML-parsing</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="082e50c1-0b80-4922-9bc3-fb061984c54c">
+    <con:settings/>
+    <con:config>
+      <script>@Grab(group='org.ccil.cowan.tagsoup',
+      module='tagsoup', version='1.2' )
+def tagsoupParser = new org.ccil.cowan.tagsoup.Parser()
+def slurper = new XmlSlurper(tagsoupParser)
+def htmlParser = slurper.parse("http://stackoverflow.com/")
+
+htmlParser.'**'.findAll{ it.@class == 'question-hyperlink'}.each {
+    println it
+}</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Copy of Groovy Script" id="334d41e8-c489-46bb-886d-a7d12ee3f416">
+    <con:settings/>
+    <con:config>
+      <script>// Grap HTTPBuilder component from maven repository
+@Grab(group='org.codehaus.groovy.modules.http-builder',
+    module='http-builder', version='0.5.2')
+// import of HttpBuilder related stuff
+import groovyx.net.http.*
+
+def http = new HTTPBuilder("http://www.gumtree.com/cgi-bin/" +
+ "list_postings.pl?search_terms=car&amp;search_location=London&amp;ubercat=1")
+
+def html = http.get([:])</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Copy of Copy of Groovy Script" id="fea0c4c5-d682-413e-8d55-ab6cc0f745ef">
+    <con:settings/>
+    <con:config>
+      <script>def url = 'http://stackoverflow.com/'
+def myDocument = new XmlParser( new org.cyberneko.html.parsers.SAXParser() ).parse(url)</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Copy of Copy of Copy of Groovy Script" id="c6c59ef3-19cd-4fa5-8b5f-557d8fd2f6d3">
+    <con:settings/>
+    <con:config>
+      <script>@Grab('net.sourceforge.nekohtml:nekohtml:1.9.16')
+def parser = new org.cyberneko.html.parsers.SAXParser()
+def page = new XmlParser(parser).parse('https://news.google.com/nwshp?hl=zh-TW&amp;tab=wn')
+page.depthFirst().DIV.grep{ it.'@class'=='title' }.each {
+  println it.A.SPAN.text()
+}</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script - jsoup" id="31924ba1-fea9-4b14-bc29-a108bed96c73">
+    <con:settings/>
+    <con:config>
+      <script>import org.jsoup.Jsoup;
+//import org.jsoup.helper.Validate;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+def url = 'http://stackoverflow.com/'
+
+Document doc = Jsoup.connect(url).get();
+
+// Toon de titel van de webpagina
+log.info 'TITEL: '+ doc.title()
+
+String body = doc.body().text();
+log.info 'BODY: ' + body
+
+// Toon het aantal elementen met een h3 tag
+Elements h3header=doc.select("h3")
+log.info 'This is the size:' + h3header.size()
+
+// Toon de titel van het element met id=your-communities-header
+Element divTag = doc.getElementById("your-communities-header"); 
+log.info divTag.text()
+
+Elements links = doc.select("a[href]");
+
+for (Element link : links) {
+       log.info "link : " + link.attr("href")
+       log.info "text : " + link.text()
+     }
+
+for (Element src : h3header) { 
+	//log.info src.tagName()           
+        }
+
+/*
+for (Element src : id) {
+	       info.log src.tagName()       
+        }
+
+
+if (src.tagName().equals("id"))
+                print(" * %s: &lt;%s> %sx%s (%s)",
+                        src.tagName(), src.attr("abs:src"), src.attr("width"), src.attr("height"),
+                        trim(src.attr("alt"), 20));
+            else
+                print(" * %s: &lt;%s>", src.tagName(), src.attr("abs:src"));
+*/</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

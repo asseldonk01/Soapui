@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="d7be0cd7-d6c6-4c6b-9497-e7e2c2e9edb7" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="DateTimeFormat" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="d7be0cd7-d6c6-4c6b-9497-e7e2c2e9edb7fileName">DateTimeFormat</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="properties" name="Properties" id="2156dc4c-ba4f-4af7-89a1-dfe92860ccec">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>olddate</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="760998b5-9ad3-445b-9107-60cf92ceb76a">
+    <con:settings/>
+    <con:config>
+      <script>//def dt = '12-01-2016';
+//def newDate = Date.parse('dd-MM-yyyy','12-01-2016').format("yyyy-MM-dd");
+//log.info  newDate;
+
+def olddate = context.expand( '${Properties#olddate}' )
+
+log.info Date.parse('dd-MM-yyyy','12-01-2016').format("yyyy-MM-dd");
+
+log.info Date.parse('dd-MM-yyyy',${Properties#olddate}).format("yyyy-MM-dd");</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>2156dc4c-ba4f-4af7-89a1-dfe92860ccec</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

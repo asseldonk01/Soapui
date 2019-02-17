@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Datasource - data - expand" searchProperties="true" id="1b559a3e-3430-49f7-a513-2d772eaee7ad" xmlns:con="http://eviware.com/soapui/config">
-      <con:settings><con:setting id="1b559a3e-3430-49f7-a513-2d772eaee7adfileName">Datasource---data---expand</con:setting></con:settings>
-      <con:testStep type="datasource" name="DataSource" id="1326f829-b071-4e83-9498-a4df8aeb22d3">
-        <con:settings/>
-        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:dataSource type="Excel">
-            <con:configuration><file>DataSource_expand_data.xls</file><worksheet/><cell>A2</cell><ignoreEmpty>false</ignoreEmpty><evaluateFormulas>false</evaluateFormulas></con:configuration>
-          </con:dataSource>
-          <con:property>Combinatie</con:property>
-          <con:property>Verzoeker</con:property>
-          <con:property>Verweerder</con:property>
-          <con:property>GerechtCode</con:property>
-          <con:property>InstantieCode</con:property>
-          <con:property>Gerecht</con:property>
-          <con:property>Instantie</con:property>
-          <con:startRow/>
-          <con:endRow/>
-          <con:trimValues>false</con:trimValues>
-          <con:entitizeValues>false</con:entitizeValues>
-          <con:restartOnRun>true</con:restartOnRun>
-          <con:expandProperties>true</con:expandProperties>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="Groovy Script" disabled="true" id="9cfb521e-3e1e-4004-b519-e12876e9f4bc">
-        <con:settings/>
-        <con:config>
-          <script><![CDATA[def GekozenCombinatie = testRunner.testCase.testSuite.project.getPropertyValue('Combinatie')
+  <con:settings>
+    <con:setting id="1b559a3e-3430-49f7-a513-2d772eaee7adfileName">Datasource---data---expand</con:setting>
+  </con:settings>
+  <con:testStep type="datasource" name="DataSource" id="1326f829-b071-4e83-9498-a4df8aeb22d3">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="Excel">
+        <con:configuration>
+          <file>DataSource_expand_data.xls</file>
+          <worksheet/>
+          <cell>A2</cell>
+          <ignoreEmpty>false</ignoreEmpty>
+          <evaluateFormulas>false</evaluateFormulas>
+        </con:configuration>
+      </con:dataSource>
+      <con:property>Combinatie</con:property>
+      <con:property>Verzoeker</con:property>
+      <con:property>Verweerder</con:property>
+      <con:property>GerechtCode</con:property>
+      <con:property>InstantieCode</con:property>
+      <con:property>Gerecht</con:property>
+      <con:property>Instantie</con:property>
+      <con:startRow/>
+      <con:endRow/>
+      <con:completeLastOperation>true</con:completeLastOperation>
+      <con:trimValues>false</con:trimValues>
+      <con:entitizeValues>false</con:entitizeValues>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:expandProperties>true</con:expandProperties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" disabled="true" id="9cfb521e-3e1e-4004-b519-e12876e9f4bc">
+    <con:settings/>
+    <con:config>
+      <script><![CDATA[def GekozenCombinatie = testRunner.testCase.testSuite.project.getPropertyValue('Combinatie')
 def ds = testRunner.testCase.getTestStepByName('DataSource')
 def rowsToRead = 3
 def Combinatie, Verzoeker, Verweerder, GerechtCode, InstantieCode, Gerecht, Instantie
@@ -61,15 +70,18 @@ for (row in 1..rowsToRead) {
 //<people>
 //${Groovy Script#result}
 //</people>]]></script>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="Test" id="2109ec96-06ae-44d4-9207-d769ca38b046">
-        <con:settings/>
-        <con:config><script>return 10</script></con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="Groovy Script 2" id="79bddc60-9ec5-468b-b95f-6205862d22e7">
-        <con:settings/>
-        <con:config><script>def combinatie = context.expand( '${DataSource#Combinatie}' )
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Test" id="2109ec96-06ae-44d4-9207-d769ca38b046">
+    <con:settings/>
+    <con:config>
+      <script>return 10</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script 2" id="79bddc60-9ec5-468b-b95f-6205862d22e7">
+    <con:settings/>
+    <con:config>
+      <script>def combinatie = context.expand( '${DataSource#Combinatie}' )
 def verzoeker = context.expand( '${DataSource#Verzoeker}' )
 def verweerder = context.expand( '${DataSource#Verweerder}' )
 def gerechtcode = context.expand( '${DataSource#GerechtCode}' )
@@ -93,38 +105,47 @@ if (combinatie.equals(gekozenCombinatie)) {
 }
 else {
 	log.info 'NOT FOUND'
-}</script></con:config>
-      </con:testStep><con:testStep type="goto" name="Conditional Goto" disabled="true" id="5f623258-e299-4788-aa68-2bfb6f086290">
-        <con:settings/>
-        <con:config xsi:type="con:GotoStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:condition>
-            <con:name>Condition 1</con:name>
-            <con:type>XPATH</con:type>
-            <con:expression>def combinatie = context.expand( '${DataSource#Combinatie}' )
+}</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="goto" name="Conditional Goto" disabled="true" id="5f623258-e299-4788-aa68-2bfb6f086290">
+    <con:settings/>
+    <con:config xsi:type="con:GotoStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:condition>
+        <con:name>Condition 1</con:name>
+        <con:type>XPATH</con:type>
+        <con:expression>def combinatie = context.expand( '${DataSource#Combinatie}' )
 def gekozenCombinatie = testRunner.testCase.testSuite.project.getPropertyValue('Combinatie')
 
 log.info 'Gekozen combinatie: '+gekozenCombinatie
 log.info combinatie
 log.info verzoeker
 log.info 'Passed'</con:expression>
-          </con:condition>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="Einde zoeken combinatie" id="62c0c512-8589-4667-994a-74d3b3172582">
-        <con:settings/>
-        <con:config>
-          <script>def alert = com.eviware.soapui.support.UISupport;
+      </con:condition>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Einde zoeken combinatie" id="62c0c512-8589-4667-994a-74d3b3172582">
+    <con:settings/>
+    <con:config>
+      <script>def alert = com.eviware.soapui.support.UISupport;
 def verzoeker = testRunner.testCase.testSuite.project.getPropertyValue('Verzoeker')
 
 //This will display an information message
 alert.showInfoMessage('De gevonden verzoeker is: '+verzoeker);</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="datasourceloop" name="DataSource Loop" id="c4c41244-8c89-47b3-a63c-7034130848c1"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Test</targetStep></con:config></con:testStep><con:properties/>
-      <con:reportParameters/>
-      <con:breakPoints>
-        <con:testStepId>f7f974bf-f661-4a9b-8d68-b572399237ad</con:testStepId>
-        <con:status>NONE</con:status>
-        <con:properties/>
-      </con:breakPoints>
-    </con:testCase>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasourceloop" name="DataSource Loop" id="c4c41244-8c89-47b3-a63c-7034130848c1">
+    <con:settings/>
+    <con:config>
+      <dataSourceStep>DataSource</dataSourceStep>
+      <targetStep>Test</targetStep>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>f7f974bf-f661-4a9b-8d68-b572399237ad</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

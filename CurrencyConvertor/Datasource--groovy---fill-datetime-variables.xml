@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="37817e0b-c0f5-413a-b35e-dc193e5d756e" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Datasource- groovy - fill datetime variables" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="37817e0b-c0f5-413a-b35e-dc193e5d756efileName">Datasource--groovy---fill-datetime-variables</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="datasource" name="DataSource" id="8d335764-50f5-4ae6-a294-8087f067a39b">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="Groovy">
+        <con:configuration>
+          <script>import groovy.time.TimeCategory
+
+diw = new java.text.SimpleDateFormat("dd-MM-yyyy")
+result["diw"]=diw.format( new Date()-5)
+
+diwk = new java.text.SimpleDateFormat("yyyy-MM-dd'T06:01:01+02:00'")
+result["diwk"]=diwk.format( new Date()-5)
+
+//deit = new java.text.SimpleDateFormat("yyyy-MM-dd'T06:01:01+02:00'")
+//deit.format( new Date()-5)
+
+
+now = new Date()
+use(TimeCategory) {
+    deit = now + 4.months
+    }
+result["deit"]=deit.format( new Date()-5)</script>
+        </con:configuration>
+      </con:dataSource>
+      <con:shared>true</con:shared>
+      <con:restartShared>true</con:restartShared>
+      <con:property>diw</con:property>
+      <con:startRow/>
+      <con:endRow/>
+      <con:recordsPerIteration>1</con:recordsPerIteration>
+      <con:completeLastOperation>true</con:completeLastOperation>
+      <con:trimValues>true</con:trimValues>
+      <con:entitizeValues>true</con:entitizeValues>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:expandProperties>true</con:expandProperties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="20c79efe-5229-4041-8764-f331828d9b83">
+    <con:settings/>
+    <con:config>
+      <script>import java.text.SimpleDateFormat;
+
+Date now = new Date()-5
+String dateString = now.toString()
+SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy")
+Date parsed = format.parse(dateString)
+//Date parsed = format.parse(dateString);
+//System.out.println(" 2. " + parsed.toString());</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

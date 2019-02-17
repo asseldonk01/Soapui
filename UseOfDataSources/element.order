@@ -2,3 +2,6 @@ DataSourceTestCase.xml
 DataSource2.xml
 Copy-of-DataSourceTestCase.xml
 LoopingNoDatasource.xml
+Groovy-datasource---Properties---met-index.xml
+Groovy-datasource---string-of-values.xml
+Groovy-datasource---lots-of-parameters.xml

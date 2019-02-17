@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="6b48ec50-d04e-440d-9ec3-b2babc33a01d" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="ExcelDatasource" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="6b48ec50-d04e-440d-9ec3-b2babc33a01dfileName">ExcelDatasource</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="properties" name="Properties" id="155b336d-e7f1-49bd-9fa8-db19227ffb03">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>Test</con:name>
+          <con:value>1234-5678-9012-1234</con:value>
+        </con:property>
+        <con:property>
+          <con:name>Test2</con:name>
+          <con:value>56789-1234-5678</con:value>
+        </con:property>
+        <con:property>
+          <con:name>BeginRow</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>EindeRow</con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>index</con:name>
+          <con:value>4</con:value>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Test" id="807c87f5-cf78-4ab5-ab2b-02f51456246f">
+    <con:settings/>
+    <con:config>
+      <script>context.
+return "TEST"</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Initializeer" id="424e1470-ce52-4c9f-aca5-ccca68ee8b1c">
+    <con:settings/>
+    <con:config>
+      <script>//testRunner.testCase.testSteps["DataSource"].setEndRow("2");
+//testRunner.testCase.testSteps["DataSource"].setStartRow("2");
+
+//testRunner.testCase.getTestStepByName["Properties"].setPropertyValue("index", 0)
+
+testRunner.testCase.getTestStepByName("Properties").setPropertyValue("index","0")</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasource" name="DataSource" id="088693c8-3dd6-46ba-b43b-1b9eb0961036">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="Excel">
+        <con:configuration>
+          <file>sample.xls</file>
+          <worksheet/>
+          <cell>A2</cell>
+          <ignoreEmpty>false</ignoreEmpty>
+          <evaluateFormulas>false</evaluateFormulas>
+        </con:configuration>
+      </con:dataSource>
+      <con:shared>true</con:shared>
+      <con:restartShared>true</con:restartShared>
+      <con:property>City</con:property>
+      <con:property>Expected Result</con:property>
+      <con:property>Test</con:property>
+      <con:property>$$Avond</con:property>
+      <con:startRow/>
+      <con:endRow/>
+      <con:recordsPerIteration>1</con:recordsPerIteration>
+      <con:completeLastOperation>true</con:completeLastOperation>
+      <con:trimValues>true</con:trimValues>
+      <con:entitizeValues>false</con:entitizeValues>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:expandProperties>true</con:expandProperties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="properties" name="JsonProperties" id="460e045f-29bf-4533-8d26-227b6c985352">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>jsonpart</con:name>
+          <con:value>{"City":"David Creek","Expected Result":true,"Test":"dave","Test2":"56789-1234-5678"}</con:value>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="0265b16a-d74f-43e5-b377-f6e120b9e775">
+    <con:settings/>
+    <con:config>
+      <script>// Nodig vanwege gebruik van jsonOutput
+import groovy.json.*
+
+// Ophalen van alle velden gedefinieerd in de datasource
+def sourceName = testRunner.testCase.getTestStepByName('DataSource')
+def propertyNamen = sourceName.propertyNames
+
+// Te gebruiken als je null wil zetten in de data
+def nullValue
+
+// Opbouwen van een map waarin veldnamen en veldwaarden opgenomen worden met behulp van de datasource
+def zaakMap = [:]
+
+propertyNamen.each { 
+   propertyNaam = "${it}" 
+   propertyWaarde = context.expand('${DataSource#'+propertyNaam+'}')  
+
+   if ( !propertyNaam.startsWith('$$') ) {
+
+   	  switch (propertyWaarde) {
+         case "null":   zaakMap.put(propertyNaam,nullValue)
+         				    break
+         case "false": zaakMap.put(propertyNaam,propertyWaarde.toBoolean())
+                             break
+         case "true":  zaakMap.put(propertyNaam,propertyWaarde.toBoolean())
+                             break
+         case "skip":  break      
+         default:        zaakMap.put(propertyNaam,propertyWaarde)
+                             break
+      }
+   	
+   }
+
+ 
+}
+
+// Extra gegevens vullen die niet voorkomen in de datasource. De meer "vaste" gegevens.
+// Waaronder de betrokkene, de juridisch medewerker
+def test2 = context.expand( '${Properties#Test2}' )
+zaakMap.put("Test2",test2)
+
+
+
+def mapAsJson = JsonOutput.toJson(zaakMap)
+
+//Formatteren. Werkt dat wel?
+groovy.json.JsonOutput.prettyPrint(mapAsJson)
+//mapAsJson.replace( "{", "" ).replace( "}", "" )+","
+
+//testRunner.testCase.getTestStepByName("Properties").setPropertyValue("jsonpart",mapAsJson.replace( "{", "" ).replace( "}", "" )+",")
+testRunner.testCase.getTestStepByName("JsonProperties").setPropertyValue("jsonpart",mapAsJson)
+log.info testRunner.testCase.getTestStepByName("JsonProperties").getPropertyValue("jsonpart")
+
+indexString = testRunner.testCase.getTestStepByName("Properties").getPropertyValue("index")
+//log.info indexString
+index = indexString.toInteger(); index++
+testRunner.testCase.getTestStepByName("Properties").setPropertyValue("index",index.toString())</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasourceloop" name="DataSource Loop" id="56289e3c-d4cd-4c88-9914-3ba06d833f5b">
+    <con:settings/>
+    <con:config>
+      <dataSourceStep>DataSource</dataSourceStep>
+      <targetStep>Groovy Script</targetStep>
+      <discardResults>true</discardResults>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script 2" id="c0cd1ebe-f48d-4eb6-affa-987fe38c2d4f" disabled="true">
+    <con:settings/>
+    <con:config>
+      <script>def sourceName = testRunner.testCase.getTestStepByName('DataSource');
+//def dsRows = sourceName.rowCount;
+//log.info dsRows
+//def test = sourceName.propertyNames.toString()
+def listOfPropertyNamesSize = sourceName.propertyList.size()
+log.info listOfPropertyNamesSize
+
+def listOfPropertyNamesMapSize = sourceName.properties.size()
+log.info listOfPropertyNamesMapSize
+
+def listOfPropertyNamesMap = sourceName.properties
+listOfPropertyNamesMap.each { eigenschap, waarde ->
+    log.info "${eigenschap} has the sound ${waarde}"
+}
+
+def listOfPropertyNamesMap = sourceName.properties
+listOfPropertyNamesMap.each { eigenschap, waarde ->
+    log.info "${eigenschap} has the sound ${waarde}"
+}
+
+
+
+
+
+//listOfPropertyNames.each { 
+//    log.info "Property ${it}"
+//}</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>460e045f-29bf-4533-8d26-227b6c985352</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>155b336d-e7f1-49bd-9fa8-db19227ffb03</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>807c87f5-cf78-4ab5-ab2b-02f51456246f</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

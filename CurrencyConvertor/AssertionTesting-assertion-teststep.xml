@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:testCase id="6ca44a2b-0247-4a09-b2bc-2f3d62562a27" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AssertionTesting-assertion-teststep" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="6ca44a2b-0247-4a09-b2bc-2f3d62562a27fileName">AssertionTesting-assertion-teststep</con:setting></con:settings><con:testStep type="request" name="ConversionRate" id="9728c253-e666-40e0-b320-2a43689f2179">
-        <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>CurrencyConvertorSoap12</con:interface>
-          <con:operation>ConversionRate</con:operation>
-          <con:request name="ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
-            <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
-            </con:settings>
-            <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
-            <con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="6ca44a2b-0247-4a09-b2bc-2f3d62562a27" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AssertionTesting-assertion-teststep" searchProperties="true" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="6ca44a2b-0247-4a09-b2bc-2f3d62562a27fileName">AssertionTesting-assertion-teststep</con:setting>
+  </con:settings>
+  <con:testStep type="request" name="ConversionRate" id="9728c253-e666-40e0-b320-2a43689f2179">
+    <con:settings/>
+    <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:interface>CurrencyConvertorSoap12</con:interface>
+      <con:operation>ConversionRate</con:operation>
+      <con:request name="ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+        <con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
    <soap:Header/>
    <soap:Body>
@@ -20,27 +24,70 @@
       </web:ConversionRate>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            
-            <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
-              <con:configuration/>
-            </con:assertion>
-            
-            
-            
-            
-            <con:assertion type="Simple Contains" id="84939e50-3b00-41d8-baa1-12fffed81ddf" name="ContainsR1"><con:configuration><token>ConversionRateresult</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple NotContains" id="ffdfea74-3835-4a0a-856d-b7998c6c492f" name="NotContainsR1"><con:configuration><token>ABC</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="XPath Match" id="38b8bf9d-f36c-4601-8e27-5315d9b4b05c" name="XpathR1"><con:configuration><path>declare namespace ns1='http://www.webserviceX.NET/';
-//ns1:ConversionRateResponse[1]</path><content>&lt;ConversionRateResponse xmlns="http://www.webserviceX.NET/" xmlns:soap="http://www.w3.org/2003/05/soap-envelope"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">&lt;ConversionRateResult>*&lt;/ConversionRateResult>&lt;/ConversionRateResponse></content><allowWildcards>true</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="SOAP Response" id="848c1bd3-5ac8-4e34-a509-3ac3656c1aa5" name="SOAPResponseR1"/><con:assertion type="SOAP Fault Assertion" id="8c972a11-27c2-4745-85a5-fa0c6a7ada45" name="NotSoapFaultR1"/><con:credentials>
-              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
-              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
-              <con:authType>Global HTTP Settings</con:authType>
-            </con:credentials>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-            <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
-            <con:wsrmConfig version="1.2"/>
-          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
-        </con:config>
-      </con:testStep><con:testStep type="assertionteststep" name="Assertion" id="f501ed04-ca89-4dde-b78c-a6c632d55dda"><con:settings/><con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:entry><con:id>9d1ee6dd-bfa2-434b-938d-33214c0d06ad</con:id><con:isGroup>false</con:isGroup><con:sourceId>6ca44a2b-0247-4a09-b2bc-2f3d62562a27</con:sourceId><con:propertyName>CheckField</con:propertyName><con:assertion type="XPath Match" name="Xpath1"/></con:entry></con:config></con:testStep><con:testStep type="groovy" name="GroovyAssertionTeststep" id="1f4034ad-6fe0-452e-8585-e6a170d5929d"><con:settings/><con:config><script>import com.eviware.soapui.config.AssertionEntryConfig
+        <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="Simple Contains" id="84939e50-3b00-41d8-baa1-12fffed81ddf" name="ContainsR1">
+          <con:configuration>
+            <token>ConversionRateresult</token>
+            <ignoreCase>true</ignoreCase>
+            <useRegEx>false</useRegEx>
+          </con:configuration>
+        </con:assertion>
+        <con:assertion type="Simple NotContains" id="ffdfea74-3835-4a0a-856d-b7998c6c492f" name="NotContainsR1">
+          <con:configuration>
+            <token>ABC</token>
+            <ignoreCase>true</ignoreCase>
+            <useRegEx>false</useRegEx>
+          </con:configuration>
+        </con:assertion>
+        <con:assertion type="XPath Match" id="38b8bf9d-f36c-4601-8e27-5315d9b4b05c" name="XpathR1">
+          <con:configuration>
+            <path>declare namespace ns1='http://www.webserviceX.NET/';
+//ns1:ConversionRateResponse[1]</path>
+            <content>&lt;ConversionRateResponse xmlns="http://www.webserviceX.NET/" xmlns:soap="http://www.w3.org/2003/05/soap-envelope"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">&lt;ConversionRateResult>*&lt;/ConversionRateResult>&lt;/ConversionRateResponse></content>
+            <allowWildcards>true</allowWildcards>
+            <ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
+            <ignoreComments>false</ignoreComments>
+          </con:configuration>
+        </con:assertion>
+        <con:assertion type="SOAP Response" id="848c1bd3-5ac8-4e34-a509-3ac3656c1aa5" name="SOAPResponseR1"/>
+        <con:assertion type="SOAP Fault Assertion" id="8c972a11-27c2-4745-85a5-fa0c6a7ada45" name="NotSoapFaultR1"/>
+        <con:credentials>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+          <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+          <con:authType>Global HTTP Settings</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:jmsPropertyConfig/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+        <con:wsrmConfig version="1.2"/>
+        <con:environmentSpec>
+          <con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019">
+            <con:authProfile>Basic</con:authProfile>
+          </con:entry>
+        </con:environmentSpec>
+      </con:request>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="assertionteststep" name="Assertion" id="f501ed04-ca89-4dde-b78c-a6c632d55dda">
+    <con:settings/>
+    <con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:entry>
+        <con:id>9d1ee6dd-bfa2-434b-938d-33214c0d06ad</con:id>
+        <con:isGroup>false</con:isGroup>
+        <con:sourceId>6ca44a2b-0247-4a09-b2bc-2f3d62562a27</con:sourceId>
+        <con:propertyName>CheckField</con:propertyName>
+        <con:assertion type="XPath Match" name="Xpath1" id="2134134b-8c32-4e46-acb1-6fad05555bfb">
+          <con:configuration/>
+        </con:assertion>
+      </con:entry>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="GroovyAssertionTeststep" id="1f4034ad-6fe0-452e-8585-e6a170d5929d">
+    <con:settings/>
+    <con:config>
+      <script>import com.eviware.soapui.config.AssertionEntryConfig
 import com.eviware.soapui.impl.wsdl.teststeps.assertions.support.AssertionEntry
 import com.eviware.soapui.config.AssertionTestStepConfig
 
@@ -126,7 +173,13 @@ testStep.getAssertionByName("XPath1").getAssertion().setIgnoreComments(Boolean.v
 //
 // https://www.soapui.org/apidocs/pro/index.html?com/eviware/soapui/impl/wsdl/teststeps/AssertionTestStep.html
 //
-// http://www.soapui.org/apidocs/com/eviware/soapui/model/testsuite/TestAssertion.html</script></con:config></con:testStep><con:testStep type="groovy" name="GroovyAssertionTeststep-add xpath content" id="0c346836-7dc1-482d-94ef-b747f87cb9c7" disabled="true"><con:settings/><con:config><script>import com.eviware.soapui.config.AssertionEntryConfig
+// http://www.soapui.org/apidocs/com/eviware/soapui/model/testsuite/TestAssertion.html</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="GroovyAssertionTeststep-add xpath content" id="0c346836-7dc1-482d-94ef-b747f87cb9c7" disabled="true">
+    <con:settings/>
+    <con:config>
+      <script>import com.eviware.soapui.config.AssertionEntryConfig
 import com.eviware.soapui.impl.wsdl.teststeps.assertions.support.AssertionEntry
 import com.eviware.soapui.config.AssertionTestStepConfig
 
@@ -140,9 +193,40 @@ def parent = null
 def entry = entry1.buildAssertionEntry("XPath Match", "Xpath2", false, testStep, source, prop, parent)
 
 def xpathtop = entry1.
-testStep.addAssertionEntry(entry)
-
-</script></con:config></con:testStep><con:testStep type="datasource" name="DataSource" id="267d0c97-4e05-45c5-aac9-83a2e5126ef5" disabled="true"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>Datasource_assertions.xls</file><worksheet>Test2</worksheet><cell>A2</cell><ignoreEmpty>false</ignoreEmpty><evaluateFormulas>false</evaluateFormulas></con:configuration></con:dataSource><con:property>Soort</con:property><con:property>Param1</con:property><con:property>Param2</con:property><con:property>Param3</con:property><con:property>Param4</con:property><con:property>Param5</con:property><con:property>Param6</con:property><con:startRow>0</con:startRow><con:endRow>0</con:endRow><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="1e2abd39-73ee-48c1-8465-c9940e163676" disabled="true"><con:settings/><con:config><script>def soort = context.expand( '${DataSource#Soort}' )
+testStep.addAssertionEntry(entry)</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasource" name="DataSource" id="267d0c97-4e05-45c5-aac9-83a2e5126ef5" disabled="true">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="Excel">
+        <con:configuration>
+          <file>Datasource_assertions.xls</file>
+          <worksheet>Test2</worksheet>
+          <cell>A2</cell>
+          <ignoreEmpty>false</ignoreEmpty>
+          <evaluateFormulas>false</evaluateFormulas>
+        </con:configuration>
+      </con:dataSource>
+      <con:property>Soort</con:property>
+      <con:property>Param1</con:property>
+      <con:property>Param2</con:property>
+      <con:property>Param3</con:property>
+      <con:property>Param4</con:property>
+      <con:property>Param5</con:property>
+      <con:property>Param6</con:property>
+      <con:startRow>0</con:startRow>
+      <con:endRow>0</con:endRow>
+      <con:trimValues>false</con:trimValues>
+      <con:entitizeValues>false</con:entitizeValues>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:expandProperties>false</con:expandProperties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="1e2abd39-73ee-48c1-8465-c9940e163676" disabled="true">
+    <con:settings/>
+    <con:config>
+      <script>def soort = context.expand( '${DataSource#Soort}' )
 def param1 = context.expand( '${DataSource#Param1}' )
 def param2 = context.expand( '${DataSource#Param2}' )
 def param3 = context.expand( '${DataSource#Param3}' )
@@ -239,6 +323,66 @@ def VerwerkXpathAssertion(def testst, String name, String xpathString, String ex
 	assertionxpath.setAllowWildcards(Boolean.valueOf(xpathAllowWildcards))	
 	assertionxpath.setIgnoreNamespaceDifferences(Boolean.valueOf(xpathIgnoreNamespacePrefixes))
 	assertionxpath.setIgnoreComments(Boolean.valueOf(xpathIgnoreComments))	
-}
-
-</script></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop" id="d1478b3b-27d4-4064-a6ee-5dc1ce75e49c" disabled="true"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Groovy Script</targetStep></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script 1" id="41d43481-ab73-4d95-a09b-647e43755b1c" disabled="true"><con:settings/><con:config><script>context.testCase.modelItem.getName()</script></con:config></con:testStep><con:properties><con:property><con:name>CheckField</con:name><con:value>CheckValue</con:value></con:property><con:property><con:name>CheckXml</con:name><con:value>&lt;head>&lt;value>aaaaa&lt;/value>&lt;/head></con:value></con:property></con:properties><con:reportParameters/><con:breakPoints><con:testStepId>9728c253-e666-40e0-b320-2a43689f2179</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>267d0c97-4e05-45c5-aac9-83a2e5126ef5</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>1e2abd39-73ee-48c1-8465-c9940e163676</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>d1478b3b-27d4-4064-a6ee-5dc1ce75e49c</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>1f4034ad-6fe0-452e-8585-e6a170d5929d</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>0c346836-7dc1-482d-94ef-b747f87cb9c7</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>f501ed04-ca89-4dde-b78c-a6c632d55dda</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>
+}</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasourceloop" name="DataSource Loop" id="d1478b3b-27d4-4064-a6ee-5dc1ce75e49c" disabled="true">
+    <con:settings/>
+    <con:config>
+      <dataSourceStep>DataSource</dataSourceStep>
+      <targetStep>Groovy Script</targetStep>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script 1" id="41d43481-ab73-4d95-a09b-647e43755b1c" disabled="true">
+    <con:settings/>
+    <con:config>
+      <script>context.testCase.modelItem.getName()</script>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>CheckField</con:name>
+      <con:value>CheckValue</con:value>
+    </con:property>
+    <con:property>
+      <con:name>CheckXml</con:name>
+      <con:value>&lt;head>&lt;value>aaaaa&lt;/value>&lt;/head></con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>9728c253-e666-40e0-b320-2a43689f2179</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>267d0c97-4e05-45c5-aac9-83a2e5126ef5</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>1e2abd39-73ee-48c1-8465-c9940e163676</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>d1478b3b-27d4-4064-a6ee-5dc1ce75e49c</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>1f4034ad-6fe0-452e-8585-e6a170d5929d</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>0c346836-7dc1-482d-94ef-b747f87cb9c7</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>f501ed04-ca89-4dde-b78c-a6c632d55dda</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

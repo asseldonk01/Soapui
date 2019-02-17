@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="686c200e-a16b-46d8-b2b9-c2b3ab5d0ebb" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Groovy datasource - lots of parameters" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="686c200e-a16b-46d8-b2b9-c2b3ab5d0ebbfileName">Groovy-datasource---lots-of-parameters</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="datasource" name="DataSource" id="e9753b17-abf3-4b8c-a75f-1a52d4a87780">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="Groovy">
+        <con:configuration>
+          <script>result["A"] = "AB"
+result["B"] = "BB"
+result["C"] = "CB"
+result["D"] = "DB"
+result["E"] = "EB"
+result["F"] = "FB"
+result["G"] = "GB"
+result["H"] = "HB"
+result["I"] = "IB"
+result["J"] = "JB"
+result["K"] = "KB"
+result["L"] = "LB"
+result["M"] = "MB"
+result["N"] = "NB"
+result["O"] = "OB"
+result["P"] = "PB"
+result["Q"] = "QB"
+result["R"] = "RB"
+result["S"] = "SB"
+result["T"] = "TB"
+result["U"] = "EB"
+result["V"] = "FB"
+result["W"] = "GB"
+result["X"] = "HB"
+result["Y"] = "IB"
+result["Z"] = "JB"</script>
+        </con:configuration>
+      </con:dataSource>
+      <con:property>A</con:property>
+      <con:property>B</con:property>
+      <con:property>C</con:property>
+      <con:property>D</con:property>
+      <con:property>E</con:property>
+      <con:property>F</con:property>
+      <con:property>G</con:property>
+      <con:property>H</con:property>
+      <con:property>I</con:property>
+      <con:property>J</con:property>
+      <con:property>K</con:property>
+      <con:property>L</con:property>
+      <con:property>M</con:property>
+      <con:property>N</con:property>
+      <con:property>O</con:property>
+      <con:property>P</con:property>
+      <con:property>Q</con:property>
+      <con:property>R</con:property>
+      <con:property>S</con:property>
+      <con:property>T</con:property>
+      <con:property>U</con:property>
+      <con:property>V</con:property>
+      <con:property>W</con:property>
+      <con:property>X</con:property>
+      <con:property>Y</con:property>
+      <con:property>Z</con:property>
+      <con:startRow>1</con:startRow>
+      <con:endRow>4</con:endRow>
+      <con:recordsPerIteration>1</con:recordsPerIteration>
+      <con:completeLastOperation>true</con:completeLastOperation>
+      <con:trimValues>false</con:trimValues>
+      <con:entitizeValues>false</con:entitizeValues>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:expandProperties>false</con:expandProperties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="159075a7-69d1-4e64-9af5-f43f9db62974">
+    <con:settings/>
+    <con:config>
+      <script>log.info context.expand( '${DataSource#A}' )
+log.info context.expand( '${DataSource#B}' )</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasourceloop" name="DataSource Loop" id="c4ca9551-1153-45e4-9edc-c112e86becfb">
+    <con:settings/>
+    <con:config>
+      <dataSourceStep>DataSource</dataSourceStep>
+      <targetStep>Groovy Script</targetStep>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

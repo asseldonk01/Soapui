@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="d86b4609-518b-4531-b2fa-6a027611a320" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Tika - word document" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="d86b4609-518b-4531-b2fa-6a027611a320fileName">Tika---word-document</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="f9c36249-bac9-450c-a37a-7b6a6777360a">
+    <con:settings/>
+    <con:config>
+      <script>import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.Set;
+
+import org.apache.tika.*;
+import org.apache.tika.exception.TikaException;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.SAXException;
+
+//Tika tika = new Tika();
+//InputStream stream = ParsingExample.class.getResourceAsStream("d:\\test.docx"); 
+//String tikaString = tika.parseToString(stream);
+
+String ret = "";
+FileInputStream fis = new FileInputStream("d:\\test.doc");
+Tika tika = new Tika();
+log.info tika.parseToString(fis);
+
+//
+//public class ParsingExample {
+//	public String parseToStringExample() throws IOException, SAXException, TikaException {
+//    		Tika tika = new Tika();
+//    		InputStream stream = ParsingExample.class.getResourceAsStream("d:\\test.docx"); 
+//    		return tika.parseToString(stream);
+//	}
+//};	
+//
+//log.info
+//ParsingExample tikaString = new ParsingExample();
+//tikaString.parseToStringExample();</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

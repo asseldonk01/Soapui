@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="3ff06d33-14e8-4153-b73e-05f88688e0b1" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Substring-with-words" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="3ff06d33-14e8-4153-b73e-05f88688e0b1fileName">Substring-with-words</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="683ef39c-d1c6-4f9f-84cc-3c776f4f344f">
+    <con:settings/>
+    <con:config>
+      <script>spaceString = "One    two                              three four   "
+
+// Number of characters
+log.info spaceString.size()
+
+// Determine words seperated by one or more blanks
+myStr = spaceString.split()
+for( String values : myStr )
+      log.info(values);
+
+// The first word
+log.info myStr[0]
+
+// The rest of the words, leading and trailing blanks removed
+def restString = spaceString.substring(myStr[0].length())
+restString = restString.trim()
+log.info restString
+
+
+minusString = "One-two-three-four"
+// Determine words seperated by one or more -  characters
+minusStr = minusString.split('-')
+for( String values : minusStr )
+      log.info(values);
+
+tokenizeString = "hello brother"
+assert ['hello','brother']==tokenizeString.tokenize() //tokenize with no arguments
+assert ['he','o brother']==tokenizeString.tokenize('l')</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

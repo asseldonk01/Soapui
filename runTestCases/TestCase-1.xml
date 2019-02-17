@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:testCase id="7edf87e5-f4d3-4fe8-8969-c03bfeb01ff4" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="TestCase 1" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="7edf87e5-f4d3-4fe8-8969-c03bfeb01ff4fileName">TestCase-1</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="d42f33ab-b36a-4083-8b13-05df173eef1c"><con:settings/><con:config><script>def fileName = context.expand( '${#TestCase#file}' )
-def leeg = context.expand( '${#TestCase#leegOfNiet}' )
+<con:testCase id="7edf87e5-f4d3-4fe8-8969-c03bfeb01ff4" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="TestCase 1" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="7edf87e5-f4d3-4fe8-8969-c03bfeb01ff4fileName">TestCase-1</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="d42f33ab-b36a-4083-8b13-05df173eef1c">
+    <con:settings/>
+    <con:config>
+      <script>def file = context.expand( '${#TestCase#file}' )
 
-if (leeg == '') {
-	int legeWaarde = 1
-}
-else {
-	int legeWaarde = leeg.toInteger()
-}
-
-</script></con:config></con:testStep><con:properties><con:property><con:name>file</con:name><con:value>AAA</con:value></con:property><con:property><con:name>leegOfNiet</con:name><con:value/></con:property></con:properties><con:reportParameters/></con:testCase>
+testRunner.testCase.setPropertyValue( "leegOfNiet", file )</script>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>file</con:name>
+      <con:value>AAA</con:value>
+    </con:property>
+    <con:property>
+      <con:name>leegOfNiet</con:name>
+      <con:value>AAA</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+</con:testCase>

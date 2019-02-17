@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="6e265246-4672-44b1-a7ba-a66b73499d0c" name="Groovy-string-operations" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="6e265246-4672-44b1-a7ba-a66b73499d0cfileName">Groovy-string-operations</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:runType>SEQUENTIAL</con:runType>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testSuite>

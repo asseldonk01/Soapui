@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="81e3659c-6207-462a-a16f-48d517a2a780" name="Save-properties-between-session" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="81e3659c-6207-462a-a16f-48d517a2a780fileName">Save-properties-between-session</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:runType>SEQUENTIAL</con:runType>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testSuite>

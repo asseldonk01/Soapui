@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="a106aace-280a-401a-9fd3-fa87907b27d3" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Add map to other map" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="a106aace-280a-401a-9fd3-fa87907b27d3fileName">Add-map-to-other-map</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="2edc2bdb-7cd2-4a1d-b602-bab67e31219e">
+    <con:settings/>
+    <con:config>
+      <script>def m = [name: 'Java', max: 10, sort: 'name']
+def other = [name: 'Groovy', direction: 'asc']
+
+ // add other to keu
+m &lt;&lt; other
+assert [name: 'Groovy', max: 10, sort: 'name', direction: 'asc'] == m
+
+log.info m.get("name")
+log.info m.get("max")
+
+testRunner.testCase.setPropertyValue('map',m.inspect())
+
+mapAsStr=testRunner.testCase.getPropertyValue('map')
+
+//def testCase1 = testRunner.testCase.testSuite.testCases["TestCase1"] 
+
+//def mapAsStr = testCase1.getPropertyValue('map')
+
+def secondmap = Eval.me(mapAsStr)
+
+log.info secondmap.get("name")</script>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>map</con:name>
+      <con:value>['name':'Groovy', 'max':10, 'sort':'name', 'direction':'asc']</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+</con:testCase>

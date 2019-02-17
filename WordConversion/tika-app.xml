@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="62f7fa5e-b603-4f4c-9e99-7108ba83c082" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="tika-app" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="62f7fa5e-b603-4f4c-9e99-7108ba83c082fileName">tika-app</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="65d0a9c7-1498-498b-8fb3-a1d5becc82ad">
+    <con:settings/>
+    <con:config>
+      <script>//fileName = "d:\\test.txt"
+
+//ffileName = "d:\\test.txt"
+fileName = "d://test.doc"
+//fileName = """d://this is a test.docx"""
+//fileName = "d:\\eveline\\Detail-ING-Bankieren-NL62INGB0001612499-9-mei-2018-jzysgds28g.pdf"
+//fileName = "C:\\Users\\ed\\Downloads\\jsoup-1.11.3.jar"
+//fileName = "C:\\Users\\ed\\Downloads\\Jaarruimte_2018_Protected_v01.xlsx"
+//fileName = "C:\\Users\\ed\\Downloads\\Agenda-buurtzorg-plus.docx"
+
+scriptLibrary = com.eviware.soapui.SoapUI.settings.getString( "Script Library", null )
+log.info scriptLibrary
+
+//command = """java -jar "$scriptLibrary'\\..\\ext\\tika-app-1.18.jar" --detect $fileName"""
+command = """java -jar "$scriptLibrary//..//ext//tika-app-1.18.jar" --detect $fileName"""
+log.info command
+
+process = command.execute()
+process.waitFor()
+
+output = process.in.text
+log.info 'DETECT: '+output
+
+//command = "java -jar $scriptLibrary\\..\\ext\\tika-app-1.18.jar --metadata $fileName"
+command = """java -jar "$scriptLibrary//..//ext//tika-app-1.18.jar" --metadata $fileName"""
+
+process = command.execute()
+process.waitFor()
+ 
+output = process.in.text
+log.info 'METADATA: '+output
+//
+//command = "java -jar $scriptLibrary\\..\\ext\\tika-app-1.18.jar --html --pretty-print $fileName"
+//command = """java -jar "$scriptLibrary//..//ext//tika-app-1.18.jar" --html --pretty-print $fileName"""
+//
+//process = command.execute()
+//process.waitFor()
+// 
+//output = process.in.text
+//log.info 'HTML: '+output
+//
+//command = "java -jar $scriptLibrary\\..\\ext\\tika-app-1.18.jar --text-main $fileName"
+//
+//process = command.execute()
+//process.waitFor()
+// 
+//output = process.in.text
+//log.info 'TEXT-MAIN: '+output
+//
+//command = "java -jar $scriptLibrary\\..\\ext\\tika-app-1.18.jar --text $fileName"
+command = """java -jar "$scriptLibrary//..//ext//tika-app-1.18.jar" --text-main $fileName"""
+
+process = command.execute()
+process.waitFor()
+ 
+output = process.in.text
+log.info 'TEXT-MAIN: '+output
+//
+//command = "java -jar $scriptLibrary\\..\\ext\\tika-app-1.18.jar --xml $fileName"
+//command = """java -jar "$scriptLibrary//..//ext//tika-app-1.18.jar" --xml $fileName"""
+//
+//process = command.execute()
+//process.waitFor()
+//output = process.in.text
+//log.info 'XHTML: '+output
+
+command = """java -jar "$scriptLibrary//..//ext//tika-app-1.18.jar" --json $fileName"""
+
+process = command.execute()
+process.waitFor()
+output = process.in.text
+log.info 'JSON: '+output
+
+
+command = """java -jar "$scriptLibrary//..//ext//tika-app-1.18.jar" --html $fileName"""
+
+process = command.execute()
+process.waitFor()
+output = process.in.text
+log.info 'HTML: '+output</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

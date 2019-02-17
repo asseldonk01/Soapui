@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="8180891c-45a6-4dc1-ac00-4c05425d5dfe" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="TestCase 4" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="8180891c-45a6-4dc1-ac00-4c05425d5dfefileName">TestCase-4</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="datasource" name="DataSource" id="6b24c9ec-bd85-41a5-8931-cda6a7486ee8">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="Groovy">
+        <con:configuration>
+          <script>diwk = new java.text.SimpleDateFormat("dd-MM-yyyy")
+diw = new java.text.SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ss+02:00")
+diwl = new java.text.SimpleDateFormat("dd-MM-yyyy'T'06:00:00+02:00")
+result["diw"]=diw.format( new Date()-5)
+result["diwk"]=diwk.format( new Date()-5)
+result["diwl"]=diwl.format( new Date()-5)</script>
+        </con:configuration>
+      </con:dataSource>
+      <con:shared>true</con:shared>
+      <con:restartShared>true</con:restartShared>
+      <con:property>diwk</con:property>
+      <con:property>diw</con:property>
+      <con:property>diwl</con:property>
+      <con:completeLastOperation>true</con:completeLastOperation>
+      <con:restartOnRun>true</con:restartOnRun>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="61c0a634-6755-4889-bcab-f86b92f0d241">
+    <con:settings/>
+    <con:config>
+      <script>def diw = context.expand( '${DataSource#diw}' )
+log.info diw
+
+def diwk = context.expand( '${DataSource#diwk}' )
+log.info diwk
+
+def diwl = context.expand( '${DataSource#diwl}' )
+log.info diwl</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>6b24c9ec-bd85-41a5-8931-cda6a7486ee8</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

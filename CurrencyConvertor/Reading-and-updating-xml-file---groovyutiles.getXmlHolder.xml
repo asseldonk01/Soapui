@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:testCase id="ea90a75f-977c-40b2-91d7-28bd00045aab" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Reading and updating xml file - groovyutiles.getXmlHolder" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="ea90a75f-977c-40b2-91d7-28bd00045aabfileName">Reading-and-updating-xml-file---groovyutiles.getXmlHolder</con:setting></con:settings><con:testStep type="properties" name="Properties" id="d711d7ff-8c7d-44b9-bf1b-ee04e542015d"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>zaaknummer</con:name><con:value>12</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="818a4932-454e-482f-b10d-f29c1d7e6e69"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+<con:testCase id="ea90a75f-977c-40b2-91d7-28bd00045aab" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Reading and updating xml file - groovyutiles.getXmlHolder" searchProperties="true" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="ea90a75f-977c-40b2-91d7-28bd00045aabfileName">Reading-and-updating-xml-file---groovyutiles.getXmlHolder</con:setting>
+  </con:settings>
+  <con:testStep type="properties" name="Properties" id="d711d7ff-8c7d-44b9-bf1b-ee04e542015d">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>zaaknummer</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="818a4932-454e-482f-b10d-f29c1d7e6e69">
+    <con:settings/>
+    <con:config>
+      <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectDir = groovyUtils.projectPath
 
 String fileContents = new File(projectDir+'/'+'DocumentNodes.xml').getText('UTF-8')
@@ -17,11 +35,17 @@ log.info holderXML.xml
 
 file = new File(projectDir+'/'+'DocumentNodes_new.xml')
 file.createNewFile()
-file.write(holderXML.xml)
-
-
-
-</script></con:config></con:testStep><con:properties><con:property><con:name>XMLread</con:name><con:value>Dit is een document</con:value></con:property><con:property><con:name>FileContents</con:name><con:value><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+file.write(holderXML.xml)</script>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>XMLread</con:name>
+      <con:value>Dit is een document</con:value>
+    </con:property>
+    <con:property>
+      <con:name>FileContents</con:name>
+      <con:value><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
  <bd:Document xmlns:ccts="urn:un:unece:uncefact:documentation:standard:CoreComponentsTechnicalSpecification:2"  xmlns:clm63055="urn:un:unece:uncefact:codelist:standard:6:3055:D09B"  xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:11"  xmlns:s2s_rechtspraak="http://data.justid.nl/s2srechtspraak/dictionary-0"  xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:11"  xmlns:srk="http://data.justid.nl/srk/dictionary-1"  xmlns:clmEBVFoutniveausCode="http://data.justid.nl/codelist-FoutniveausCode"  xmlns:jk="http://data.justid.nl/jk/dictionary-1"  xmlns:clmEBVRechtsvormenCode="http://data.justid.nl/codelist-RechtsvormenCode"  xmlns:clmSPIR-ITTINSTANTIECode="http://data.justid.nl/codelist-TINSTANTIECode"  xmlns:clmSPIR-ITTNATCode="http://data.justid.nl/codelist-TNATCode"  xmlns:clmIANAIANAMimeMediaTypeCode="http://data.justid.nl/codelist-IANAMimeMediaTypeCode"  xmlns:clmEBVGeslachtenCode="http://data.justid.nl/codelist-GeslachtenCode"  xmlns:clmSPIR-ITTVOORVOEGCode="http://data.justid.nl/codelist-TVOORVOEGCode"  xmlns:clmEBVSoortenZaakclusterCode="http://data.justid.nl/codelist-SoortenZaakclusterCode"  xmlns:clmEBVStatussenNotificatieobjectCode="http://data.justid.nl/codelist-StatussenNotificatieobjectCode"  xmlns:clmEBVBehandeltypesCode="http://data.justid.nl/codelist-BehandeltypesCode"  xmlns:clmEBVSoortenCommunicatiemiddelCode="http://data.justid.nl/codelist-SoortenCommunicatiemiddelCode"  xmlns:clmEBVSoortenRegistratieCode="http://data.justid.nl/codelist-SoortenRegistratieCode"  xmlns:clmEBVTypenNotificatieobjectCode="http://data.justid.nl/codelist-TypenNotificatieobjectCode"  xmlns:clmEBVRollenPartijCode="http://data.justid.nl/codelist-RollenPartijCode"  xmlns:bd="http://data.justid.nl/s2srechtspraak/document/Document-1" xmlns:arch="http://data.justid.nl/arch/dictionary-1" xmlns:ebvh="http://data.justid.nl/common/header-2" xmlns:ccl="http://data.justid.nl/ccl/dictionary-D11A" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://data.justid.nl/s2srechtspraak/document/Document-1 D:\Projecten\Services\other\GedeeldeObjecten\apps\presentatie\AxwayS2SMockBerichtVerwerkerService\1.0\ebv\Document_BD-023005\data\standard\Document.xsd">
  	<ebvh:ID>0123456789</ebvh:ID>
  	<ebvh:VerzendendeInstantie>
@@ -81,4 +105,13 @@ file.write(holderXML.xml)
  			<jk:MimeContentTypeCode listAgencyID="IANA">application/pdf3</jk:MimeContentTypeCode>
  		</arch:Bijlage>
  	</bd:DocumentAggregatieniveau>
- </bd:Document>]]></con:value></con:property></con:properties><con:reportParameters/><con:breakPoints><con:testStepId>d711d7ff-8c7d-44b9-bf1b-ee04e542015d</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>
+ </bd:Document>]]></con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>d711d7ff-8c7d-44b9-bf1b-ee04e542015d</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

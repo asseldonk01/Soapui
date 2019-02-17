@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Basis test conversion rate" searchProperties="true" id="2d0d090f-caa3-4340-a91b-e0dcbdcb4025" xmlns:con="http://eviware.com/soapui/config">
-      <con:settings><con:setting id="2d0d090f-caa3-4340-a91b-e0dcbdcb4025fileName">Basis-test-conversion-rate</con:setting></con:settings>
-      <con:testStep type="request" name="ConversionRate" id="adb49474-b501-40d3-81ba-7c05e0f28253">
-        <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>CurrencyConvertorSoap12</con:interface>
-          <con:operation>ConversionRate</con:operation>
-          <con:request name="ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
-            <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
-            </con:settings>
-            <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
-            <con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+  <con:settings>
+    <con:setting id="2d0d090f-caa3-4340-a91b-e0dcbdcb4025fileName">Basis-test-conversion-rate</con:setting>
+  </con:settings>
+  <con:testStep type="request" name="ConversionRate" id="adb49474-b501-40d3-81ba-7c05e0f28253">
+    <con:settings/>
+    <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:interface>CurrencyConvertorSoap12</con:interface>
+      <con:operation>ConversionRate</con:operation>
+      <con:request name="ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+        <con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
    <soap:Header/>
    <soap:Body>
@@ -22,52 +24,82 @@
       </web:ConversionRate>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3"/>
-            <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
-              <con:configuration/>
-            </con:assertion>
-            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882"/>
-            <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800">
-              <con:configuration/>
-            </con:assertion>
-            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0">
-              <con:configuration>
-                <scriptText>import com.eviware.soapui.support.XmlHolder
+        <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3"/>
+        <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882"/>
+        <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0">
+          <con:configuration>
+            <scriptText>import com.eviware.soapui.support.XmlHolder
 
 def holder = new XmlHolder( messageExchange.responseContentAsXml )
 holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
 def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
 
 assert node != null</scriptText>
-              </con:configuration>
-            </con:assertion>
-            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="18b382b5-24de-497d-9451-2889043dcd53">
-              <con:settings/><con:configuration><codes>200</codes></con:configuration>
-            </con:assertion>
-            <con:credentials>
-              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
-              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
-              <con:authType>No Authorization</con:authType>
-            </con:credentials>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-            <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
-            <con:wsrmConfig version="1.2"/>
-          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="request" name="ConversionRate 1 - lege tag wordt verwijderd" id="853d4527-8175-4917-a5c5-9c6f022593b3">
-        <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>CurrencyConvertorSoap12</con:interface>
-          <con:operation>ConversionRate</con:operation>
-          <con:request name="ConversionRate 1 - lege tag wordt verwijderd" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="c1618557-74e2-4db1-aa9f-33988e9dc3d0" defaultOutgoingWss="" defaultIncomingWss="">
-            <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
-            <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@remove_empty_content">true</con:setting><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@strip-whitespaces">true</con:setting></con:settings>
-            <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">\r
+          </con:configuration>
+        </con:assertion>
+        <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="18b382b5-24de-497d-9451-2889043dcd53">
+          <con:settings/>
+          <con:configuration>
+            <codes>200</codes>
+          </con:configuration>
+        </con:assertion>
+        <con:assertion type="GroovyScriptAssertion" id="0fc4cf88-eaa0-4328-a493-66ee13f50bee" name="Script Assertion - good example">
+          <con:configuration>
+            <scriptText><![CDATA[def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def responseHolder = groovyUtils.getXmlHolder( messageExchange.responseContent )
+def sessionid = responseHolder.getNodeValue("//*:loginResponse/*:sessionid")
+
+assert sessionid == '27958234721904306':"Sessionid has not expected value"
+
+log.info sessionid
+
+//<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sam="http://www.soapui.org/sample/">
+//   <soapenv:Header/>
+//   <soapenv:Body>
+//      <sam:loginResponse>
+//         <sessionid>27958234721904307</sessionid>
+//      </sam:loginResponse>
+//   </soapenv:Body>
+//</soapenv:Envelope>]]></scriptText>
+          </con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+          <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+          <con:authType>Global HTTP Settings</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:jmsPropertyConfig/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+        <con:wsrmConfig version="1.2"/>
+        <con:environmentSpec>
+          <con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019">
+            <con:authProfile>Basic</con:authProfile>
+          </con:entry>
+        </con:environmentSpec>
+      </con:request>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="request" name="ConversionRate 1 - lege tag wordt verwijderd" id="853d4527-8175-4917-a5c5-9c6f022593b3">
+    <con:settings/>
+    <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:interface>CurrencyConvertorSoap12</con:interface>
+      <con:operation>ConversionRate</con:operation>
+      <con:request name="ConversionRate 1 - lege tag wordt verwijderd" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="c1618557-74e2-4db1-aa9f-33988e9dc3d0" defaultOutgoingWss="" defaultIncomingWss="">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@remove_empty_content">true</con:setting>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@strip-whitespaces">true</con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+        <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">\r
    <soap:Header/>\r
    <soap:Body>\r
       <web:ConversionRate>\r
@@ -76,86 +108,93 @@ assert node != null</scriptText>
       </web:ConversionRate>\r
    </soap:Body>\r
 </soap:Envelope>]]></con:request>
-            <con:assertion type="SOAP Response" name="SOAP Response" id="5ad3c232-d687-4cc4-afc7-c07815f7eb43"/>
-            <con:assertion type="Schema Compliance" name="Schema Compliance" id="8d5e2849-efd8-41e6-9f01-6f1587969a21">
-              <con:configuration/>
-            </con:assertion>
-            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="58b5ac87-df65-4036-b71d-435d0f0d66ac"/>
-            <con:assertion type="XQuery Match" name="XQuery Match" id="878ea41c-26bd-461b-8900-03780d7923d7">
-              <con:configuration/>
-            </con:assertion>
-            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="1e4804ad-d3a9-4f6a-b299-4fdd6312256d">
-              <con:configuration>
-                <scriptText>import com.eviware.soapui.support.XmlHolder
+        <con:assertion type="SOAP Response" name="SOAP Response" id="5ad3c232-d687-4cc4-afc7-c07815f7eb43"/>
+        <con:assertion type="Schema Compliance" name="Schema Compliance" id="8d5e2849-efd8-41e6-9f01-6f1587969a21">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="58b5ac87-df65-4036-b71d-435d0f0d66ac"/>
+        <con:assertion type="XQuery Match" name="XQuery Match" id="878ea41c-26bd-461b-8900-03780d7923d7">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="1e4804ad-d3a9-4f6a-b299-4fdd6312256d">
+          <con:configuration>
+            <scriptText>import com.eviware.soapui.support.XmlHolder
 
 def holder = new XmlHolder( messageExchange.responseContentAsXml )
 holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
 def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
 
 assert node != null</scriptText>
-              </con:configuration>
-            </con:assertion>
-            <con:credentials>
-              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
-            </con:credentials>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-            <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
-            <con:wsrmConfig version="1.2"/>
-          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="assertionteststep" name="Assertion TestStep" id="16a45bfa-ffb5-4dac-99ca-d29de768504c">
-        <con:settings/>
-        <con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:entry>
-            <con:id>eb587357-8aa2-43ef-a1e2-53c6bfe70d2f</con:id>
-            <con:isGroup>false</con:isGroup>
-            <con:sourceId>adb49474-b501-40d3-81ba-7c05e0f28253</con:sourceId>
-            <con:propertyName>Response</con:propertyName>
-            <con:assertion type="XPath Match" name="ConversionRate 1 empty">
-              <con:configuration>
-                <path>declare namespace ns1='http://www.webserviceX.NET/';
+          </con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+          <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+          <con:authType>Global HTTP Settings</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:jmsPropertyConfig/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+        <con:wsrmConfig version="1.2"/>
+        <con:environmentSpec>
+          <con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019">
+            <con:authProfile>Basic</con:authProfile>
+          </con:entry>
+        </con:environmentSpec>
+      </con:request>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="assertionteststep" name="Assertion TestStep" id="16a45bfa-ffb5-4dac-99ca-d29de768504c">
+    <con:settings/>
+    <con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:entry>
+        <con:id>eb587357-8aa2-43ef-a1e2-53c6bfe70d2f</con:id>
+        <con:isGroup>false</con:isGroup>
+        <con:sourceId>adb49474-b501-40d3-81ba-7c05e0f28253</con:sourceId>
+        <con:propertyName>Response</con:propertyName>
+        <con:assertion type="XPath Match" name="ConversionRate 1 empty" id="1cf0dbc0-4033-4f2f-b7d3-3fe083223bcb">
+          <con:configuration>
+            <path>declare namespace ns1='http://www.webserviceX.NET/';
 //ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]/text()=''</path>
-                <content>true</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-                <ignoreComments>false</ignoreComments>
-              </con:configuration>
-            </con:assertion>
-          </con:entry>
-          <con:entry>
-            <con:id>86442dbf-dec1-43c4-a218-37419467e171</con:id>
-            <con:isGroup>false</con:isGroup>
-            <con:sourceId>853d4527-8175-4917-a5c5-9c6f022593b3</con:sourceId>
-            <con:propertyName>Response</con:propertyName>
-            <con:assertion type="XPath Match" name="ConversionRate 2 > 1">
-              <con:configuration>
-                <path>declare namespace ns1='http://www.webserviceX.NET/';
+            <content>true</content>
+            <allowWildcards>false</allowWildcards>
+            <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            <ignoreComments>false</ignoreComments>
+          </con:configuration>
+        </con:assertion>
+      </con:entry>
+      <con:entry>
+        <con:id>86442dbf-dec1-43c4-a218-37419467e171</con:id>
+        <con:isGroup>false</con:isGroup>
+        <con:sourceId>853d4527-8175-4917-a5c5-9c6f022593b3</con:sourceId>
+        <con:propertyName>Response</con:propertyName>
+        <con:assertion type="XPath Match" name="ConversionRate 2 > 1" id="cc15082c-e711-45be-b05b-bc4f3064f4d0">
+          <con:configuration>
+            <path>declare namespace ns1='http://www.webserviceX.NET/';
 //ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]/text()>1</path>
-                <content>true</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-                <ignoreComments>false</ignoreComments>
-              </con:configuration>
-            </con:assertion>
-          </con:entry>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="DisplayMessage" disabled="true" id="a45bb17a-8669-4b5f-8a55-ff666b83db62">
-        <con:settings/>
-        <con:config>
-          <script>def alert = com.eviware.soapui.support.UISupport;
+            <content>true</content>
+            <allowWildcards>false</allowWildcards>
+            <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+            <ignoreComments>false</ignoreComments>
+          </con:configuration>
+        </con:assertion>
+      </con:entry>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="DisplayMessage" disabled="true" id="a45bb17a-8669-4b5f-8a55-ff666b83db62">
+    <con:settings/>
+    <con:config>
+      <script>def alert = com.eviware.soapui.support.UISupport;
 def fromCurrency = context.expand( '${#TestCase#fromCurrency}' )
 
 //This will display an information message
 alert.showInfoMessage('The from currency is: '+fromCurrency);</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="groovy" name="DisplayInterfaces" disabled="true" id="7f3fe461-e8ad-4974-94e9-a5ef71302080">
-        <con:settings/>
-        <con:config>
-          <script>def project = testRunner.testCase.testSuite.project;
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="DisplayInterfaces" disabled="true" id="7f3fe461-e8ad-4974-94e9-a5ef71302080">
+    <con:settings/>
+    <con:config>
+      <script>def project = testRunner.testCase.testSuite.project;
 def ifaceList = project.getInterfaceList()
 log.info 'Number of interfaces: 'project.getInterfaceCount()
 for(int i = 0; i &lt; project.getInterfaceCount() ; i++)
@@ -165,45 +204,45 @@ for(int i = 0; i &lt; project.getInterfaceCount() ; i++)
 //def url = iface.definition;
 //iface.updateDefinition( url, true);
 }</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="datasourceloop" name="DataSource Loop" disabled="true" id="b87deab3-80a4-40c4-b45e-e0772c9e2570">
-        <con:settings/>
-        <con:config>
-          <dataSourceStep>DataSource</dataSourceStep>
-          <targetStep>DataSource</targetStep>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="properties" name="Properties" disabled="true" id="daef344f-e5de-4f7a-a118-df50324bb08d">
-        <con:settings/>
-        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:properties>
-            <con:property>
-              <con:name>Combinatie</con:name>
-              <con:value/>
-            </con:property>
-          </con:properties>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="datasourceloop" name="DataSource Loop 2" disabled="true" id="e0f3cd3c-e136-400b-8dd5-392b6ce176ab">
-        <con:settings/>
-        <con:config>
-          <dataSourceStep>DataSource</dataSourceStep>
-          <targetStep>Properties</targetStep>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="request" name="Copy of ConversionRate" disabled="true" id="57cf5720-b332-40f5-b322-ebfb1ee5b306">
-        <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>CurrencyConvertorSoap12</con:interface>
-          <con:operation>ConversionRate</con:operation>
-          <con:request name="Copy of ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="296c0c70-1710-4ccf-a886-58f7a7b008b9" defaultOutgoingWss="" defaultIncomingWss="">
-            <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
-            </con:settings>
-            <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasourceloop" name="DataSource Loop" disabled="true" id="b87deab3-80a4-40c4-b45e-e0772c9e2570">
+    <con:settings/>
+    <con:config>
+      <dataSourceStep>DataSource</dataSourceStep>
+      <targetStep>DataSource</targetStep>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="properties" name="Properties" disabled="true" id="daef344f-e5de-4f7a-a118-df50324bb08d">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>Combinatie</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasourceloop" name="DataSource Loop 2" disabled="true" id="e0f3cd3c-e136-400b-8dd5-392b6ce176ab">
+    <con:settings/>
+    <con:config>
+      <dataSourceStep>DataSource</dataSourceStep>
+      <targetStep>Properties</targetStep>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="request" name="Copy of ConversionRate" disabled="true" id="57cf5720-b332-40f5-b322-ebfb1ee5b306">
+    <con:settings/>
+    <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:interface>CurrencyConvertorSoap12</con:interface>
+      <con:operation>ConversionRate</con:operation>
+      <con:request name="Copy of ConversionRate" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="296c0c70-1710-4ccf-a886-58f7a7b008b9" defaultOutgoingWss="" defaultIncomingWss="">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="MyCoolHeader" value="TheCoolestValue" xmlns="http://eviware.com/soapui/config"/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+        <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">
    <soap:Header/>
    <soap:Body>
       <web:ConversionRate>
@@ -212,47 +251,53 @@ for(int i = 0; i &lt; project.getInterfaceCount() ; i++)
       </web:ConversionRate>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:assertion type="SOAP Response" name="SOAP Response" id="ea449ae7-5c52-449d-a880-911a11d7218f"/>
-            <con:assertion type="Schema Compliance" name="Schema Compliance" id="3a2c5a73-02e6-4fcc-8f10-e50f58b30668">
-              <con:configuration/>
-            </con:assertion>
-            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="2b81681a-c731-40a2-b7ae-de27686f9b3d"/>
-            <con:assertion type="XQuery Match" name="XQuery Match" id="af224e08-1688-4456-976f-70b9e10b6943">
-              <con:configuration/>
-            </con:assertion>
-            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a2e90669-aba9-4dd3-8889-5279bd3cb5e0">
-              <con:configuration>
-                <scriptText>import com.eviware.soapui.support.XmlHolder
+        <con:assertion type="SOAP Response" name="SOAP Response" id="ea449ae7-5c52-449d-a880-911a11d7218f"/>
+        <con:assertion type="Schema Compliance" name="Schema Compliance" id="3a2c5a73-02e6-4fcc-8f10-e50f58b30668">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="2b81681a-c731-40a2-b7ae-de27686f9b3d"/>
+        <con:assertion type="XQuery Match" name="XQuery Match" id="af224e08-1688-4456-976f-70b9e10b6943">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a2e90669-aba9-4dd3-8889-5279bd3cb5e0">
+          <con:configuration>
+            <scriptText>import com.eviware.soapui.support.XmlHolder
 
 def holder = new XmlHolder( messageExchange.responseContentAsXml )
 holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
 def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
 
 assert node != null</scriptText>
-              </con:configuration>
-            </con:assertion>
-            <con:credentials>
-              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:authType>Global HTTP Settings</con:authType>
-            </con:credentials>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-            <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
-            <con:wsrmConfig version="1.2"/>
-          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="request" name="Copy of ConversionRate 1" id="1458f20b-5548-4db9-90f6-857d634cc6e2">
-        <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>CurrencyConvertorSoap12</con:interface>
-          <con:operation>ConversionRate</con:operation>
-          <con:request name="Copy of ConversionRate 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
-            <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Content-Type" value="text/xml; charset=utf-8" xmlns="http://eviware.com/soapui/config"/></con:setting>
-            </con:settings>
-            <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
-            <con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\r
+          </con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+          <con:authType>Global HTTP Settings</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:jmsPropertyConfig/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+        <con:wsrmConfig version="1.2"/>
+        <con:environmentSpec>
+          <con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019">
+            <con:authProfile>Basic</con:authProfile>
+          </con:entry>
+        </con:environmentSpec>
+      </con:request>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="request" name="Copy of ConversionRate 1" id="1458f20b-5548-4db9-90f6-857d634cc6e2">
+    <con:settings/>
+    <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:interface>CurrencyConvertorSoap12</con:interface>
+      <con:operation>ConversionRate</con:operation>
+      <con:request name="Copy of ConversionRate 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Content-Type" value="text/xml; charset=utf-8" xmlns="http://eviware.com/soapui/config"/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+        <con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\r
 <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">\r
    <soap:Header/>\r
    <soap:Body>\r
@@ -262,51 +307,60 @@ assert node != null</scriptText>
       </web:ConversionRate>\r
    </soap:Body>\r
 </soap:Envelope>]]></con:request>
-            <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3"/>
-            <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
-              <con:configuration/>
-            </con:assertion>
-            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882"/>
-            <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800">
-              <con:configuration/>
-            </con:assertion>
-            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0">
-              <con:configuration>
-                <scriptText>import com.eviware.soapui.support.XmlHolder
+        <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3"/>
+        <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882"/>
+        <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0">
+          <con:configuration>
+            <scriptText>import com.eviware.soapui.support.XmlHolder
 
 def holder = new XmlHolder( messageExchange.responseContentAsXml )
 holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
 def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
 
 assert node != null</scriptText>
-              </con:configuration>
-            </con:assertion>
-            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="18b382b5-24de-497d-9451-2889043dcd53">
-              <con:settings/><con:configuration><codes>200</codes></con:configuration>
-            </con:assertion>
-            <con:credentials>
-              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
-              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
-              <con:authType>Global HTTP Settings</con:authType>
-            </con:credentials>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-            <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
-            <con:wsrmConfig version="1.2"/>
-          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
-        </con:config>
-      </con:testStep><con:testStep type="request" name="Copy of Copy of ConversionRate 1" id="7f0b0a5a-ff56-4532-9ba7-07a3f97c0d9e">
-        <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>CurrencyConvertorSoap12</con:interface>
-          <con:operation>ConversionRate</con:operation>
-          <con:request name="Copy of Copy of ConversionRate 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
-            <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Content-Type" value="text/xml; charset=utf-8" xmlns="http://eviware.com/soapui/config"/></con:setting>
-            </con:settings>
-            <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
-            <con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\r
+          </con:configuration>
+        </con:assertion>
+        <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="18b382b5-24de-497d-9451-2889043dcd53">
+          <con:settings/>
+          <con:configuration>
+            <codes>200</codes>
+          </con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+          <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+          <con:authType>Global HTTP Settings</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:jmsPropertyConfig/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+        <con:wsrmConfig version="1.2"/>
+        <con:environmentSpec>
+          <con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019">
+            <con:authProfile>Basic</con:authProfile>
+          </con:entry>
+        </con:environmentSpec>
+      </con:request>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="request" name="Copy of Copy of ConversionRate 1" id="7f0b0a5a-ff56-4532-9ba7-07a3f97c0d9e">
+    <con:settings/>
+    <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:interface>CurrencyConvertorSoap12</con:interface>
+      <con:operation>ConversionRate</con:operation>
+      <con:request name="Copy of Copy of ConversionRate 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="83ea80f6-4381-42a9-b512-b4ffc2b3cf6f" defaultOutgoingWss="" defaultIncomingWss="">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Content-Type" value="text/xml; charset=utf-8" xmlns="http://eviware.com/soapui/config"/></con:setting>
+        </con:settings>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://www.webservicex.com/currencyconvertor.asmx</con:endpoint>
+        <con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>\r
 <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:web="http://www.webserviceX.NET/">\r
    <soap:Header/>\r
    <soap:Body>\r
@@ -316,49 +370,108 @@ assert node != null</scriptText>
       </web:ConversionRate>\r
    </soap:Body>\r
 </soap:Envelope>]]></con:request>
-            <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3"/>
-            <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
-              <con:configuration/>
-            </con:assertion>
-            <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882"/>
-            <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800">
-              <con:configuration/>
-            </con:assertion>
-            <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0">
-              <con:configuration>
-                <scriptText>import com.eviware.soapui.support.XmlHolder
+        <con:assertion type="SOAP Response" name="SOAP Response" id="34109aab-be65-417f-9adc-19a00b521ac3"/>
+        <con:assertion type="Schema Compliance" name="Schema Compliance" id="77da6804-323d-4cb2-8b87-c9ecb86f1313">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="SOAP Fault Assertion" name="Not SOAP Fault" id="f5d52037-20ff-4325-810b-1e4839031882"/>
+        <con:assertion type="XQuery Match" name="XQuery Match" id="68aaf6f0-c0d5-42d1-80d6-9f8b0257f800">
+          <con:configuration/>
+        </con:assertion>
+        <con:assertion type="GroovyScriptAssertion" name="Assert node [ConversionRateResult]" id="a5fdb2ab-18b3-4069-834c-c05541456de0">
+          <con:configuration>
+            <scriptText>import com.eviware.soapui.support.XmlHolder
 
 def holder = new XmlHolder( messageExchange.responseContentAsXml )
 holder.namespaces["ns1"] = "http://www.webserviceX.NET/"
 def node = holder.getDomNode( "//ns1:ConversionRateResponse[1]/ns1:ConversionRateResult[1]" )
 
 assert node != null</scriptText>
-              </con:configuration>
-            </con:assertion>
-            <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="18b382b5-24de-497d-9451-2889043dcd53">
-              <con:settings/><con:configuration><codes>200</codes></con:configuration>
-            </con:assertion>
-            <con:credentials>
-              <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
-              <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
-              <con:authType>Global HTTP Settings</con:authType>
-            </con:credentials>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-            <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
-            <con:wsrmConfig version="1.2"/>
-          <con:environmentSpec><con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019"><con:authProfile>Basic</con:authProfile></con:entry></con:environmentSpec></con:request>
-        </con:config>
-      </con:testStep><con:properties>
-        <con:property>
-          <con:name>fromCurrency</con:name>
-          <con:value>EUR</con:value>
-        </con:property>
-      </con:properties>
-      <con:reportParameters/>
-      <con:breakPoints>
-        <con:testStepId>16a45bfa-ffb5-4dac-99ca-d29de768504c</con:testStepId>
-        <con:status>NONE</con:status>
-        <con:properties/>
-      </con:breakPoints>
-    <con:breakPoints><con:testStepId>adb49474-b501-40d3-81ba-7c05e0f28253</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>853d4527-8175-4917-a5c5-9c6f022593b3</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>a45bb17a-8669-4b5f-8a55-ff666b83db62</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>7f3fe461-e8ad-4974-94e9-a5ef71302080</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>b87deab3-80a4-40c4-b45e-e0772c9e2570</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>daef344f-e5de-4f7a-a118-df50324bb08d</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>e0f3cd3c-e136-400b-8dd5-392b6ce176ab</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>57cf5720-b332-40f5-b322-ebfb1ee5b306</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>1458f20b-5548-4db9-90f6-857d634cc6e2</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>7f0b0a5a-ff56-4532-9ba7-07a3f97c0d9e</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>
+          </con:configuration>
+        </con:assertion>
+        <con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes" id="18b382b5-24de-497d-9451-2889043dcd53">
+          <con:settings/>
+          <con:configuration>
+            <codes>200</codes>
+          </con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+          <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+          <con:authType>Global HTTP Settings</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:jmsPropertyConfig/>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.webserviceX.NET/CurrencyConvertorSoap/ConversionRateRequest"/>
+        <con:wsrmConfig version="1.2"/>
+        <con:environmentSpec>
+          <con:entry environmentId="32604c2b-e809-44a8-b0dc-cd6f0aeb4019">
+            <con:authProfile>Basic</con:authProfile>
+          </con:entry>
+        </con:environmentSpec>
+      </con:request>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>fromCurrency</con:name>
+      <con:value>EUR</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>16a45bfa-ffb5-4dac-99ca-d29de768504c</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>adb49474-b501-40d3-81ba-7c05e0f28253</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>853d4527-8175-4917-a5c5-9c6f022593b3</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>a45bb17a-8669-4b5f-8a55-ff666b83db62</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>7f3fe461-e8ad-4974-94e9-a5ef71302080</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>b87deab3-80a4-40c4-b45e-e0772c9e2570</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>daef344f-e5de-4f7a-a118-df50324bb08d</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>e0f3cd3c-e136-400b-8dd5-392b6ce176ab</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>57cf5720-b332-40f5-b322-ebfb1ee5b306</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>1458f20b-5548-4db9-90f6-857d634cc6e2</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>7f0b0a5a-ff56-4532-9ba7-07a3f97c0d9e</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

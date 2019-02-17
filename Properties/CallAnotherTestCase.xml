@@ -1,78 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="CallAnotherTestCase" searchProperties="true" id="e9e9cb20-10f9-435f-81cd-a4f20e4f368c" xmlns:con="http://eviware.com/soapui/config">
-      <con:settings><con:setting id="e9e9cb20-10f9-435f-81cd-a4f20e4f368cfileName">CallAnotherTestCase</con:setting></con:settings>
-      <con:testStep type="properties" name="Properties" id="7c98faf4-5e84-402f-b137-b203a8b27b4e">
-        <con:settings/>
-        <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:properties>
-            <con:property>
-              <con:name>Eerste</con:name>
-              <con:value>3</con:value>
-            </con:property>
-            <con:property>
-              <con:name>Tweede</con:name>
-              <con:value>2</con:value>
-            </con:property>
-            <con:property>
-              <con:name>retval</con:name>
-              <con:value/>
-            </con:property>
-            <con:property>
-              <con:name>TCeerste</con:name>
-              <con:value>4</con:value>
-            </con:property>
-          </con:properties>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="calltestcase" name="Run TestCase" disabled="true" id="360defa1-c7a2-4007-910f-2efdbb60e727">
-        <con:settings/>
-        <con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:targetTestCase>53597d05-2d08-4fdf-9b45-6a0b02813505</con:targetTestCase>
-          <con:properties>
-            <con:property>
-              <con:name>TCeerste</con:name>
-              <con:value>'${Eerste}'</con:value>
-            </con:property>
-            <con:property>
-              <con:name>TCtweede</con:name>
-              <con:value>'${Tweede}'</con:value>
-            </con:property>
-            <con:property>
-              <con:name>TCret</con:name>
-            </con:property>
-          </con:properties>
-          <con:returnProperties/>
-          <con:runMode>PARALLELL</con:runMode>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="calltestcase" name="Run TestCase 2" id="8cc0fd3b-8e2b-4919-8665-b14891815b44">
-        <con:settings/>
-        <con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:targetTestCase>53597d05-2d08-4fdf-9b45-6a0b02813505</con:targetTestCase>
-          <con:properties>
-            <con:property>
-              <con:name>TCeerste</con:name>
-              <con:value>${Properties#Eerste}</con:value>
-            </con:property>
-            <con:property>
-              <con:name>TCtweede</con:name>
-              <con:value>${Properties#Tweede}</con:value>
-            </con:property>
-            <con:property>
-              <con:name>TCret</con:name>
-              <con:value>11</con:value>
-            </con:property>
-          </con:properties>
-          <con:returnProperties>
-            <con:entry>TCret</con:entry>
-          </con:returnProperties>
-          <con:runMode>PARALLELL</con:runMode>
-        </con:config>
-      </con:testStep>
-      <con:testStep type="assertionteststep" name="Assertion TestStep" id="63477b82-5308-4a2c-ac22-14628a997368">
-        <con:settings/>
-        <con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
-      </con:testStep>
-      <con:testStep type="datasource" name="DataSource" id="f6e5c736-f9d4-4db2-8f88-375761d0768c"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Data Connection"><con:configuration><Connection>&lt;None></Connection><query/><fetchSize/><stored-procedure>false</stored-procedure></con:configuration></con:dataSource><con:restartOnRun>true</con:restartOnRun></con:config></con:testStep><con:properties/>
-      <con:reportParameters/>
-    </con:testCase>
+  <con:settings>
+    <con:setting id="e9e9cb20-10f9-435f-81cd-a4f20e4f368cfileName">CallAnotherTestCase</con:setting>
+  </con:settings>
+  <con:testStep type="properties" name="Properties" id="7c98faf4-5e84-402f-b137-b203a8b27b4e">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>Eerste</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+        <con:property>
+          <con:name>Tweede</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+        <con:property>
+          <con:name>retval</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+        <con:property>
+          <con:name>TCeerste</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="calltestcase" name="Run TestCase" disabled="true" id="360defa1-c7a2-4007-910f-2efdbb60e727">
+    <con:settings/>
+    <con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:targetTestCase>53597d05-2d08-4fdf-9b45-6a0b02813505</con:targetTestCase>
+      <con:properties>
+        <con:property>
+          <con:name>TCeerste</con:name>
+          <con:value>'${Eerste}'</con:value>
+        </con:property>
+        <con:property>
+          <con:name>TCtweede</con:name>
+          <con:value>'${Tweede}'</con:value>
+        </con:property>
+        <con:property>
+          <con:name>TCret</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+      </con:properties>
+      <con:returnProperties/>
+      <con:runMode>PARALLELL</con:runMode>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="calltestcase" name="Run TestCase 2" id="8cc0fd3b-8e2b-4919-8665-b14891815b44">
+    <con:settings/>
+    <con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:targetTestCase>53597d05-2d08-4fdf-9b45-6a0b02813505</con:targetTestCase>
+      <con:properties>
+        <con:property>
+          <con:name>TCeerste</con:name>
+          <con:value>${Properties#Eerste}</con:value>
+        </con:property>
+        <con:property>
+          <con:name>TCtweede</con:name>
+          <con:value>${Properties#Tweede}</con:value>
+        </con:property>
+        <con:property>
+          <con:name>TCret</con:name>
+          <con:value/>
+        </con:property>
+      </con:properties>
+      <con:returnProperties>
+        <con:entry>TCret</con:entry>
+      </con:returnProperties>
+      <con:runMode>PARALLELL</con:runMode>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="assertionteststep" name="Assertion TestStep" id="63477b82-5308-4a2c-ac22-14628a997368">
+    <con:settings/>
+    <con:config xsi:type="con:AssertionTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+  </con:testStep>
+  <con:testStep type="datasource" name="DataSource" id="f6e5c736-f9d4-4db2-8f88-375761d0768c">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="Data Connection">
+        <con:configuration>
+          <Connection>&lt;None></Connection>
+          <query/>
+          <fetchSize/>
+          <stored-procedure>false</stored-procedure>
+        </con:configuration>
+      </con:dataSource>
+      <con:restartOnRun>true</con:restartOnRun>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

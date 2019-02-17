@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="e6288f71-576f-44ac-ad94-56af58bb4eba" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Excel datasource - no datasource loop - set start / end row" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="6b48ec50-d04e-440d-9ec3-b2babc33a01dfileName">Excel-datasource</con:setting>
+    <con:setting id="a1705784-76c4-4681-b914-3aa07cbd565afileName">Excel-datasource---currentRow-usage</con:setting>
+    <con:setting id="e6288f71-576f-44ac-ad94-56af58bb4ebafileName">Excel-datasource---no-datasource-loop---set-start-%2F-end-row</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Initialise" id="8c8f892b-5f43-45db-8b4e-9cac1ec88d73">
+    <con:settings/>
+    <con:config>
+      <script>testRunner.testCase.testSteps["DataSource"].setEndRow("2");
+testRunner.testCase.testSteps["DataSource"].setStartRow("2");</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasource" name="DataSource" id="c61ad0cf-c8de-470a-9876-bd715832c418">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="Excel">
+        <con:configuration>
+          <file>sample.xls</file>
+          <worksheet/>
+          <cell>A2</cell>
+          <ignoreEmpty>false</ignoreEmpty>
+          <evaluateFormulas>false</evaluateFormulas>
+        </con:configuration>
+      </con:dataSource>
+      <con:shared>true</con:shared>
+      <con:restartShared>true</con:restartShared>
+      <con:property>City</con:property>
+      <con:property>Expected Result</con:property>
+      <con:property>Test</con:property>
+      <con:property>$$Avond</con:property>
+      <con:startRow>2</con:startRow>
+      <con:endRow>2</con:endRow>
+      <con:recordsPerIteration>1</con:recordsPerIteration>
+      <con:completeLastOperation>true</con:completeLastOperation>
+      <con:trimValues>true</con:trimValues>
+      <con:entitizeValues>false</con:entitizeValues>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:expandProperties>true</con:expandProperties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="f9d0b0e8-9c1e-4e9c-8558-044737a42443">
+    <con:settings/>
+    <con:config>
+      <script>// Ophalen van alle velden gedefinieerd in de datasource
+def sourceName = testRunner.testCase.getTestStepByName('DataSource')
+def propertyNamen = sourceName.propertyNames
+
+// Te gebruiken als je null wil zetten in de data
+def nullValue
+
+// Opbouwen van een map waarin veldnamen en veldwaarden opgenomen worden met behulp van de datasource
+def zaakMap = [:]
+
+propertyNamen.each { 
+   propertyNaam = "${it}" 
+   propertyWaarde = context.expand('${DataSource#'+propertyNaam+'}')  
+   log.info propertyWaarde
+}</script>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>OpdrachtId</con:name>
+      <con:value/>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>460e045f-29bf-4533-8d26-227b6c985352</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>155b336d-e7f1-49bd-9fa8-db19227ffb03</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>809979bc-7442-4365-937e-77e5594fffaa</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>4f039221-b718-47e4-aa61-979282f9496e</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

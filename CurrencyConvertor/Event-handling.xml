@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:testCase id="7e4bd7ca-959d-4877-b17f-d09dd962a8ae" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Event handling" searchProperties="true" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="7e4bd7ca-959d-4877-b17f-d09dd962a8aefileName">Event-handling</con:setting></con:settings><con:testStep type="properties" name="Properties" id="ad45f829-b275-43e3-862b-f93455612c28"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>zaaknummer</con:name><con:value>12</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="d83b9772-e267-4c65-8f68-8251cdc5dc6a"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+<con:testCase id="7e4bd7ca-959d-4877-b17f-d09dd962a8ae" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Event handling" searchProperties="true" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="7e4bd7ca-959d-4877-b17f-d09dd962a8aefileName">Event-handling</con:setting>
+  </con:settings>
+  <con:testStep type="properties" name="Properties" id="ad45f829-b275-43e3-862b-f93455612c28">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>zaaknummer</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="d83b9772-e267-4c65-8f68-8251cdc5dc6a">
+    <con:settings/>
+    <con:config>
+      <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectDir = groovyUtils.projectPath
 
 String fileContents = new File(projectDir+'/'+'DocumentNodes.xml').getText('UTF-8')
@@ -23,14 +41,13 @@ log.info template.toString()
 
 //file = new File(projectDir+'/'+'DocumentNodes_new.xml')
 //file.createNewFile()
-//file.write(holderXML.xml)
-
-
- 
-
-
-
-</script></con:config></con:testStep><con:testStep type="groovy" name="Copy of Groovy Script" id="da979d25-2238-401d-bc6c-c67e3c1ce60e" disabled="true"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+//file.write(holderXML.xml)</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Copy of Groovy Script" id="da979d25-2238-401d-bc6c-c67e3c1ce60e" disabled="true">
+    <con:settings/>
+    <con:config>
+      <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectDir = groovyUtils.projectPath
 
 log.info projectDir
@@ -49,6 +66,19 @@ log.info projectDir
 
 
 root = new XmlParser().parse(new File(projectDir+'/'+'test.xml'))
-def result = (new StreamingMarkupBuilder()).bindNode(root).toString()
-
-</script></con:config></con:testStep><con:properties><con:property><con:name>XMLread</con:name><con:value>Dit is een document</con:value></con:property></con:properties><con:reportParameters/><con:breakPoints><con:testStepId>d711d7ff-8c7d-44b9-bf1b-ee04e542015d</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>
+def result = (new StreamingMarkupBuilder()).bindNode(root).toString()</script>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>XMLread</con:name>
+      <con:value>Dit is een document</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>d711d7ff-8c7d-44b9-bf1b-ee04e542015d</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>
