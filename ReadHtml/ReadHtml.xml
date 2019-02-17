@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="99746cb3-56c4-4b8d-8161-4ea2014777f7" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="ReadHtml" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="99746cb3-56c4-4b8d-8161-4ea2014777f7fileName">ReadHtml</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="properties" name="Properties" id="ebcc34a1-33a1-47cf-9f07-e445183cfd4b">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>html</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="8606c404-737a-46e5-8b3c-80b302b8ab60">
+    <con:settings/>
+    <con:config>
+      <script>import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+def html = context.expand( '${Properties#html#//html[1]}' )
+def document = Jsoup.parse(html)
+
+if (document.select("div:contains(tweede)").first() == null) {
+  	log.error "Wel documenten gevonden"
+}
+
+assert document.getElementsContainingOwnText("tweede").text() == "eerste" : "Wel documenten gevonden"
+
+//assert document.select("div:contains(geen document gevonden)").first().text() == "geen document gevonden" : "Wel documenten gevonden"
+
+//log.info document.select("div:contains(tweede)").first().text()
+
+//assert document.select("div:contains(geen document gevonden)").first().text() == "geen document gevonden" : "Wel documenten gevonden"
+
+//def doc = org.jsoup.Jsoup.connect("http://www.zalora.co.id/women/pakaian/dress/").get()
+//
+//
+//def url = "http://rates.goldenchennai.com/";
+//def document = Jsoup.connect(url).get();
+//def goldDetails = document.select(".yellowTxt")
+//def caratDetails= goldDetails.first().text()
+//def goldRate = goldDetails.get(1).text()
+//
+//Elements links = doc.select("a[href]"); // a with href
+//Elements pngs = doc.select("img[src$=.png]");
+//  // img with src ending .png
+//
+//Element masthead = doc.select("div.masthead").first();
+//  // div with class=masthead
+//
+//Elements resultLinks = doc.select("h3.r > a"); // direct a after h3</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

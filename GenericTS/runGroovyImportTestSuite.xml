@@ -1,2 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:testCase id="95eed10a-3876-4106-90e5-3344dada02e8" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="runGroovyImportTestSuite" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="95eed10a-3876-4106-90e5-3344dada02e8fileName">runGroovyImportTestSuite</con:setting></con:settings><con:testStep type="calltestcase" name="Run TestCase" id="63f03168-486e-4b05-a156-32dd2feef47d"><con:settings/><con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:targetTestCase>780a7abf-7f03-41ff-a9c8-df1e346badc8</con:targetTestCase><con:properties><con:property><con:name>fileName</con:name></con:property><con:property><con:name>fileContent</con:name></con:property></con:properties><con:returnProperties><con:entry>fileContent</con:entry></con:returnProperties><con:runMode>PARALLELL</con:runMode></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>
+<con:testCase id="95eed10a-3876-4106-90e5-3344dada02e8" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="runGroovyImportTestSuite" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="95eed10a-3876-4106-90e5-3344dada02e8fileName">runGroovyImportTestSuite</con:setting>
+  </con:settings>
+  <con:testStep type="calltestcase" name="Run TestCase" id="63f03168-486e-4b05-a156-32dd2feef47d">
+    <con:settings/>
+    <con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:targetTestCase>780a7abf-7f03-41ff-a9c8-df1e346badc8</con:targetTestCase>
+      <con:properties>
+        <con:property>
+          <con:name>fileName</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+        <con:property>
+          <con:name>fileContent</con:name>
+          <con:value/>
+        </con:property>
+      </con:properties>
+      <con:returnProperties>
+        <con:entry>fileContent</con:entry>
+      </con:returnProperties>
+      <con:runMode>PARALLELL</con:runMode>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

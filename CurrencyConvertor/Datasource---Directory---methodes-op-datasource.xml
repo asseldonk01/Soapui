@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Datasource - Directory - methodes op datasource" searchProperties="true" id="460af22a-fe9f-44c3-8bf3-e94ca6d4374b" xmlns:con="http://eviware.com/soapui/config">
-      <con:settings><con:setting id="460af22a-fe9f-44c3-8bf3-e94ca6d4374bfileName">Datasource---Directory---methodes-op-datasource</con:setting></con:settings>
-      <con:testStep type="datasource" name="DataSource" id="376e0fd9-e20c-442e-9d77-47f0cd4e9c07">
-        <con:settings/>
-        <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:dataSource type="Directory">
-            <con:configuration><directory>Bestanden</directory><filter>*.pdf</filter><encoding/></con:configuration>
-          </con:dataSource>
-          
-          
-          
-          
-          
-          
-          
-          <con:property>bestandsnaam</con:property><con:property>Filename</con:property><con:startRow/>
-          <con:endRow/>
-          <con:trimValues>false</con:trimValues>
-          <con:entitizeValues>false</con:entitizeValues>
-          <con:restartOnRun>true</con:restartOnRun>
-          <con:expandProperties>true</con:expandProperties>
-        </con:config>
-      </con:testStep>
-      
-      <con:testStep type="groovy" name="Get filename from datasource" id="caf86553-cb65-4114-9c09-d8cea5a66d8b">
-        <con:settings/>
-        <con:config><script>def naam = testRunner.testCase.getTestStepByName("DataSource").getProperty("Filename").value
+  <con:settings>
+    <con:setting id="460af22a-fe9f-44c3-8bf3-e94ca6d4374bfileName">Datasource---Directory---methodes-op-datasource</con:setting>
+  </con:settings>
+  <con:testStep type="datasource" name="DataSource" id="376e0fd9-e20c-442e-9d77-47f0cd4e9c07">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="Directory">
+        <con:configuration>
+          <directory>Bestanden</directory>
+          <filter>*.pdf</filter>
+          <encoding/>
+        </con:configuration>
+      </con:dataSource>
+      <con:property>bestandsnaam</con:property>
+      <con:property>Filename</con:property>
+      <con:startRow/>
+      <con:endRow/>
+      <con:trimValues>false</con:trimValues>
+      <con:entitizeValues>false</con:entitizeValues>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:expandProperties>true</con:expandProperties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Get filename from datasource" id="caf86553-cb65-4114-9c09-d8cea5a66d8b">
+    <con:settings/>
+    <con:config>
+      <script>def naam = testRunner.testCase.getTestStepByName("DataSource").getProperty("Filename").value
 log.info 'Filename: '+naam
 
 def row = testRunner.testCase.getTestStepByName("DataSource").getCurrentRow()
@@ -38,15 +39,52 @@ log.info 'PropertyCount :'+propertyCount
 def rowCount = testRunner.testCase.getTestStepByName("DataSource").getRowCount()
 log.info 'RowCount :'+rowCount
 
-testRunner.testCase.setPropertyValue( "maxRows", rowCount.toString() )</script></con:config>
-      </con:testStep>
-      
-      
-      <con:testStep type="datasourceloop" name="DataSource Loop" id="a42052db-191c-47ea-b6a5-badc4fb8c68a"><con:settings/><con:config><dataSourceStep>DataSource</dataSourceStep><targetStep>Get filename from datasource</targetStep></con:config></con:testStep><con:testStep type="properties" name="Properties" id="4e278df3-4ba2-4761-8610-da797135ac17"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>maxRows</con:name><con:value/></con:property></con:properties></con:config></con:testStep><con:properties><con:property><con:name>maxRows</con:name><con:value>2</con:value></con:property></con:properties>
-      <con:reportParameters/>
-      <con:breakPoints>
-        <con:testStepId>f7f974bf-f661-4a9b-8d68-b572399237ad</con:testStepId>
-        <con:status>NONE</con:status>
-        <con:properties/>
-      </con:breakPoints>
-    <con:breakPoints><con:testStepId>376e0fd9-e20c-442e-9d77-47f0cd4e9c07</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>caf86553-cb65-4114-9c09-d8cea5a66d8b</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>a42052db-191c-47ea-b6a5-badc4fb8c68a</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>
+testRunner.testCase.setPropertyValue( "maxRows", rowCount.toString() )</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasourceloop" name="DataSource Loop" id="a42052db-191c-47ea-b6a5-badc4fb8c68a">
+    <con:settings/>
+    <con:config>
+      <dataSourceStep>DataSource</dataSourceStep>
+      <targetStep>Get filename from datasource</targetStep>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="properties" name="Properties" id="4e278df3-4ba2-4761-8610-da797135ac17">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>maxRows</con:name>
+          <con:value xsi:nil="true"/>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>maxRows</con:name>
+      <con:value>2</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>f7f974bf-f661-4a9b-8d68-b572399237ad</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>376e0fd9-e20c-442e-9d77-47f0cd4e9c07</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>caf86553-cb65-4114-9c09-d8cea5a66d8b</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>a42052db-191c-47ea-b6a5-badc4fb8c68a</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

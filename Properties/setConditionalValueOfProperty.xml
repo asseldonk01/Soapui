@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="1c3e3f03-cfbd-4b64-82ec-9d51e23ff90b" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="setConditionalValueOfProperty" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="1c3e3f03-cfbd-4b64-82ec-9d51e23ff90bfileName">setConditionalValueOfProperty</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="eb16281e-6cde-45ec-9bf0-8065c4cfd1c9">
+    <con:settings/>
+    <con:config>
+      <script>tc = testRunner.testCase..getPropertyValue( "index" ) == "1" ? testCase.setPropertyValue( "FirstXML", "3" ) : testCase.setPropertyValue( "SecondXML","4" )</script>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>index</con:name>
+      <con:value>1</con:value>
+    </con:property>
+    <con:property>
+      <con:name>FirstXML</con:name>
+      <con:value/>
+    </con:property>
+    <con:property>
+      <con:name>SecondXML</con:name>
+      <con:value/>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+</con:testCase>

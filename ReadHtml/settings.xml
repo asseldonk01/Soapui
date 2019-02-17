@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="d8d338c4-eafd-469f-86bd-e61d7b1c300f" name="ReadHtml" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="d8d338c4-eafd-469f-86bd-e61d7b1c300ffileName">ReadHtml</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:runType>SEQUENTIAL</con:runType>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testSuite>

@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:testCase id="79fe4101-5c4f-485f-9470-cbc2270509cb" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="LoadingPropertiesFromFile" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="79fe4101-5c4f-485f-9470-cbc2270509cbfileName">LoadingPropertiesFromFile</con:setting></con:settings><con:testStep type="groovy" name="Groovy Script" id="f9661ed1-70db-43df-88b3-78576b25e1de"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+<con:testCase id="79fe4101-5c4f-485f-9470-cbc2270509cb" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="LoadingPropertiesFromFile" searchProperties="true" maxResults="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="79fe4101-5c4f-485f-9470-cbc2270509cbfileName">LoadingPropertiesFromFile</con:setting>
+  </con:settings>
+  <con:testStep type="groovy" name="Groovy Script" id="f9661ed1-70db-43df-88b3-78576b25e1de">
+    <con:settings/>
+    <con:config>
+      <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def projectPath = groovyUtils.projectPath
 
-testRunner.testCase.setPropertyValue( 'projectPath', projectPath )</script></con:config></con:testStep><con:testStep type="groovy" name="Example read properties file 1" id="b391d96a-cbbc-46dd-ae53-0121697f1018"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+testRunner.testCase.setPropertyValue( 'projectPath', projectPath )</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Example read properties file 1" id="b391d96a-cbbc-46dd-ae53-0121697f1018">
+    <con:settings/>
+    <con:config>
+      <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def projectPath = groovyUtils.projectPath
 
 Properties props = new Properties()
@@ -11,9 +24,13 @@ props.load(propsFile.newDataInputStream())
 
 log.info props.getProperty('Veld01')
 log.info props.getProperty('Veld02')
-log.info props.getProperty('Veld03')
-
-</script></con:config></con:testStep><con:testStep type="groovy" name="Example read properties file 2" id="37871dff-8b6e-42bc-826f-bec204f30a09"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+log.info props.getProperty('Veld03')</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Example read properties file 2" id="37871dff-8b6e-42bc-826f-bec204f30a09">
+    <con:settings/>
+    <con:config>
+      <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def projectPath = groovyUtils.projectPath
 
 Properties properties = new Properties()
@@ -25,10 +42,13 @@ propertiesFile.withInputStream {
 log.info properties.Veld01
 log.info properties.Veld02
 log.info properties.Veld03
-log.info properties.Veld04
-
-
-</script></con:config></con:testStep><con:testStep type="groovy" name="Example writing to properties file 1" id="655e5bee-696d-438d-b333-755ea978c9be"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+log.info properties.Veld04</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Example writing to properties file 1" id="655e5bee-696d-438d-b333-755ea978c9be">
+    <con:settings/>
+    <con:config>
+      <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def projectPath = groovyUtils.projectPath
 
 Properties props = new Properties()
@@ -41,6 +61,53 @@ props.setProperty('Veld02', '81200')
 props.store(propsFile.newWriter(), null)
 
 props.load(propsFile.newDataInputStream())
-log.info props.getProperty('porcupine')
-
-</script></con:config></con:testStep><con:testStep type="calltestcase" name="RunLeesProperties" id="b5e27777-3135-4da3-8a1a-facf2cb1f9a7"><con:settings/><con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:targetTestCase>a466cc84-5e1e-487b-b14d-f897f63e9ed5</con:targetTestCase><con:properties><con:property><con:name>ReadPropertiesFile</con:name><con:value>${#TestCase#projectPath}/PropertiesExample.txt</con:value></con:property><con:property><con:name>Resultaat</con:name><con:value>Veld01=81</con:value></con:property></con:properties><con:returnProperties><con:entry>Resultaat</con:entry></con:returnProperties><con:runMode>PARALLELL</con:runMode></con:config></con:testStep><con:testStep type="calltestcase" name="RunSchrijfProperties" id="0cac23f7-362c-4936-93f8-ab6c14f50843"><con:settings/><con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:targetTestCase>a0059cb7-c7e4-44a6-8920-d2292ad1257b</con:targetTestCase><con:properties><con:property><con:name>WritePropertiesFile</con:name><con:value>${#TestCase#projectPath}/PropertiesWriteExample.txt</con:value></con:property></con:properties><con:returnProperties/><con:runMode>PARALLELL</con:runMode></con:config></con:testStep><con:properties><con:property><con:name>projectPath</con:name><con:value>E:\soapui</con:value></con:property></con:properties><con:reportParameters/><con:breakPoints><con:testStepId>f9661ed1-70db-43df-88b3-78576b25e1de</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase>
+log.info props.getProperty('porcupine')</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="calltestcase" name="RunLeesProperties" id="b5e27777-3135-4da3-8a1a-facf2cb1f9a7">
+    <con:settings/>
+    <con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:targetTestCase>a466cc84-5e1e-487b-b14d-f897f63e9ed5</con:targetTestCase>
+      <con:properties>
+        <con:property>
+          <con:name>ReadPropertiesFile</con:name>
+          <con:value>${#TestCase#projectPath}/PropertiesExample.txt</con:value>
+        </con:property>
+        <con:property>
+          <con:name>Resultaat</con:name>
+          <con:value/>
+        </con:property>
+      </con:properties>
+      <con:returnProperties>
+        <con:entry>Resultaat</con:entry>
+      </con:returnProperties>
+      <con:runMode>PARALLELL</con:runMode>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="calltestcase" name="RunSchrijfProperties" id="0cac23f7-362c-4936-93f8-ab6c14f50843">
+    <con:settings/>
+    <con:config xsi:type="con:RunTestCaseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:targetTestCase>a0059cb7-c7e4-44a6-8920-d2292ad1257b</con:targetTestCase>
+      <con:properties>
+        <con:property>
+          <con:name>WritePropertiesFile</con:name>
+          <con:value>${#TestCase#projectPath}/PropertiesWriteExample.txt</con:value>
+        </con:property>
+      </con:properties>
+      <con:returnProperties/>
+      <con:runMode>PARALLELL</con:runMode>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>projectPath</con:name>
+      <con:value>E:\soapui</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>f9661ed1-70db-43df-88b3-78576b25e1de</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="510d7d17-b8b6-4c6f-99f4-360f3637eec5" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="TestCase 1" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="510d7d17-b8b6-4c6f-99f4-360f3637eec5fileName">TestCase-1</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="datasource" name="DataSource" id="151acac9-935a-4130-bc63-3e02225a7837">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="Data Generator">
+        <con:configuration>
+          <generatedDataCount>10</generatedDataCount>
+          <generatorsTotalNumber>3</generatorsTotalNumber>
+          <lastSelectedProperty>-1</lastSelectedProperty>
+          <GeneratorType0>BOOL</GeneratorType0>
+          <PropertyName0>B</PropertyName0>
+          <repetitionCountB>0</repetitionCountB>
+          <repeatValuesB>false</repeatValuesB>
+          <boolViewB>Classic</boolViewB>
+          <GeneratorType1>BOOL</GeneratorType1>
+          <PropertyName1>C</PropertyName1>
+          <repetitionCountC>0</repetitionCountC>
+          <repeatValuesC>false</repeatValuesC>
+          <boolViewC>Classic</boolViewC>
+          <GeneratorType2>NAME</GeneratorType2>
+          <PropertyName2>A</PropertyName2>
+          <repetitionCountA>0</repetitionCountA>
+          <repeatValuesA>false</repeatValuesA>
+          <NameTypeName2>Full</NameTypeName2>
+          <NameGenderName2>Any</NameGenderName2>
+          <escapeSpaceSequence/>
+        </con:configuration>
+      </con:dataSource>
+      <con:shared>true</con:shared>
+      <con:restartShared>true</con:restartShared>
+      <con:property>A</con:property>
+      <con:property>B</con:property>
+      <con:property>C</con:property>
+      <con:completeLastOperation>true</con:completeLastOperation>
+      <con:restartOnRun>true</con:restartOnRun>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

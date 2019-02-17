@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="d139c19a-cb8d-4ccb-af97-9447d0dba653" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Date" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="d139c19a-cb8d-4ccb-af97-9447d0dba653fileName">Date</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="bb0a814f-24d2-4129-a72e-40e9c549a04a">
+    <con:settings/>
+    <con:config>
+      <script>//Date date = new Date().plus(30)
+//Date date = new Date().minus(30)
+//Date date = new Date('2018-11-01')
+//
+//log.info d/.format("yyyy-MM-dd")
+//import org.codehaus.groovy.runtime.TimeCategory
+
+//now = new Date().plus(3)
+use (groovy.time.TimeCategory) { 	log.info 3.years.from.now.format("yyyy-MM-dd") }
+
+
+//	log.info now.format("yyyy-MM-dd")
+
+date = new Date().parse('yyyy-MM-dd', '1973-07-09')
+log.info date.plus(1).format("yyyy-MM-dd")
+//log.info date.format("yyyy-MM-dd")</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

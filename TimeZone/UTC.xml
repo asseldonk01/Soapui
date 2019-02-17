@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="6180e1fa-97a1-4d42-9e20-31b97777e26d" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="UTC" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="6180e1fa-97a1-4d42-9e20-31b97777e26dfileName">UTC</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="e18cc658-d111-4ba5-a647-b5cadc0965bd">
+    <con:settings/>
+    <con:config>
+      <script>def now = new Date()
+log.info now.format("yyyyMMdd-HH:mm:ss.SSS", TimeZone.getTimeZone('UTC'))</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

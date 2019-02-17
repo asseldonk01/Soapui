@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="76a8812c-a345-46dd-a93a-58860161f6ec" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="DataSource" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="76a8812c-a345-46dd-a93a-58860161f6ecfileName">DataSource</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="datasource" name="DataSource" id="5ad7468e-eb0e-46ce-997f-c08b03bcbc5f">
+    <con:settings/>
+    <con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:dataSource type="File">
+        <con:configuration>
+          <fileName>./datasources/Betrokkene.csv</fileName>
+          <separator>;</separator>
+          <trim>true</trim>
+          <charset>Cp1252</charset>
+          <quotedValues>false</quotedValues>
+        </con:configuration>
+      </con:dataSource>
+      <con:shared>true</con:shared>
+      <con:restartShared>true</con:restartShared>
+      <con:property>Veld1</con:property>
+      <con:property>Veld2</con:property>
+      <con:property>Veld3</con:property>
+      <con:startRow>1</con:startRow>
+      <con:endRow>1</con:endRow>
+      <con:recordsPerIteration>1</con:recordsPerIteration>
+      <con:completeLastOperation>true</con:completeLastOperation>
+      <con:trimValues>false</con:trimValues>
+      <con:entitizeValues>false</con:entitizeValues>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:expandProperties>false</con:expandProperties>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

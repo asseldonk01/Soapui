@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="b18f602b-91bd-458a-be83-b1959565ed5e" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Properties TestStep Cleaning" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="b18f602b-91bd-458a-be83-b1959565ed5efileName">Properties-TestStep-Cleaning</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="properties" name="Properties-1" id="2548ae97-0bf2-43d0-b835-248c7151b7d1">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>Test1Name</con:name>
+          <con:value>A</con:value>
+        </con:property>
+        <con:property>
+          <con:name>Test2Name</con:name>
+          <con:value>B</con:value>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="2ab7bb12-baa7-45b5-afb2-ba7d95c8346e">
+    <con:settings/>
+    <con:config>
+      <script>// Script removes 
+def testSuites = context.testCase.testSuite.project.getTestSuiteList()
+testSuites.each
+{
+	log.info "~~~Test Suite:" + it.name
+	for (testCases in it.testCaseList)
+	{
+		testCases.each
+    		 {
+        		log.info "~~~Test Case:" + it.name
+       		 for(testSteps in it.testStepList)
+        		{        			
+           		log.info "~~~Test Step:" + testSteps.name
+           		type = testSteps.config.type
+           		log.info "--Type:" +testSteps.config.type
+           		/*
+           		if (type == "properties") {
+           			log.info "~~~Cleaning Properties Test Step:" + testSteps.name
+           			testSteps.clearPropertyValues()
+           		}        
+           		*/  		
+        		}
+    		 }
+	}
+}</script>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>Test1Name</con:name>
+      <con:value>Test1Value</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+</con:testCase>

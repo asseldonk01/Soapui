@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="4a374454-eda6-4b66-9a0d-54d5912e56c4" name="Nice layout of teststeps" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="4a374454-eda6-4b66-9a0d-54d5912e56c4fileName">Nice-layout-of-teststeps</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:runType>SEQUENTIAL</con:runType>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testSuite>

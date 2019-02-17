@@ -46,3 +46,6 @@ Copy-of-DataSinkUsage---Property---2.xml
 Reading-and-updating-xml-file---empty-nodes.xml
 Test-1.5.0.xml
 Debugging---run-testcase.xml
+Datasource--groovy---fill-datetime-variables.xml
+TestCase-4.xml
+HTML-parsing.xml

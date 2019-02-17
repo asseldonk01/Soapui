@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="fc05ef74-3e49-476b-85de-d84601f54dc4" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="readUrl2Base64" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="fc05ef74-3e49-476b-85de-d84601f54dc4fileName">readUrl2Base64</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="893f53b9-6997-42f3-98e5-0128bd68c0d4">
+    <con:settings/>
+    <con:config>
+      <script>String toBase64(URL url, Proxy proxy = Proxy.NO_PROXY) {
+   url.openConnection(proxy).inputStream.withCloseable {
+       it.bytes.encodeBase64()
+   }
+}
+
+URL url = new URL("https://maps.googleapis.com/maps/api/staticmap?size=600x400&amp;markers=size:large%7Ccolor:yellow%7Clabel:A%7CNew%20York")
+
+//Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("myproxyurl", 8080));
+//
+//String encoded = toBase64(url, )
+
+String encoded = url.bytes.encodeBase64()
+return encoded</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

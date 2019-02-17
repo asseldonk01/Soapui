@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:testSuite id="f4f3c61a-eff0-4298-919e-c2c42416bff4" name="runTestCases" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="f4f3c61a-eff0-4298-919e-c2c42416bff4fileName">runTestCases</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:properties/><con:reportParameters/></con:testSuite>
+<con:testSuite id="fbe86793-9587-4226-9d9e-d1862a5f2427" name="RunTestCases" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="fbe86793-9587-4226-9d9e-d1862a5f2427fileName">RunTestCases</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:runType>SEQUENTIAL</con:runType>
+  <con:properties/>
+  <con:tearDownScript>// Script zet een lege waarde voor alle return properties van alle run testcases
+for(testCase in testSuite.testCaseList) {
+	
+ /* def failed = false */
+ for(testStep in testCase.testStepList) {
+ 	type = testStep.config.type
+ 	log.info type
+	if (type == "calltestcase") {       			
+   		log.info "~~~Cleaning Run TestCase Test Step:" + testStep.name
+   	     propList = testStep.getReturnProperties()
+   	     propList.each {     			     	
+     	   log.info it
+     	   testStep.setPropertyValue(it, "")       		
+	     }      			         
+ 	} 	
+  }
+ }</con:tearDownScript>
+  <con:reportParameters/>
+</con:testSuite>

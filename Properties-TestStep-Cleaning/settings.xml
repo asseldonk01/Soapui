@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="7eaabb9c-5973-440f-97ee-4d3c36bb0ee6" name="Properties TestStep Cleaning" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="7eaabb9c-5973-440f-97ee-4d3c36bb0ee6fileName">Properties-TestStep-Cleaning</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:runType>SEQUENTIAL</con:runType>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testSuite>

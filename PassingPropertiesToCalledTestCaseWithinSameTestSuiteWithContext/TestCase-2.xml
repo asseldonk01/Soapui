@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="c546f1a4-feb2-49e1-a8cd-b92e0733ab34" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="TestCase 2" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="c546f1a4-feb2-49e1-a8cd-b92e0733ab34fileName">TestCase-2</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="c8c32dd6-8878-4b88-8d53-70d58e3fa95b">
+    <con:settings/>
+    <con:config>
+      <script>// TestCase 2 calls TestCase1
+import com.eviware.soapui.support.types.StringToObjectMap
+
+def contextMap = new StringToObjectMap(context)
+def testCase1 = testRunner.testCase.testSuite.getTestCaseByName("TestCase 1")
+// get the result since is running sync
+def result = testCase1.run(contextMap, false)
+// from the result access the testCase and then the properties setted there
+log.info result.getTestCase().getPropertyValue("varSettedOnTestCase2")</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="ce021ac0-7023-432b-a877-ccc184c3a8c8" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="GetCountryId" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="ce021ac0-7023-432b-a877-ccc184c3a8c8fileName">GetCountryId</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="16e725d4-6c3a-4647-8dd5-b206ecfc751f">
+    <con:settings/>
+    <con:config>
+      <script>def country = context.expand( '${#TestCase#Country}' )
+
+if (country == 'Nederland') {Id=1} else
+if (country == 'Belgie') {Id=2} else
+Id=0;
+	
+log.info Id
+
+testRunner.testCase.setPropertyValue( "Id", Id.toString() )</script>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>Country</con:name>
+      <con:value>Nederland</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Id</con:name>
+      <con:value>1</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+</con:testCase>

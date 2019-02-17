@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="927fb0f8-004d-46cd-b2b4-7ddb2d12c6b9" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="StringSplitForGroovyScript" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="b4715d98-fe22-47c7-8de5-5436101b1644fileName">PassArgumentsToGroovyScript</con:setting>
+    <con:setting id="927fb0f8-004d-46cd-b2b4-7ddb2d12c6b9fileName">StringSplitForGroovyScript</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="6a661fdd-c00f-486c-868a-c4160c1014c9">
+    <con:settings/>
+    <con:config>
+      <script>import LocationGuid
+
+def RawResponse = ": bla  : two two  : three three"
+
+def response = new LocationGuid(response:RawResponse)
+
+response.printResponse(log)
+
+def res = response.getGuid()
+
+log.info res</script>
+    </con:config>
+  </con:testStep>
+  <con:properties>
+    <con:property>
+      <con:name>ACCESS_TOKEN</con:name>
+      <con:value>1234-a3h-45ab-12dh2g</con:value>
+    </con:property>
+    <con:property>
+      <con:name>Response</con:name>
+      <con:value>ghadsgd hasjd hsad ghsad hsgad hagdsjadgj1234-a3h-45ab-12dh2g</con:value>
+    </con:property>
+    <con:property>
+      <con:name>VEHICLE_NAME</con:name>
+      <con:value>Merk</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+</con:testCase>

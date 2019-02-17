@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="fb56c120-a714-43f2-97bc-0eb3bf559ec7" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Properties Run TestCase TestCStep Cleaning" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="b18f602b-91bd-458a-be83-b1959565ed5efileName">Properties-TestStep-Cleaning</con:setting>
+    <con:setting id="fb56c120-a714-43f2-97bc-0eb3bf559ec7fileName">Properties-Run-TestCase-TestCStep-Cleaning</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="properties" name="Properties-1" id="674b3997-5fc9-467e-8248-676b76fd66c4">
+    <con:settings/>
+    <con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <con:properties>
+        <con:property>
+          <con:name>Test1Name</con:name>
+          <con:value>A</con:value>
+        </con:property>
+        <con:property>
+          <con:name>Test2Name</con:name>
+          <con:value>B</con:value>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Groovy Script" id="9d09a853-af47-45fa-8708-ee7325a03553">
+    <con:settings/>
+    <con:config>
+      <script>// Script zet een lege waarde voor alle return properties van alle run testcases
+def testSuites = context.testCase.testSuite.project.getTestSuiteList()
+testSuites.each
+{	
+	for (testCases in it.testCaseList)
+	{
+		testCases.each
+    		 {        	
+       		 for(testSteps in it.testStepList)
+        		{       		
+              		type = testSteps.config.type
+             	
+           		if (type == "calltestcase") {         			
+           			
+           			log.info "~~~Cleaning Run TestCase Test Step:" + testSteps.name
+           			
+      			     propList = testSteps.getReturnProperties()
+      			  
+      			     propList.each {     			     	
+      			     	   log.info it
+      			     	   testSteps.setPropertyValue(it, "")       		
+      			     }      			         
+      			} 			  
+        		} 
+    		 } 
+	}
+}</script>
+    </con:config>
+  </con:testStep>
+  <con:tearDownScript>context.</con:tearDownScript>
+  <con:properties>
+    <con:property>
+      <con:name>Test1Name</con:name>
+      <con:value>Test1Value</con:value>
+    </con:property>
+  </con:properties>
+  <con:reportParameters/>
+</con:testCase>

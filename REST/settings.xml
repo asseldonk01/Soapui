@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="63ea2860-b841-4a79-8ca4-4a10477a1887" name="REST" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="63ea2860-b841-4a79-8ca4-4a10477a1887fileName">REST</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:runType>SEQUENTIAL</con:runType>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testSuite>

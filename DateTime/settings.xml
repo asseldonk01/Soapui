@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="bed8f62d-8079-45eb-8fbb-b649ac3f0c22" name="DateTime" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="bed8f62d-8079-45eb-8fbb-b649ac3f0c22fileName">DateTime</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:runType>SEQUENTIAL</con:runType>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testSuite>

@@ -10,7 +10,7 @@
       <con:properties>
         <con:property>
           <con:name>Test</con:name>
-          <con:value/>
+          <con:value xsi:nil="true"/>
         </con:property>
       </con:properties>
     </con:config>

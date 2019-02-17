@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="1b93ee55-8727-440d-869d-81c4f9f52b02" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Nice layout of teststeps" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="1b93ee55-8727-440d-869d-81c4f9f52b02fileName">Nice-layout-of-teststeps</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script 1" id="a257c623-a600-4b48-9d01-cad895172c38">
+    <con:settings/>
+    <con:config>
+      <script/>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="-- Groovy Script 2" id="ecea98e5-cc3c-4464-928e-4a00f54b72dc">
+    <con:settings/>
+    <con:config>
+      <script/>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="-- Groovy Script 3" id="88ac16a1-163e-4830-9c2d-466a9bea92c8">
+    <con:settings/>
+    <con:config>
+      <script/>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>
