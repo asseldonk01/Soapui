@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase id="bc94935b-1beb-4a19-b4be-ba38076784e9" discardOkResults="true" failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="DecimalFormat" searchProperties="true" timeout="0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="bc94935b-1beb-4a19-b4be-ba38076784e9fileName">DecimalFormat</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:testStep type="groovy" name="Groovy Script" id="72eb48e1-74d6-4388-ac28-d8585ec6c326">
+    <con:settings/>
+    <con:config>
+      <script>import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+
+//Getal=1000
+//Getal=0
+Getal=1000.1000.toBigDecimal()
+
+DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+
+//DecimalFormat df = new DecimalFormat("###,##0.00", symbols); // 1,000.00 bij Getal = 1000
+//DecimalFormat df = new DecimalFormat("###,##0.0000000000", symbols); // 1,000.0000000000 bij Getal = 1000
+//DecimalFormat df = new DecimalFormat("#0.##", symbols); // 1000 bij Getal = 1000
+//DecimalFormat df = new DecimalFormat("#0.0000000000", symbols); // 1000.0000000000 bij Getal = 1000
+
+
+//DecimalFormat df = new DecimalFormat("#0.0000000000", symbols); //  0.0000000000 bij Getal = 0
+DecimalFormat df = new DecimalFormat("#0.0000000000", symbols); //  1000.1000000000 bij Getal = 1000.1000
+
+//DecimalFormat df = new DecimalFormat("###,##0.00"); // zonder symbols 1.000,00
+log.info df.format(Getal);
+
+// in the format string,
+// # -> shows Digit if present else blank
+// 0 -> shows Digit if present else 0
+// details at :  http://docs.oracle.com/javase/6/docs/api/java/text/DecimalFormat.html
+
+//DecimalFormat df = new DecimalFormat("###.##########")
+
+//DecimalFormat df = DecimalFormat.getInstance(Locale.US);
+
+//df.applyPattern("#.##")
+
+//saldoRekeningen = df.format(Getal).toString()
+
+//log.info saldoRekeningen</script>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testCase>

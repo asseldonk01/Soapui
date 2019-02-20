@@ -45,8 +45,16 @@ Document doc = Jsoup.parse(rapportHTML)
 //Elements documenten = doc.getElementsByClass("documentslist").select("li").select("a").select("span")
 //Elements documenten = doc.getElementsByClass("documentslist").select("li").select("span").select(":containsOwn(Document (Overige))")
 //Elements documenten = doc.getElementsByClass("documentslist").select("li").select("span").select(".rij-waarde")
-Elements documenten = doc.getElementsByClass("documentslist").select("li").select("span").select(".rij-waarde-aangepast").select(":containsOwn(Document (Overige))")
+//Elements documenten = doc.getElementsByClass("documentslist").select("li").select("span").select(".rij-waarde-aangepast").select(":containsOwn(Document (Overige))")
 //Elements documenten = doc.getElementsContainingOwnText("Document (Overige))")
+//Elements documenten = doc.getElementsByClass("documentslist").select("li").select("span").select(".rij-waarde-aangepast").select("span:matches(^Document (Bijlage schuldeiser) 2\$)")
+Elements documenten = doc.getElementsByClass("documentslist").select("li").select("span:matches(^Document\$)")
+
+// Vind de directe children die na de li tag komen
+//Elements documenten = doc.getElementsByClass("documentslist").select("li").select("li > *")
+//
+// OF
+// Elements documenten = doc.select(".documentslist").select("li").select("li > *")
 
 if (documenten.isEmpty()) {
 	log.info 'Geen match gevonden'
@@ -56,11 +64,12 @@ if (documenten.isEmpty()) {
 if (documenten!=null) {
 	for (Element gevonden2: documenten) {
 		log.info gevonden2.text()
-		if (gevonden2.text()=="Document (Overige)") {
-			log.info 'found'
-		}
+		
+//		if (gevonden2.text()=="Document (Overige)") {
+//			log.info 'found'
+//		}
 	}
-	log.info 'Out of for loop'
+	//log.info 'Out of for loop'
 }
 else log.info 'Not found'
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:testSuite id="c64d74cb-4a1f-46c1-af46-7c487c80415f" name="Groovy-map" xmlns:con="http://eviware.com/soapui/config">
+<con:testSuite id="a905341d-a4ad-4cb0-a5b0-73fdd5b1da1a" name="Getallen" xmlns:con="http://eviware.com/soapui/config">
   <con:settings>
-    <con:setting id="c64d74cb-4a1f-46c1-af46-7c487c80415ffileName">Groovy-map</con:setting>
+    <con:setting id="a905341d-a4ad-4cb0-a5b0-73fdd5b1da1afileName">Getallen</con:setting>
   </con:settings>
   <con:savedRecentRuns>1</con:savedRecentRuns>
   <con:runType>SEQUENTIAL</con:runType>

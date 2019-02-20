@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite id="c64d74cb-4a1f-46c1-af46-7c487c80415f" name="Groovy-map-list-xml" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings>
+    <con:setting id="c64d74cb-4a1f-46c1-af46-7c487c80415ffileName">Groovy-map-list-xml</con:setting>
+  </con:settings>
+  <con:savedRecentRuns>1</con:savedRecentRuns>
+  <con:runType>SEQUENTIAL</con:runType>
+  <con:properties/>
+  <con:reportParameters/>
+</con:testSuite>

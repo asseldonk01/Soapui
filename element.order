@@ -36,7 +36,7 @@ DateTime
 String
 REST
 Properties-TestStep-Cleaning
-Groovy-map
+Groovy-map-list-xml
 CsVDataSource
 TestSuite-1
 Run-TestCase-Cleaning
@@ -44,5 +44,6 @@ Nice-layout-of-teststeps
 PassingPropertiesToCalledTestCaseWithinSameTestSuiteWithContext
 Jsoup---html-parsing
 RunTestCases
+Getallen
 CurrencyConvertorSoap12-MockService
 CurrencyConvertorSoap12-Virt

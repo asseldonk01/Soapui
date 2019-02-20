@@ -120,7 +120,8 @@ DateTime\Date.xml
 String\Remove-char-from-string.xml
 REST\Get-sample.xml
 Properties-TestStep-Cleaning\Properties-TestStep-Cleaning.xml
-Groovy-map\Add-map-to-other-map.xml
+Groovy-map-list-xml\Add-map-to-other-map.xml
+Groovy-map-list-xml\Read-xml-nodes-into-map-and-compare-with-list.xml
 CsVDataSource\DataSource.xml
 TestSuite-1\TestCase-1.xml
 Run-TestCase-Cleaning\Properties-Run-TestCase-TestCStep-Cleaning.xml
@@ -131,5 +132,6 @@ Jsoup---html-parsing\Jsoup.xml
 RunTestCases\GetCountryId.xml
 RunTestCases\TestCase-1.xml
 RunTestCases\legeWaardeInRunTestCase.xml
+Getallen\DecimalFormat.xml
 CurrencyConvertorSoap12-MockService\ConversionRate.xml
 CurrencyConvertorSoap12-Virt\ConversionRate.xml
